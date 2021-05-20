@@ -86,7 +86,9 @@ export default {
 </script>
 ```
 
-### Location title + URL
+### Location title
+
+To customize the location title (and optional URL), you can use the `locationTitle` slot, like so:
 
 ```vue
 <template>
@@ -110,3 +112,5 @@ export default {
 };
 </script>
 ```
+
+This will be applied to the list items as well as the Leaflet popups.
