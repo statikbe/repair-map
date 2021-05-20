@@ -1,5 +1,5 @@
 <template>
-  <r-app>
+  <r-app class="relative">
     <r-section v-if="showFilterButtons">
       <h2 class="text-h2 text-secondary">Find interesting repair locations in your region.</h2>
       <div class="font-bold mb-3">Search by:</div>
@@ -39,12 +39,12 @@
         <div class="my-2 ml-1 mr-2">Type:</div>
         <template v-for="organisationType in organisationTypes">
           <button
-            v-if="filters.organisation_types.includes(organisationType.id)"
+            v-if="filters.organisation_types.includes(organisationType.code)"
             color="secondary"
             contrast
             class="my-2 mx-1 p-1 leading-none text-small font-base bg-white text-secondary border-0 font-bold cursor-pointer rounded hover:bg-secondary-dark hover:text-white transition-colors"
-            :key="organisationType.id"
-            @click="clearFilter('organisation_types', organisationType.id)"
+            :key="organisationType.code"
+            @click="clearFilter('organisation_types', organisationType.code)"
           >
             <span>{{ $i18n.localizeField(organisationType.name) }}</span>
             <r-icon name="mdiClose" class="ml-1" />
@@ -55,10 +55,10 @@
         <div class="my-2 ml-1 mr-2">Category:</div>
         <template v-for="category in categories">
           <button
-            v-if="filters.product_categories.includes(category.id)"
+            v-if="filters.product_categories.includes(category.code)"
             class="my-2 mx-1 p-1 leading-none text-small font-base bg-white text-secondary border-0 font-bold cursor-pointer rounded hover:bg-secondary-dark hover:text-white transition-colors"
-            :key="category.id"
-            @click="clearFilter('product_categories', category.id)"
+            :key="category.code"
+            @click="clearFilter('product_categories', category.code)"
           >
             {{ $i18n.localizeField(category.name) }}
             <r-icon name="mdiClose" />
@@ -68,13 +68,13 @@
       <div v-if="filters.location" class="flex flex-wrap align-middle -m-1">
         <template v-for="organisationType in organisationTypes">
           <r-button
-            v-if="filters.organisation_types.includes(organisationType.id)"
+            v-if="filters.organisation_types.includes(organisationType.code)"
             color="secondary"
             contrast
             size="small"
             class="m-1"
-            :key="organisationType.id"
-            @click.native="clearFilter('organisation_types', organisationType.id)"
+            :key="organisationType.code"
+            @click.native="clearFilter('organisation_types', organisationType.code)"
           >
             {{ $i18n.localizeField(organisationType.name) }}
             <r-icon name="mdiClose" />
@@ -93,7 +93,7 @@
         v-for="(organisationType, key) in organisationTypes"
         :key="key"
         v-model="filters.organisation_types"
-        :value="organisationType.id"
+        :value="organisationType.code"
         :label="$i18n.localizeField(organisationType.name)"
       >
         <template #label>
@@ -127,7 +127,7 @@
             <input
               type="checkbox"
               v-model="filters.product_categories"
-              :value="category.id"
+              :value="category.code"
               :id="`filter-category-${category.id}`"
               class="mr-1"
             />
@@ -142,14 +142,14 @@
       @submit="submitLocationFilter"
       @close="toggleFilter(null)"
     >
-      <r-form-location v-if="false" v-model="locationSearch" label="Locatie" />
+      <r-form-location v-model="locationSearch" label="Locatie" />
       <div v-for="(location, key) in defaultLocations" :key="key">
         <r-radio v-model="filters.bbox" :value="location.bbox" :label="location.name" />
       </div>
     </section-filter>
     <r-section size="0" ref="pageContainer">
-      <div class="flex -mx-2 relative items-start">
-        <div class="md:w-1/3 px-2" v-show="!isMobile || !isMapView">
+      <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
+        <div class="w-full md:w-1/3 px-2">
           <p class="my-5">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
           <div class="my-5">
             <template v-for="(location, index) in locations">
@@ -168,9 +168,21 @@
           </div>
           <r-pagination v-model="currentPage" :pages="totalPages"></r-pagination>
         </div>
-        <div class="md:w-2/3 px-2 md:sticky top-0" v-show="!isMobile || isMapView">
-          <div class="h-screen" ref="map"></div>
-          <!-- <r-button v-show="showRefreshButton" class="absolute top-1 right-1 z-[999]">Search again</r-button> -->
+        <div class="w-full md:w-2/3 px-2 md:sticky top-0">
+          <div class="relative">
+            <r-button
+              color="secondary"
+              v-show="showRefreshButton"
+              class="absolute top-2 right-2 z-[999]"
+              @click.native="fetchLocations"
+            >
+              <r-icon name="mdiRefresh" />
+              Search again in this area
+            </r-button>
+            <div class="aspect-w-1 aspect-h-1 md:aspect-none">
+              <div class="md:h-screen" ref="map"></div>
+            </div>
+          </div>
           <div v-show="false">
             <div ref="popup" class="w-[350px]">
               <card-location v-if="activeLocation" :location="activeLocation" extended>
@@ -195,6 +207,7 @@
         </r-button>
       </div>
     </r-section>
+    <div v-show="isLoading" class="bg-white opacity-60 absolute top-0 bottom-0 left-0 right-0"></div>
   </r-app>
 </template>
 
@@ -282,6 +295,7 @@ export default {
     locationSearch: '',
     i18n,
     isMapView: false,
+    isLoading: true,
     filters: {
       organisation_types: [],
       product_categories: [],
@@ -384,9 +398,9 @@ export default {
     renderMap() {
       this.map = Leaflet.map(this.$refs.map).setView([50, 0], 14);
 
-      Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      Leaflet.tileLayer(`${location.protocol}//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: `&copy; <a href="${location.protocol}//openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
       }).addTo(this.map);
 
       this.map.on('moveend', () => {
@@ -444,22 +458,25 @@ export default {
         qsOptions
       );
 
+      this.isLoading = true;
+
       const {
         data: {
           data,
           meta: { total },
         },
-      } = await axios.get(`https://repmap.staging.statik.be/api/v1/locations?${query}`);
+      } = await axios.get(`${location.protocol}//repmap.staging.statik.be/api/v1/locations?${query}`);
 
       this.locationTotal = total;
       this.locations = data;
+      this.isLoading = false;
     },
     async fetchOrganisationTypes() {
       const query = qs.stringify(this.defaultQuery, qsOptions);
 
       const {
         data: { data },
-      } = await axios.get(`https://repmap.staging.statik.be/api/v1/organisation_types?${query}`);
+      } = await axios.get(`${location.protocol}//repmap.staging.statik.be/api/v1/organisation_types?${query}`);
 
       this.organisationTypes = data;
     },
@@ -468,7 +485,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`https://repmap.staging.statik.be/api/v1/product_categories?${query}`);
+      } = await axios.get(`${location.protocol}//repmap.staging.statik.be/api/v1/product_categories?${query}`);
 
       this.categories = data;
     },

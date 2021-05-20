@@ -7,7 +7,7 @@ module.exports = merge(tailwindConfig, {
   purge: {
     content: ['**/*.vue', './node_modules/repair-components/**/*.{vue,js}'],
     options: {
-      // safelist,
+      whitelistPatterns: [/^multiselect(.*)/],
     },
   },
 });

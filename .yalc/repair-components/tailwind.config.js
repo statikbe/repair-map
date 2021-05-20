@@ -1,8 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const defaultColors = require('tailwindcss/colors');
 
-const typographyPlugin = require('./tailwind/plugins/typography');
-
 const colors = {
   ...defaultColors,
   primary: {
@@ -24,7 +22,7 @@ const colors = {
 module.exports = {
   purge: {
     options: {
-      whitelistPatterns: '/multiselect/',
+      whitelistPatterns: [/^multiselect(.*)/],
     },
   },
   darkMode: false,
@@ -97,5 +95,5 @@ module.exports = {
   // variants: {
   //   extend: {},
   // },
-  plugins: [typographyPlugin],
+  plugins: [require('./tailwind/plugins/typography'), require('@tailwindcss/aspect-ratio')],
 };

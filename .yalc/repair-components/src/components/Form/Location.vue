@@ -23,6 +23,8 @@ import VMultiselect from 'vue-multiselect';
 
 import { RFormField } from '.';
 
+import 'vue-multiselect/dist/vue-multiselect.min.css';
+
 export default {
   name: 'r-form-location',
   components: {
@@ -60,5 +62,3 @@ export default {
   },
 };
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

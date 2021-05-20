@@ -16,7 +16,7 @@ In a `.vue` file:
 </template>
 
 <script>
-import RepairMap from 'repair-map';
+import { RepairMap } from 'repair-map';
 
 export default {
   components: {
