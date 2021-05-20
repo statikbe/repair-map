@@ -2,7 +2,7 @@
   "name": "repair-map",
   "version": "0.1.0",
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib lib/main.js",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve",
     "yalc": "yalc link repair-components"

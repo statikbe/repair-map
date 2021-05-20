@@ -449,7 +449,7 @@ export default {
           data,
           meta: { total },
         },
-      } = await axios.get(`http://repmap.staging.statik.be/api/v1/locations?${query}`);
+      } = await axios.get(`https://repmap.staging.statik.be/api/v1/locations?${query}`);
 
       this.locationTotal = total;
       this.locations = data;
@@ -459,7 +459,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`http://repmap.staging.statik.be/api/v1/organisation_types?${query}`);
+      } = await axios.get(`https://repmap.staging.statik.be/api/v1/organisation_types?${query}`);
 
       this.organisationTypes = data;
     },
@@ -468,7 +468,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`http://repmap.staging.statik.be/api/v1/product_categories?${query}`);
+      } = await axios.get(`https://repmap.staging.statik.be/api/v1/product_categories?${query}`);
 
       this.categories = data;
     },
