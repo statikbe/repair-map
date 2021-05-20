@@ -1,0 +1,16 @@
+module.exports = [
+  'bg-primary',
+  'text-primary-contrast',
+  'hover:bg-primary-dark',
+  'bg-primary-contrast',
+  'text-primary',
+  'hover:bg-primary-dark',
+  'hover:text-primary-contrast',
+  'bg-secondary',
+  'text-secondary-contrast',
+  'hover:bg-secondary-dark',
+  'bg-secondary-contrast',
+  'text-secondary',
+  'hover:bg-secondary-dark',
+  'hover:text-secondary-contrast',
+];

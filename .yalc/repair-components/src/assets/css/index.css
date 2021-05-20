@@ -1,0 +1,3 @@
+/* Don't include Tailwind base layer, to avoid this application changing possible parent styles (use classes only) */
+@tailwind components;
+@tailwind utilities;

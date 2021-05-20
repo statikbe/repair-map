@@ -1,30 +1,31 @@
 <template>
   <div
-    class="p-5 rounded-3xl bg-gray-100 transition-colors cursor-pointer mb-3 border-4 border-solid"
+    class="p-5 rounded-3xl bg-gray-100 transition-colors mb-3 border-4 border-solid font-base"
     :class="{
       'border-primary ': isActive,
-      'border-gray-100 hover:border-gray-200 hover:bg-gray-200': !isActive,
+      'border-gray-100': !isActive,
+      'hover:border-gray-200 hover:bg-gray-200 cursor-pointer': !isActive && !extended,
+      'shadow-md': extended,
     }"
     tabindex="0"
-    @click.native="onChange"
     @keydown.enter="$emit('click')"
   >
     <h3 class="text-h3 text-primary inline-block">
       <slot
         name="locationTitle"
         v-bind="{
-          name: i18n.localizeField(location.name),
+          name: $i18n.localizeField(location.name),
           id: location.id,
-          defaultClass: 'text-primary no-underline hover:text-primary-dark transition-colors',
+          defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
         }"
       >
-        {{ i18n.localizeField(location.name) }}
+        {{ $i18n.localizeField(location.name) }}
         <r-icon name="mdiChevronRight" />
       </slot>
     </h3>
-    <div class="font-semibold text-small">
+    <div v-if="location.organisation_type" class="font-semibold text-small">
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisation_type.code]" class="mr-1" />
-      <span>{{ i18n.localizeField(location.organisation_type.name) }}</span>
+      <span>{{ $i18n.localizeField(location.organisation_type.name) }}</span>
     </div>
     <div v-if="location.product_categories" class="mt-4">
       <div class="flex flex-wrap -m-1">
@@ -33,18 +34,35 @@
           :key="category.id"
           class="m-1 px-2 bg-white text-tiny text-secondary font-bold rounded-md"
         >
-          {{ i18n.localizeField(category.name) }}
+          {{ $i18n.localizeField(category.name) }}
         </span>
+      </div>
+      <div v-if="extended" class="text-tiny leading-none mt-3">
+        <div class="flex">
+          <r-icon name="mdiMapMarker" size="1.5em" class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0" />
+          <div class="leading-normal truncate">
+            {{ location.address.street }} {{ location.address.number }}, {{ location.address.postal_code }}
+            {{ location.address.city }}, {{ location.address.country }}
+          </div>
+        </div>
+        <div v-for="(contacts, type) in location.contacts" :key="type" class="flex mt-1">
+          <r-icon :name="type" size="1.5em" class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0" />
+          <div class="leading-normal truncate">
+            <div v-for="(contact, key) in contacts" :key="key">
+              <a :href="contact.value" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { inject } from 'vue';
 import { RIcon } from 'repair-components';
 
 export default {
+  inject: ['$i18n', '$icons', 'categoryColors'],
   components: {
     RIcon,
   },
@@ -55,24 +73,12 @@ export default {
     },
     isActive: {
       type: Boolean,
-      default: () => true,
+      default: () => false,
     },
-  },
-  watch: {
-    isActive(v) {
-      console.log(v);
+    extended: {
+      type: Boolean,
+      default: () => false,
     },
-  },
-  setup() {
-    const i18n = inject('i18n');
-    const icons = inject('icons');
-    const categoryColors = inject('categoryColors');
-
-    return {
-      i18n,
-      icons,
-      categoryColors,
-    };
   },
 };
 </script>

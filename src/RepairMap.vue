@@ -7,7 +7,7 @@
         <r-button
           color="secondary"
           :class="{ 'bg-secondary-dark': isFilterActive('TYPE') }"
-          @click="toggleFilter('TYPE')"
+          @click.native="toggleFilter('TYPE')"
           class="m-2"
         >
           Type
@@ -16,7 +16,7 @@
         <r-button
           color="secondary"
           :class="{ 'bg-secondary-dark': isFilterActive('CATEGORY') }"
-          @click="toggleFilter('CATEGORY')"
+          @click.native="toggleFilter('CATEGORY')"
           class="m-2"
         >
           Category
@@ -25,7 +25,7 @@
         <r-button
           color="secondary"
           :class="{ 'bg-secondary-dark': isFilterActive('LOCATION') }"
-          @click="toggleFilter('LOCATION')"
+          @click.native="toggleFilter('LOCATION')"
           class="m-2"
         >
           Location
@@ -37,43 +37,46 @@
       <h3 class="text-h3 text-white">Active filters:</h3>
       <div v-if="filters.organisation_types.length" class="flex flex-wrap align-middle -my-2 -mx-1 mb-2">
         <div class="my-2 ml-1 mr-2">Type:</div>
-        <template v-for="organisationType in organisationTypes" :key="organisationType.id">
+        <template v-for="organisationType in organisationTypes">
           <button
             v-if="filters.organisation_types.includes(organisationType.id)"
             color="secondary"
             contrast
             class="my-2 mx-1 p-1 leading-none text-small font-base bg-white text-secondary border-0 font-bold cursor-pointer rounded hover:bg-secondary-dark hover:text-white transition-colors"
+            :key="organisationType.id"
             @click="clearFilter('organisation_types', organisationType.id)"
           >
-            <span>{{ i18n.localizeField(organisationType.name) }}</span>
+            <span>{{ $i18n.localizeField(organisationType.name) }}</span>
             <r-icon name="mdiClose" class="ml-1" />
           </button>
         </template>
       </div>
       <div v-if="filters.product_categories.length" class="flex flex-wrap align-middle -my-2 -mx-1 mb-2">
         <div class="my-2 ml-1 mr-2">Category:</div>
-        <template v-for="category in categories" :key="category.id">
+        <template v-for="category in categories">
           <button
             v-if="filters.product_categories.includes(category.id)"
             class="my-2 mx-1 p-1 leading-none text-small font-base bg-white text-secondary border-0 font-bold cursor-pointer rounded hover:bg-secondary-dark hover:text-white transition-colors"
+            :key="category.id"
             @click="clearFilter('product_categories', category.id)"
           >
-            {{ i18n.localizeField(category.name) }}
+            {{ $i18n.localizeField(category.name) }}
             <r-icon name="mdiClose" />
           </button>
         </template>
       </div>
       <div v-if="filters.location" class="flex flex-wrap align-middle -m-1">
-        <template v-for="organisationType in organisationTypes" :key="organisationType.id">
+        <template v-for="organisationType in organisationTypes">
           <r-button
             v-if="filters.organisation_types.includes(organisationType.id)"
             color="secondary"
             contrast
             size="small"
             class="m-1"
-            @click="clearFilter('organisation_types', organisationType.id)"
+            :key="organisationType.id"
+            @click.native="clearFilter('organisation_types', organisationType.id)"
           >
-            {{ i18n.localizeField(organisationType.name) }}
+            {{ $i18n.localizeField(organisationType.name) }}
             <r-icon name="mdiClose" />
           </r-button>
         </template>
@@ -81,8 +84,8 @@
     </r-section>
     <section-filter
       v-else-if="isFilterActive('TYPE')"
-      :title="i18n.t('filter.type.title')"
-      :text="i18n.t('filter.type.text')"
+      :title="$i18n.t('filter.type.title')"
+      :text="$i18n.t('filter.type.text')"
       @submit="onFilterSubmit"
       @close="toggleFilter(null)"
     >
@@ -91,20 +94,20 @@
         :key="key"
         v-model="filters.organisation_types"
         :value="organisationType.id"
-        :label="i18n.localizeField(organisationType.name)"
+        :label="$i18n.localizeField(organisationType.name)"
       >
         <template #label>
           <span>
             <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
-            <span>{{ i18n.localizeField(organisationType.name) }}</span>
+            <span>{{ $i18n.localizeField(organisationType.name) }}</span>
           </span>
         </template>
       </r-checkbox>
     </section-filter>
     <section-filter
       v-else-if="isFilterActive('CATEGORY')"
-      :title="i18n.t('filter.category.title')"
-      :text="i18n.t('filter.category.text')"
+      :title="$i18n.t('filter.category.title')"
+      :text="$i18n.t('filter.category.text')"
       @submit="onFilterSubmit"
       @close="toggleFilter(null)"
     >
@@ -116,9 +119,10 @@
             'electronic-gadgets',
             'home-entertainment',
           ]"
+          :key="categoryCode"
           class="py-2 w-100 sm:w-1/2 md:w-1/3 lg:w-1/4"
         >
-          <h4 class="text-white mb-1">{{ i18n.localizeField(categoryGroups[categoryCode].name) }}</h4>
+          <h4 class="text-white mb-1">{{ $i18n.localizeField(categoryGroups[categoryCode].name) }}</h4>
           <div v-for="(category, key) in categoryGroups[categoryCode].data" :key="key">
             <input
               type="checkbox"
@@ -127,34 +131,34 @@
               :id="`filter-category-${category.id}`"
               class="mr-1"
             />
-            <label :for="`filter-category-${category.id}`">{{ i18n.localizeField(category.name) }}</label>
+            <label :for="`filter-category-${category.id}`">{{ $i18n.localizeField(category.name) }}</label>
           </div>
         </div>
       </div>
     </section-filter>
     <section-filter
       v-else-if="isFilterActive('LOCATION') && showLocationFilter"
-      :title="i18n.t('filter.location.title')"
+      :title="$i18n.t('filter.location.title')"
       @submit="submitLocationFilter"
       @close="toggleFilter(null)"
     >
-      <!-- {{ mapboxAccessToken }}
-      <r-mapbox-search v-if="mapboxAccessToken" :access-token="mapboxAccessToken" label="Locatie" /> -->
-      <div v-for="(location, index) in defaultLocations">
+      <r-form-location v-if="false" v-model="locationSearch" label="Locatie" />
+      <div v-for="(location, key) in defaultLocations" :key="key">
         <r-radio v-model="filters.bbox" :value="location.bbox" :label="location.name" />
       </div>
     </section-filter>
     <r-section size="0" ref="pageContainer">
       <div class="flex -mx-2 relative items-start">
-        <div class="w-1/2 px-2">
-          <p class="my-5">{{ i18n.t('locations.results.n', { n: locationTotal }) }}</p>
+        <div class="md:w-1/3 px-2" v-show="!isMobile || !isMapView">
+          <p class="my-5">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
           <div class="my-5">
-            <template v-for="(location, index) in locations" :key="location.id">
+            <template v-for="(location, index) in locations">
               <card-location
                 v-if="isCurrentPage(index)"
                 :location="location"
-                :is-active="activeLocation === location.id"
-                @click="onLocationClick(location)"
+                :is-active="activeLocationId === location.id"
+                :key="location.id"
+                @click.native="onLocationClick(location)"
               >
                 <template #locationTitle="slotProps">
                   <slot name="locationTitle" v-bind="slotProps" />
@@ -164,12 +168,17 @@
           </div>
           <r-pagination v-model="currentPage" :pages="totalPages"></r-pagination>
         </div>
-        <div class="w-1/2 px-2 sticky top-0">
+        <div class="md:w-2/3 px-2 md:sticky top-0" v-show="!isMobile || isMapView">
           <div class="h-screen" ref="map"></div>
           <!-- <r-button v-show="showRefreshButton" class="absolute top-1 right-1 z-[999]">Search again</r-button> -->
-          <div v-show="false" ref="popup">
-            <h3 class="text-h3 text-primary">Maakbaar Leuven</h3>
-            <strong class="font-semibold">Repair café</strong>
+          <div v-show="false">
+            <div ref="popup" class="w-[350px]">
+              <card-location v-if="activeLocation" :location="activeLocation" extended>
+                <template #locationTitle="slotProps">
+                  <slot name="locationTitle" v-bind="slotProps" />
+                </template>
+              </card-location>
+            </div>
           </div>
         </div>
       </div>
@@ -190,21 +199,18 @@
 </template>
 
 <script>
-import { ref, readonly, provide } from 'vue';
-
 import {
   RApp,
   RButton,
   RCheckbox,
+  RFormLocation,
   RIcon,
-  RInput,
-  RMapboxSearch,
   RPagination,
   RRadio,
   RSection,
+  icons,
 } from 'repair-components';
 
-import * as icons from 'repair-components/icons';
 import SectionFilter from './components/SectionFilter.vue';
 import CardLocation from './components/CardLocation.vue';
 
@@ -215,8 +221,10 @@ import qs from 'qs';
 import i18n from './i18n';
 import categoryColors from './constants/categoryColors';
 
-import './assets/css/index.css';
+import markerImage from './assets/img/markers/default.png';
+
 import 'leaflet/dist/leaflet.css';
+import './assets/css/index.css';
 
 const qsOptions = {
   arrayFormat: 'comma',
@@ -229,9 +237,8 @@ export default {
     RApp,
     RButton,
     RCheckbox,
+    RFormLocation,
     RIcon,
-    RInput,
-    RMapboxSearch,
     RPagination,
     RRadio,
     RSection,
@@ -264,19 +271,22 @@ export default {
   },
   data: () => ({
     locations: [],
+    locationMarkers: {},
     locationTotal: 0,
     organisationTypes: [],
     categories: [],
-    activeLocation: null,
+    activeLocationId: null,
     showRefreshButton: false,
     activeFilter: null,
+    currentPage: 1,
+    locationSearch: '',
+    i18n,
+    isMapView: false,
     filters: {
       organisation_types: [],
       product_categories: [],
       location: null,
     },
-    currentPage: 1,
-    mapboxSearch: '',
   }),
   computed: {
     categoryGroups() {
@@ -285,7 +295,7 @@ export default {
       this.categories.forEach((category) => {
         if (!category.parent_category) return;
 
-        if (!categoryGroups.hasOwnProperty(category.parent_category.code)) {
+        if (!Object.hasOwnProperty.call(categoryGroups, category.parent_category.code)) {
           categoryGroups[category.parent_category.code] = {
             ...category.parent_category,
             data: [],
@@ -316,19 +326,21 @@ export default {
     totalPages() {
       return Math.ceil(this.locations.length / 10);
     },
+    $i18n() {
+      return this.i18n;
+    },
+    activeLocation() {
+      return this.locations.filter((location) => location.id === this.activeLocationId)[0];
+    },
+    isMobile() {
+      return window.innerWidth < 768;
+    },
   },
-  setup(props) {
-    if (props.locale) {
-      i18n.setLocale(props.locale);
-    }
 
-    provide('i18n', ref(i18n));
-    provide('icons', ref(icons));
-    provide('categoryColors', readonly(categoryColors));
-
+  provide() {
     return {
-      i18n,
-      icons,
+      $i18n: this.i18n,
+      $icons: icons,
       categoryColors,
     };
   },
@@ -337,13 +349,23 @@ export default {
       this.updateMarkers();
     },
     currentPage() {
-      this.$refs.pageContainer.$el.scrollIntoView({
-        behavior: 'smooth',
-      });
+      this.scrollIntoView();
+    },
+    activeLocationId() {
+      if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
+        this.locationMarkers[this.activeLocation.id].fire('click');
+      }
+
+      this.scrollIntoView();
     },
   },
   created() {
+    if (this.locale) {
+      this.$i18n.setLocale(this.locale);
+    }
+
     this.activeFilter = this.filter;
+    this.categoryColors = categoryColors;
   },
   mounted() {
     this.renderMap();
@@ -356,6 +378,7 @@ export default {
     askLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.map.setView(new Leaflet.LatLng(position.coords.latitude, position.coords.longitude));
+        this.fetchLocations();
       });
     },
     renderMap() {
@@ -371,28 +394,52 @@ export default {
       });
     },
     updateMarkers() {
+      for (const locationId in this.locationMarkers) {
+        this.map.removeLayer(this.locationMarkers[locationId]);
+      }
+
+      const newMarkers = {};
+
       this.locations.forEach((location) => {
         if (location.geometry.latitude && location.geometry.latitude) {
-          const marker = Leaflet.marker([location.geometry.longitude, location.geometry.latitude], {}).addTo(this.map);
+          const marker = Leaflet.marker([location.geometry.latitude, location.geometry.longitude], {
+            icon: Leaflet.icon({
+              iconUrl: location.organisation_type
+                ? require(`./assets/img/markers/${location.organisation_type.code}.png`)
+                : markerImage,
+              iconSize: [48, 48],
+              iconAnchor: [24, 48],
+              popupAnchor: [0, -24],
+            }),
+          });
 
-          marker.bindPopup(this.$refs.popup);
+          marker.on('click', () => {
+            this.openPopup(location.id);
+          });
+
+          marker.addTo(this.map);
+
+          newMarkers[location.id] = marker;
         }
       });
+
+      this.locationMarkers = newMarkers;
     },
     fitBounds(location) {
       this.map.fitBounds([location.bbox.slice(0, 2), location.bbox.slice(2)]);
     },
     async fetchLocations() {
       const { filters, defaultQuery } = this;
+
       const mapBounds = this.map.getBounds();
-      const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getSouth()];
+      const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
 
       const query = qs.stringify(
         {
           ...defaultQuery,
           ...filters,
-          // bbox,
-          per_page: 30,
+          bbox,
+          per_page: 1000,
         },
         qsOptions
       );
@@ -460,15 +507,32 @@ export default {
       return index >= indexMin && index < indexMax;
     },
     onLocationClick(location) {
-      if (this.activeLocation === location.id) {
-        this.activeLocation = null;
+      if (this.activeLocationId === location.id) {
+        this.activeLocationId = null;
       } else {
-        this.activeLocation = location.id;
+        this.openPopup(location.id);
       }
     },
     onFilterSubmit() {
       this.toggleFilter(null);
       this.fetchLocations();
+    },
+    scrollIntoView() {
+      this.$refs.pageContainer.$el.scrollIntoView({
+        behavior: 'smooth',
+      });
+    },
+    openPopup(locationId) {
+      const marker = this.locationMarkers[locationId];
+
+      marker.unbindPopup();
+      this.activeLocationId = locationId;
+      marker
+        .bindPopup(this.$refs.popup, {
+          maxWidth: 350,
+          closeButton: false,
+        })
+        .openPopup();
     },
   },
 };

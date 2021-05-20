@@ -1,3 +1,20 @@
-@import 'repair-components/style.css';
+/* Don't include Tailwind base layer, to avoid this application changing possible parent styles (use classes only) */
+@tailwind components;
+@tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap');
+
+.leaflet-popup-content {
+  margin: 0;
+  line-height: initial;
+}
+
+.leaflet-popup-content-wrapper {
+  background: none;
+  color: initial;
+  box-shadow: none;
+}
+
+.leaflet-popup-tip-container {
+  display: none;
+}

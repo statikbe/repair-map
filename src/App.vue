@@ -1,7 +1,6 @@
 <template>
   <repair-map
     locale="en"
-    mapbox-access-token="pk.eyJ1IjoiZHVwb250bmllbHMiLCJhIjoiY2tsdXoyNDNvMDk5MzJ3bXdmMnNndWFqcSJ9.1uvdTrAsxKX6sARWZDA93A"
     :default-locations="defaultLocations"
     :show-filter-buttons="true"
     @filter-close="activeFilter = null"
@@ -16,14 +15,14 @@
 </template>
 
 <script>
-import { RButton, RIcon, RSection } from 'repair-components';
+import { RIcon } from 'repair-components';
 import RepairMap from './RepairMap.vue';
 
 export default {
   components: {
-    RButton,
+    // RButton,
     RIcon,
-    RSection,
+    // RSection,
     RepairMap,
   },
   data: () => ({

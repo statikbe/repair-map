@@ -5,7 +5,7 @@
       {{ text }}
     </p>
     <slot />
-    <r-button color="secondary" icon-after="mdiChevronRight" contrast class="mt-5" @click="$emit('submit')">
+    <r-button color="secondary" icon-after="mdiChevronRight" contrast class="mt-5" @click.native="$emit('submit')">
       {{ $i18n.t('filter.submit') }}
     </r-button>
     <button
@@ -23,6 +23,7 @@ import { RButton, RIcon, RSection } from 'repair-components';
 import i18n from '../i18n';
 
 export default {
+  inject: ['$i18n', '$icons', 'categoryColors'],
   components: {
     RButton,
     RIcon,

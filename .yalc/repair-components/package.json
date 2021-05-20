@@ -1,0 +1,21 @@
+{
+  "name": "repair-components",
+  "version": "0.1.0+0ed6539c",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib lib/main.js",
+    "lint": "vue-cli-service lint",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "yalc": "yarn build && yalc push"
+  },
+  "dependencies": {
+    "@mdi/js": "^5.9.55",
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11",
+    "vue-multiselect": "^2.1.6"
+  },
+  "main": "./dist/repair-components.umd.js",
+  "yalcSig": "0ed6539c203e16d08758086080863551"
+}
