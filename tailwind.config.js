@@ -10,4 +10,5 @@ module.exports = merge(tailwindConfig, {
       whitelistPatterns: [/^multiselect(.*)/],
     },
   },
+  important: '#repair-map',
 });
