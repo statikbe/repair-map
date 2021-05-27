@@ -1,6 +1,6 @@
 {
   "name": "repair-components",
-  "version": "0.1.0+8906c79d",
+  "version": "0.1.0+fa867a31",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib lib/main.js",
@@ -17,5 +17,5 @@
     "vue-multiselect": "^2.1.6"
   },
   "main": "./dist/repair-components.umd.js",
-  "yalcSig": "8906c79dd4c2ed6d174ac751b2e3064e"
+  "yalcSig": "fa867a3112e062417e6a7ab38dedab76"
 }

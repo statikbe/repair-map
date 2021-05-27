@@ -238,6 +238,7 @@ import categoryColors from './constants/categoryColors';
 
 import markerImage from './assets/img/markers/default.png';
 
+import 'repair-components/dist/repair-components.css';
 import 'leaflet/dist/leaflet.css';
 import './assets/css/index.css';
 
@@ -400,9 +401,9 @@ export default {
     renderMap() {
       this.map = Leaflet.map(this.$refs.map).setView([50, 0], 14);
 
-      Leaflet.tileLayer(`${location.protocol}//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
+      Leaflet.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
         maxZoom: 19,
-        attribution: `&copy; <a href="${location.protocol}//openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
+        attribution: `&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
       }).addTo(this.map);
 
       this.map.on('moveend', () => {
@@ -467,7 +468,7 @@ export default {
           data,
           meta: { total },
         },
-      } = await axios.get(`${location.protocol}//repmap.staging.statik.be/api/v1/locations?${query}`);
+      } = await axios.get(`https://repmap.staging.statik.be/api/v1/locations?${query}`);
 
       this.locationTotal = total;
       this.locations = data;
@@ -478,7 +479,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`${location.protocol}//repmap.staging.statik.be/api/v1/organisation_types?${query}`);
+      } = await axios.get(`https://repmap.staging.statik.be/api/v1/organisation_types?${query}`);
 
       this.organisationTypes = data;
     },
@@ -487,7 +488,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`${location.protocol}//repmap.staging.statik.be/api/v1/product_categories?${query}`);
+      } = await axios.get(`https://repmap.staging.statik.be/api/v1/product_categories?${query}`);
 
       this.categories = data;
     },

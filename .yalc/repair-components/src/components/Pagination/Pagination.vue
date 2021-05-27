@@ -1,9 +1,8 @@
 <template>
   <div v-if="pages > 1" class="text-center">
-    <div class="inline-flex align-middle -m-1">
-      <button
-        type="button"
-        class="m-1 px-1 py-0 text-button border-0 bg-white bg-opacity-0 font-base leading-[40px] min-w-[40px] cursor-pointer transition-colors"
+    <div class="inline-flex items-center -m-1">
+      <r-pagination-button
+        class="bg-white bg-opacity-0"
         :class="{
           'text-gray-200': isFirstPage,
           'text-primary hover:text-primary-dark': !isFirstPage,
@@ -12,23 +11,25 @@
         @click="$emit('update:modelValue', modelValue - 1)"
       >
         <r-icon name="mdiChevronLeft" />
-      </button>
-      <button
-        v-for="page in pages"
-        type="button"
-        class="m-1 px-1 py-0 text-button border-0 font-bold font-base leading-[40px] min-w-[40px] cursor-pointer transition-colors"
-        :class="{
-          'bg-primary text-primary-contrast': isActive(page),
-          'bg-gray-100 text-primary hover:bg-gray-200': !isActive(page),
-        }"
+      </r-pagination-button>
+      <r-pagination-button :is-active="isActive(1)" @click="$emit('update:modelValue', 1)">
+        {{ 1 }}
+      </r-pagination-button>
+      <span v-if="modelValue > 4" class="mx-1"> <r-icon name="mdiDotsHorizontal" /> </span>
+      <r-pagination-button
+        v-for="page in visiblePages"
+        :is-active="isActive(page)"
         :key="page"
         @click="$emit('update:modelValue', page)"
       >
         {{ page }}
-      </button>
-      <button
-        type="button"
-        class="m-1 px-1 py-0 text-button border-0 bg-white bg-opacity-0 font-base leading-[40px] min-w-[40px] cursor-pointer transition-colors"
+      </r-pagination-button>
+      <span v-if="modelValue < pages - 3" class="mx-1"> <r-icon name="mdiDotsHorizontal" /> </span>
+      <r-pagination-button :is-active="isActive(pages)" @click="$emit('update:modelValue', pages)">
+        {{ pages }}
+      </r-pagination-button>
+      <r-pagination-button
+        class="bg-white bg-opacity-0"
         :class="{
           'text-gray-200': isLastPage,
           'text-primary hover:text-primary-dark': !isLastPage,
@@ -37,18 +38,20 @@
         @click="$emit('update:modelValue', modelValue + 1)"
       >
         <r-icon name="mdiChevronRight" />
-      </button>
+      </r-pagination-button>
     </div>
   </div>
 </template>
 
 <script>
 import { RIcon } from '..';
+import RPaginationButton from './PaginationButton';
 
 export default {
   name: 'r-pagination',
   components: {
     RIcon,
+    RPaginationButton,
   },
   model: {
     prop: 'modelValue',
@@ -70,6 +73,36 @@ export default {
     },
     isLastPage() {
       return this.modelValue === this.pages;
+    },
+    visiblePages() {
+      const { modelValue, pages } = this;
+
+      const pageBefore = modelValue - 1;
+      const pageAfter = modelValue + 1;
+
+      const visiblePages = [];
+
+      if (pageBefore === 3) {
+        visiblePages.push(2);
+      }
+
+      if (pageBefore > 1) {
+        visiblePages.push(pageBefore);
+      }
+
+      if (modelValue > 1 && modelValue < pages) {
+        visiblePages.push(modelValue);
+      }
+
+      if (pageAfter < pages) {
+        visiblePages.push(pageAfter);
+      }
+
+      if (pageAfter === pages - 2) {
+        visiblePages.push(pages - 1);
+      }
+
+      return visiblePages;
     },
   },
   methods: {

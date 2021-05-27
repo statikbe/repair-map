@@ -1,6 +1,14 @@
 import { mdiEarth, mdiEmail, mdiFacebook, mdiGoogle, mdiLinkedin, mdiPhone } from '@mdi/js';
 
-export { mdiChevronDown, mdiChevronLeft, mdiChevronRight, mdiChevronUp, mdiClose, mdiMapMarker } from '@mdi/js';
+export {
+  mdiChevronDown,
+  mdiChevronLeft,
+  mdiChevronRight,
+  mdiChevronUp,
+  mdiClose,
+  mdiDotsHorizontal,
+  mdiMapMarker,
+} from '@mdi/js';
 
 const website = mdiEarth;
 const email = mdiEmail;

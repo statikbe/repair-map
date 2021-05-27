@@ -72,6 +72,7 @@ module.exports = {
               '/pages/Components/Form/FormLocation',
             ],
           },
+          '/pages/Components/Pagination',
           '/pages/Components/Section',
         ],
       },

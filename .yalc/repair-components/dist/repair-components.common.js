@@ -8805,7 +8805,7 @@ var colors = _objectSpread(_objectSpread({}, defaultColors), {}, {
 module.exports = {
   purge: {
     options: {
-      whitelistPatterns: [/^multiselect/]
+      whitelistPatterns: [/^multiselect(.*)/]
     }
   },
   darkMode: false,
@@ -10988,6 +10988,7 @@ __webpack_require__.d(icons_namespaceObject, "mdiChevronLeft", function() { retu
 __webpack_require__.d(icons_namespaceObject, "mdiChevronRight", function() { return mdiChevronRight; });
 __webpack_require__.d(icons_namespaceObject, "mdiChevronUp", function() { return mdiChevronUp; });
 __webpack_require__.d(icons_namespaceObject, "mdiClose", function() { return mdiClose; });
+__webpack_require__.d(icons_namespaceObject, "mdiDotsHorizontal", function() { return mdiDotsHorizontal; });
 __webpack_require__.d(icons_namespaceObject, "mdiMapMarker", function() { return mdiMapMarker; });
 __webpack_require__.d(icons_namespaceObject, "website", function() { return website; });
 __webpack_require__.d(icons_namespaceObject, "email", function() { return email; });
@@ -12085,25 +12086,78 @@ var Radio_component = normalizeComponent(
 
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"18ad52f4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Pagination/Pagination.vue?vue&type=template&id=76b8fed4&
-var Paginationvue_type_template_id_76b8fed4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.pages > 1)?_c('div',{staticClass:"text-center"},[_c('div',{staticClass:"inline-flex align-middle -m-1"},[_c('button',{staticClass:"m-1 px-1 py-0 text-button border-0 bg-white bg-opacity-0 font-base leading-[40px] min-w-[40px] cursor-pointer transition-colors",class:{
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"18ad52f4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Pagination/Pagination.vue?vue&type=template&id=3a8e7b12&
+var Paginationvue_type_template_id_3a8e7b12_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.pages > 1)?_c('div',{staticClass:"text-center"},[_c('div',{staticClass:"inline-flex items-center -m-1"},[_c('r-pagination-button',{staticClass:"bg-white bg-opacity-0",class:{
         'text-gray-200': _vm.isFirstPage,
         'text-primary hover:text-primary-dark': !_vm.isFirstPage,
-      },attrs:{"type":"button","disabled":_vm.isFirstPage},on:{"click":function($event){return _vm.$emit('update:modelValue', _vm.modelValue - 1)}}},[_c('r-icon',{attrs:{"name":"mdiChevronLeft"}})],1),_vm._l((_vm.pages),function(page){return _c('button',{key:page,staticClass:"m-1 px-1 py-0 text-button border-0 font-bold font-base leading-[40px] min-w-[40px] cursor-pointer transition-colors",class:{
-        'bg-primary text-primary-contrast': _vm.isActive(page),
-        'bg-gray-100 text-primary hover:bg-gray-200': !_vm.isActive(page),
-      },attrs:{"type":"button"},on:{"click":function($event){return _vm.$emit('update:modelValue', page)}}},[_vm._v(" "+_vm._s(page)+" ")])}),_c('button',{staticClass:"m-1 px-1 py-0 text-button border-0 bg-white bg-opacity-0 font-base leading-[40px] min-w-[40px] cursor-pointer transition-colors",class:{
+      },attrs:{"disabled":_vm.isFirstPage},on:{"click":function($event){return _vm.$emit('update:modelValue', _vm.modelValue - 1)}}},[_c('r-icon',{attrs:{"name":"mdiChevronLeft"}})],1),_c('r-pagination-button',{attrs:{"is-active":_vm.isActive(1)},on:{"click":function($event){return _vm.$emit('update:modelValue', 1)}}},[_vm._v(" "+_vm._s(1)+" ")]),(_vm.modelValue > 4)?_c('span',{staticClass:"mx-1"},[_c('r-icon',{attrs:{"name":"mdiDotsHorizontal"}})],1):_vm._e(),_vm._l((_vm.visiblePages),function(page){return _c('r-pagination-button',{key:page,attrs:{"is-active":_vm.isActive(page)},on:{"click":function($event){return _vm.$emit('update:modelValue', page)}}},[_vm._v(" "+_vm._s(page)+" ")])}),(_vm.modelValue < _vm.pages - 3)?_c('span',{staticClass:"mx-1"},[_c('r-icon',{attrs:{"name":"mdiDotsHorizontal"}})],1):_vm._e(),_c('r-pagination-button',{attrs:{"is-active":_vm.isActive(_vm.pages)},on:{"click":function($event){return _vm.$emit('update:modelValue', _vm.pages)}}},[_vm._v(" "+_vm._s(_vm.pages)+" ")]),_c('r-pagination-button',{staticClass:"bg-white bg-opacity-0",class:{
         'text-gray-200': _vm.isLastPage,
         'text-primary hover:text-primary-dark': !_vm.isLastPage,
-      },attrs:{"type":"button","disabled":_vm.isLastPage},on:{"click":function($event){return _vm.$emit('update:modelValue', _vm.modelValue + 1)}}},[_c('r-icon',{attrs:{"name":"mdiChevronRight"}})],1)],2)]):_vm._e()}
-var Paginationvue_type_template_id_76b8fed4_staticRenderFns = []
+      },attrs:{"disabled":_vm.isLastPage},on:{"click":function($event){return _vm.$emit('update:modelValue', _vm.modelValue + 1)}}},[_c('r-icon',{attrs:{"name":"mdiChevronRight"}})],1)],2)]):_vm._e()}
+var Paginationvue_type_template_id_3a8e7b12_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Pagination/Pagination.vue?vue&type=template&id=76b8fed4&
+// CONCATENATED MODULE: ./src/components/Pagination/Pagination.vue?vue&type=template&id=3a8e7b12&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"18ad52f4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Pagination/PaginationButton.vue?vue&type=template&id=e20b4ce6&
+var PaginationButtonvue_type_template_id_e20b4ce6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{staticClass:"m-1 px-1 py-0 text-button border-0 font-base font-bold leading-[40px] min-w-[40px] cursor-pointer transition-colors",class:{
+    'bg-primary text-primary-contrast': _vm.isActive,
+    'bg-gray-100 text-primary hover:bg-gray-200': !_vm.isActive,
+  },attrs:{"type":"button"}},[_vm._t("default")],2)}
+var PaginationButtonvue_type_template_id_e20b4ce6_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/Pagination/PaginationButton.vue?vue&type=template&id=e20b4ce6&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Pagination/PaginationButton.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var PaginationButtonvue_type_script_lang_js_ = ({
+  props: {
+    isActive: {
+      type: Boolean,
+      default: function _default() {
+        return false;
+      }
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Pagination/PaginationButton.vue?vue&type=script&lang=js&
+ /* harmony default export */ var Pagination_PaginationButtonvue_type_script_lang_js_ = (PaginationButtonvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/Pagination/PaginationButton.vue
+
+
+
+
+
+/* normalize component */
+
+var PaginationButton_component = normalizeComponent(
+  Pagination_PaginationButtonvue_type_script_lang_js_,
+  PaginationButtonvue_type_template_id_e20b4ce6_render,
+  PaginationButtonvue_type_template_id_e20b4ce6_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var PaginationButton = (PaginationButton_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Pagination/Pagination.vue?vue&type=script&lang=js&
 
 //
@@ -12150,11 +12204,14 @@ var es_number_constructor = __webpack_require__("a9e3");
 //
 //
 //
+//
+
 
 /* harmony default export */ var Paginationvue_type_script_lang_js_ = ({
   name: 'r-pagination',
   components: {
-    RIcon: Icon
+    RIcon: Icon,
+    RPaginationButton: PaginationButton
   },
   model: {
     prop: 'modelValue',
@@ -12180,6 +12237,35 @@ var es_number_constructor = __webpack_require__("a9e3");
     },
     isLastPage: function isLastPage() {
       return this.modelValue === this.pages;
+    },
+    visiblePages: function visiblePages() {
+      var modelValue = this.modelValue,
+          pages = this.pages;
+      var pageBefore = modelValue - 1;
+      var pageAfter = modelValue + 1;
+      var visiblePages = [];
+
+      if (pageBefore === 3) {
+        visiblePages.push(2);
+      }
+
+      if (pageBefore > 1) {
+        visiblePages.push(pageBefore);
+      }
+
+      if (modelValue > 1 && modelValue < pages) {
+        visiblePages.push(modelValue);
+      }
+
+      if (pageAfter < pages) {
+        visiblePages.push(pageAfter);
+      }
+
+      if (pageAfter === pages - 2) {
+        visiblePages.push(pages - 1);
+      }
+
+      return visiblePages;
     }
   },
   methods: {
@@ -12200,8 +12286,8 @@ var es_number_constructor = __webpack_require__("a9e3");
 
 var Pagination_component = normalizeComponent(
   Pagination_Paginationvue_type_script_lang_js_,
-  Paginationvue_type_template_id_76b8fed4_render,
-  Paginationvue_type_template_id_76b8fed4_staticRenderFns,
+  Paginationvue_type_template_id_3a8e7b12_render,
+  Paginationvue_type_template_id_3a8e7b12_staticRenderFns,
   false,
   null,
   null,
