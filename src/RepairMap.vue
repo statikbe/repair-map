@@ -138,21 +138,21 @@
         </div>
       </section-filter>
       <section-filter
-        v-else-if="isFilterActive('LOCATION') && showLocationFilter"
+        v-else-if="isFilterActive('LOCATION')"
         :title="$i18n.t('filter.location.title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
       >
         <r-form-location v-model="locationSearch" label="Locatie" />
-        <div v-for="(location, key) in defaultLocations" :key="key">
+        <div v-for="(location, key) in filterLocations" :key="key">
           <r-radio v-model="filters.bbox" :value="location.bbox" :label="location.name" />
         </div>
       </section-filter>
       <r-section size="0" ref="pageContainer">
         <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
           <div class="w-full md:w-1/3 px-2">
-            <p class="my-5">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
-            <div class="my-5">
+            <p class="my-6">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
+            <div class="my-6">
               <template v-for="(location, index) in locations">
                 <card-location
                   v-if="isCurrentPage(index)"
@@ -185,30 +185,37 @@
               </div>
             </div>
             <div v-show="false">
-              <div ref="popup" class="w-[350px]">
+              <div ref="popup" class="w-[350px] relative">
                 <card-location v-if="activeLocation" :location="activeLocation" extended>
                   <template #locationTitle="slotProps">
                     <slot name="locationTitle" v-bind="slotProps" />
                   </template>
                 </card-location>
+                <button
+                  type="button"
+                  class="absolute top-3 right-3 border-0 padding-0 bg-opacity-0 cursor-pointer"
+                  @click="map.closePopup()"
+                >
+                  <r-icon name="mdiClose" />
+                </button>
               </div>
             </div>
           </div>
         </div>
       </r-section>
       <r-section>
-        <div class="bg-gray-100 p-10 rounded-3xl">
+        <r-panel>
           <h2 class="text-h2 text-secondary">A repair initiative missing on the map?</h2>
-          <p class="md:w-8/12">
+          <p class="md:w-8/12 mb-6">
             Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus
             porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
           <r-button color="secondary" icon-after="mdiChevronRight">
             Suggest a repair initiative that is not on the map
           </r-button>
-        </div>
+        </r-panel>
       </r-section>
-      <div v-show="isLoading" class="bg-white opacity-60 absolute top-0 bottom-0 left-0 right-0"></div>
+      <!-- <div v-show="isLoading" class="bg-white opacity-60 absolute top-0 bottom-0 left-0 right-0"></div> -->
     </r-app>
   </div>
 </template>
@@ -221,6 +228,7 @@ import {
   RFormLocation,
   RIcon,
   RPagination,
+  RPanel,
   RRadio,
   RSection,
   icons,
@@ -232,6 +240,9 @@ import CardLocation from './components/CardLocation.vue';
 import Leaflet from 'leaflet';
 import axios from 'axios';
 import qs from 'qs';
+import debounce from 'lodash.debounce';
+
+import 'leaflet.markercluster';
 
 import i18n from './i18n';
 import categoryColors from './constants/categoryColors';
@@ -240,6 +251,8 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'repair-components/dist/repair-components.css';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import './assets/css/index.css';
 
 const qsOptions = {
@@ -256,6 +269,7 @@ export default {
     RFormLocation,
     RIcon,
     RPagination,
+    RPanel,
     RRadio,
     RSection,
   },
@@ -264,15 +278,15 @@ export default {
       type: String,
       default: () => null,
     },
-    defaultLocations: {
+    defaultCenter: {
+      type: Array,
+      default: () => [0, 0],
+    },
+    filterLocations: {
       type: Array,
       default: () => [],
     },
     locale: {
-      type: String,
-      default: () => null,
-    },
-    mapboxAccessToken: {
       type: String,
       default: () => null,
     },
@@ -297,6 +311,7 @@ export default {
     currentPage: 1,
     locationSearch: '',
     i18n,
+    markerClusterGroup: null,
     isMapView: false,
     isLoading: true,
     filters: {
@@ -323,9 +338,6 @@ export default {
       });
 
       return categoryGroups;
-    },
-    showLocationFilter() {
-      return this.mapboxAccessToken || this.defaultLocations.length;
     },
     showActiveFilters() {
       const { filters, isFilterActive } = this;
@@ -375,6 +387,9 @@ export default {
 
       this.scrollIntoView();
     },
+    filter(filter) {
+      this.activeFilter = filter;
+    },
   },
   created() {
     if (this.locale) {
@@ -399,23 +414,28 @@ export default {
       });
     },
     renderMap() {
-      this.map = Leaflet.map(this.$refs.map).setView([50, 0], 14);
+      this.map = Leaflet.map(this.$refs.map).setView([this.defaultCenter[0], this.defaultCenter[1]], 14);
 
       Leaflet.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
         maxZoom: 19,
         attribution: `&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
       }).addTo(this.map);
 
-      this.map.on('moveend', () => {
-        this.showRefreshButton = true;
-      });
+      this.map.on(
+        'moveend',
+        debounce(() => {
+          this.fetchLocations();
+        }, 1000)
+      );
     },
     updateMarkers() {
-      for (const locationId in this.locationMarkers) {
-        this.map.removeLayer(this.locationMarkers[locationId]);
+      if (this.markerClusterGroup) {
+        this.map.removeLayer(this.markerClusterGroup);
       }
 
       const newMarkers = {};
+
+      this.markerClusterGroup = Leaflet.markerClusterGroup();
 
       this.locations.forEach((location) => {
         if (location.geometry.latitude && location.geometry.latitude) {
@@ -424,9 +444,9 @@ export default {
               iconUrl: location.organisation_type
                 ? require(`./assets/img/markers/${location.organisation_type.code}.png`)
                 : markerImage,
-              iconSize: [48, 48],
-              iconAnchor: [24, 48],
-              popupAnchor: [0, -24],
+              iconSize: [20, 32],
+              iconAnchor: [10, 32],
+              popupAnchor: [0, -16],
             }),
           });
 
@@ -434,16 +454,23 @@ export default {
             this.openPopup(location.id);
           });
 
-          marker.addTo(this.map);
+          // marker.addTo(this.map);
+          this.markerClusterGroup.addLayer(marker);
 
           newMarkers[location.id] = marker;
         }
       });
 
+      this.map.addLayer(this.markerClusterGroup);
       this.locationMarkers = newMarkers;
     },
     fitBounds(location) {
-      this.map.fitBounds([location.bbox.slice(0, 2), location.bbox.slice(2)]);
+      const { bbox } = location;
+      if (bbox.length === 2) {
+        this.map.setView([bbox[0], bbox[1]], 14);
+      } else if (bbox.length === 4) {
+        this.map.fitBounds([bbox.slice(0, 2), bbox.slice(2)]);
+      }
     },
     async fetchLocations() {
       const { filters, defaultQuery } = this;

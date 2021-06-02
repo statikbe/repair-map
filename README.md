@@ -34,7 +34,7 @@ This will add a radio button labeled "Leuven" to the location filters:
 
 ```vue
 <template>
-  <repair-map :default-locations="defaultLocations" />
+  <repair-map :filter-locations="filterLocations" />
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
     RepairMap,
   },
   computed: {
-    defaultLocations() {
+    filterLocations() {
       return [
         {
           name: 'Leuven',
@@ -116,3 +116,14 @@ export default {
 ```
 
 This will be applied to the list items as well as the Leaflet popups.
+
+## Props
+
+| Prop              | Type    | Default  | Description                                                                                                                                                                                                                           |
+| ----------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| filter            | String  | `null`   | Filter that is currently active. To be used with custom filter buttons (see above)                                                                                                                                                    |
+| defaultCenter     | Array   | `[0, 0]` | The default coordinates that the map will center to when the user _does not_ provide his browser location.                                                                                                                            |
+| filterLocations   | Array   | `[]`     | A list of default locations that can be selected in the location filter. Every value should be an `Object` with a `name` and `bbox` key. The `bbox` should be an `Array` of either 2 (lat / lng) or 4 (latA, lngA, latB, lngB) items. |
+| locale            | String  | `null`   |                                                                                                                                                                                                                                       |
+| itemsPerPage      | Number  | `10`     |                                                                                                                                                                                                                                       |
+| showFilterButtons | Boolean | `true`   |                                                                                                                                                                                                                                       |

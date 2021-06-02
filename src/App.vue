@@ -1,39 +1,28 @@
 <template>
-  <repair-map
-    locale="en"
-    :default-locations="defaultLocations"
-    :show-filter-buttons="true"
-    @filter-close="activeFilter = null"
-  >
-    <template #locationTitle="{ name, id, defaultClass }">
-      <a :href="`https://my-custom-url.com/location/${id}`" :class="defaultClass">
-        <span>{{ name }}</span>
-        <r-icon name="mdiChevronRight" />
-      </a>
-    </template>
-  </repair-map>
+  <repair-map :filterLocations="filterLocations" />
 </template>
 
 <script>
-import { RIcon } from 'repair-components';
+// import { RIcon } from 'repair-components';
 import RepairMap from './RepairMap.vue';
 
 export default {
   components: {
     // RButton,
-    RIcon,
+    // RIcon,
     // RSection,
     RepairMap,
   },
-  data: () => ({
-    activeFilter: 'TYPE',
-  }),
   computed: {
-    defaultLocations() {
+    filterLocations() {
       return [
         {
           name: 'Leuven',
           bbox: [50.824177, 4.640198, 50.943362, 4.772457],
+        },
+        {
+          name: 'New York',
+          bbox: [40.7128, 74.006],
         },
       ];
     },
