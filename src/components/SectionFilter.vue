@@ -9,7 +9,7 @@
       {{ $i18n.t('filter.submit') }}
     </r-button>
     <button
-      class="absolute right-3 top-3 inline-block p-2 rounded-full border-0 text-huge leading-none cursor-pointer bg-white transition-colors"
+      class="absolute right-3 top-3 inline-block p-2 rounded-full border-0 text-huge leading-0 cursor-pointer bg-white text-black transition-colors"
       @click="$emit('close')"
     >
       <r-icon name="mdiChevronUp" class="block" />
@@ -44,3 +44,9 @@ export default {
   },
 };
 </script>
+
+<style lang="css">
+.leading-0 {
+  line-height: 0 !important;
+}
+</style>

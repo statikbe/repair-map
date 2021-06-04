@@ -123,7 +123,9 @@
             :key="categoryCode"
             class="py-2 w-100 sm:w-1/2 md:w-1/3 lg:w-1/4"
           >
-            <h4 class="text-white mb-1">{{ $i18n.localizeField(categoryGroups[categoryCode].name) }}</h4>
+            <div class="text-white font-bold ml-1">
+              {{ $i18n.localizeField(categoryGroups[categoryCode].name) }}
+            </div>
             <div v-for="(category, key) in categoryGroups[categoryCode].data" :key="key">
               <input
                 type="checkbox"
@@ -435,7 +437,9 @@ export default {
 
       const newMarkers = {};
 
-      this.markerClusterGroup = Leaflet.markerClusterGroup();
+      this.markerClusterGroup = Leaflet.markerClusterGroup({
+        showCoverageOnHover: false,
+      });
 
       this.locations.forEach((location) => {
         if (location.geometry.latitude && location.geometry.latitude) {
