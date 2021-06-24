@@ -1,0 +1,6 @@
+@import 'repair-components/src/assets/css/index.css';
+@import './index.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

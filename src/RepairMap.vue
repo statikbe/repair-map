@@ -251,12 +251,6 @@ import categoryColors from './constants/categoryColors';
 
 import markerImage from './assets/img/markers/default.png';
 
-import 'repair-components/dist/repair-components.css';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet.markercluster/dist/MarkerCluster.css';
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import './assets/css/index.css';
-
 const qsOptions = {
   arrayFormat: 'comma',
 };

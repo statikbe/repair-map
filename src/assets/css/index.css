@@ -1,8 +1,6 @@
-/* Don't include Tailwind base layer, to avoid this application changing possible parent styles (use classes only) */
-@tailwind components;
-@tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap');
+@import 'leaflet/dist/leaflet.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 .leaflet-popup-content {
   margin: 0;
