@@ -262,7 +262,6 @@ const qsOptions = {
 };
 
 export default {
-  name: 'repair-map',
   components: {
     CardLocation,
     SectionFilter,
