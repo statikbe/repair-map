@@ -46,7 +46,11 @@
           </div>
         </div>
         <div v-for="(contacts, type) in location.contacts" :key="type" class="flex mt-1">
-          <r-icon :name="type" size="1.5em" class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0" />
+          <r-icon
+            :name="`contact_${type}`"
+            size="1.5em"
+            class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0"
+          />
           <div class="leading-normal truncate">
             <div v-for="(contact, key) in contacts" :key="key">
               <a :href="contact.value" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a>
