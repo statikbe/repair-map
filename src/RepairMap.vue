@@ -145,7 +145,7 @@
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
       >
-        <r-form-location v-model="locationSearch" label="Locatie" />
+        <r-mapbox-search v-model="locationSearch" label="Locatie" />
         <div v-for="(location, key) in filterLocations" :key="key">
           <r-radio v-model="filters.bbox" :value="location.bbox" :label="location.name" />
         </div>
@@ -227,8 +227,8 @@ import {
   RApp,
   RButton,
   RCheckbox,
-  RFormLocation,
   RIcon,
+  RMapboxSearch,
   RPagination,
   RPanel,
   RRadio,
@@ -262,8 +262,8 @@ export default {
     RApp,
     RButton,
     RCheckbox,
-    RFormLocation,
     RIcon,
+    RMapboxSearch,
     RPagination,
     RPanel,
     RRadio,

@@ -14,8 +14,7 @@
       <slot
         name="locationTitle"
         v-bind="{
-          name: $i18n.localizeField(location.name),
-          id: location.id,
+          location,
           defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
         }"
       >
