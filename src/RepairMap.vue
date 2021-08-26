@@ -83,6 +83,7 @@
           </template>
         </div>
       </r-section>
+      <!-- TYPE FILTER -->
       <section-filter
         v-else-if="isFilterActive('TYPE')"
         :title="$i18n.t('filter.type.title')"
@@ -105,6 +106,7 @@
           </template>
         </r-checkbox>
       </section-filter>
+      <!-- CATEGORY FILTER -->
       <section-filter
         v-else-if="isFilterActive('CATEGORY')"
         :title="$i18n.t('filter.category.title')"
@@ -139,6 +141,7 @@
           </div>
         </div>
       </section-filter>
+      <!-- LOCATION FILTER -->
       <section-filter
         v-else-if="isFilterActive('LOCATION')"
         :title="$i18n.t('filter.location.title')"
@@ -150,61 +153,69 @@
           <r-radio v-model="filters.bbox" :value="location.bbox" :label="location.name" />
         </div>
       </section-filter>
-      <r-section size="0" ref="pageContainer">
-        <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
-          <div class="w-full md:w-1/3 px-2">
-            <p class="my-6">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
-            <div class="my-6">
-              <template v-for="(location, index) in locations">
-                <card-location
-                  v-if="isCurrentPage(index)"
-                  :location="location"
-                  :is-active="activeLocationId === location.id"
-                  :key="location.id"
-                  @click.native="onLocationClick(location)"
-                >
-                  <template #locationTitle="slotProps">
-                    <slot name="locationTitle" v-bind="slotProps" />
+      <div class="relative">
+        <r-loader v-if="isRendering" />
+        <r-section size="0" ref="pageContainer" :class="{ invisible: isRendering }">
+          <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
+            <!-- LOCATION LIST -->
+            <div class="w-full md:w-1/3 px-2 relative">
+              <r-loader v-if="isLoading" />
+              <div :class="{ invisible: isLoading }">
+                <p class="my-6">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
+                <div class="my-6">
+                  <template v-for="(location, index) in locations">
+                    <card-location
+                      v-if="isCurrentPage(index)"
+                      :location="location"
+                      :is-active="activeLocationId === location.id"
+                      :key="location.id"
+                      @click.native="onLocationClick(location)"
+                    >
+                      <template #locationTitle="slotProps">
+                        <slot name="locationTitle" v-bind="slotProps" />
+                      </template>
+                    </card-location>
                   </template>
-                </card-location>
-              </template>
-            </div>
-            <r-pagination v-model="currentPage" :pages="totalPages"></r-pagination>
-          </div>
-          <div class="w-full md:w-2/3 px-2 md:sticky top-0">
-            <div class="relative">
-              <r-button
-                color="secondary"
-                v-show="showRefreshButton"
-                class="absolute top-2 right-2 z-[999]"
-                @click.native="fetchLocations"
-              >
-                <r-icon name="mdiRefresh" />
-                Search again in this area
-              </r-button>
-              <div class="aspect-w-1 aspect-h-1 md:aspect-none">
-                <div class="md:h-screen" ref="map"></div>
+                </div>
+                <r-pagination v-model="currentPage" :pages="totalPages"></r-pagination>
               </div>
             </div>
-            <div v-show="false">
-              <div ref="popup" class="w-[350px] relative">
-                <card-location v-if="activeLocation" :location="activeLocation" extended>
-                  <template #locationTitle="slotProps">
-                    <slot name="locationTitle" v-bind="slotProps" />
-                  </template>
-                </card-location>
-                <button
-                  type="button"
-                  class="absolute top-3 right-3 border-0 padding-0 bg-opacity-0 cursor-pointer"
-                  @click="map.closePopup()"
+            <!-- LEAFLET MAP -->
+            <div class="w-full md:w-2/3 px-2 md:sticky top-0">
+              <div class="relative">
+                <r-button
+                  color="secondary"
+                  v-show="showRefreshButton"
+                  class="absolute top-2 right-2 z-[999]"
+                  @click.native="fetchLocations"
                 >
-                  <r-icon name="mdiClose" />
-                </button>
+                  <r-icon name="mdiRefresh" />
+                  Search again in this area
+                </r-button>
+                <div class="aspect-w-1 aspect-h-1 md:aspect-none">
+                  <div class="md:h-screen" ref="map"></div>
+                </div>
+              </div>
+              <div v-show="false">
+                <div ref="popup" class="w-[350px] relative">
+                  <card-location v-if="activeLocation" :location="activeLocation" extended>
+                    <template #locationTitle="slotProps">
+                      <slot name="locationTitle" v-bind="slotProps" />
+                    </template>
+                  </card-location>
+                  <button
+                    type="button"
+                    class="absolute top-3 right-3 border-0 padding-0 bg-opacity-0 cursor-pointer"
+                    @click="map.closePopup()"
+                  >
+                    <r-icon name="mdiClose" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </r-section>
+        </r-section>
+      </div>
       <r-section>
         <r-panel>
           <h2 class="text-h2 text-secondary">A repair initiative missing on the map?</h2>
@@ -212,12 +223,18 @@
             Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus
             porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
-          <r-button color="secondary" icon-after="mdiChevronRight">
-            Suggest a repair initiative that is not on the map
-          </r-button>
+          <slot name="suggestionCta">
+            <r-button
+              href="https://mapping.sharepair.org/location/new"
+              link
+              color="secondary"
+              icon-after="mdiChevronRight"
+            >
+              Suggest a repair initiative that is not on the map
+            </r-button>
+          </slot>
         </r-panel>
       </r-section>
-      <!-- <div v-show="isLoading" class="bg-white opacity-60 absolute top-0 bottom-0 left-0 right-0"></div> -->
     </r-app>
   </div>
 </template>
@@ -228,13 +245,15 @@ import {
   RButton,
   RCheckbox,
   RIcon,
+  RLoader,
   RMapboxSearch,
   RPagination,
   RPanel,
   RRadio,
   RSection,
-  icons,
 } from 'repair-components';
+
+// import * as icons from 'repair-components/src/assets/icons';
 
 import SectionFilter from './components/SectionFilter.vue';
 import CardLocation from './components/CardLocation.vue';
@@ -245,6 +264,10 @@ import qs from 'qs';
 import debounce from 'lodash.debounce';
 
 import 'leaflet.markercluster';
+
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 import i18n from './i18n';
 import categoryColors from './constants/categoryColors';
@@ -263,6 +286,7 @@ export default {
     RButton,
     RCheckbox,
     RIcon,
+    RLoader,
     RMapboxSearch,
     RPagination,
     RPanel,
@@ -276,7 +300,11 @@ export default {
     },
     defaultCenter: {
       type: Array,
-      default: () => [0, 0],
+      default: () => [50.87959, 4.70093],
+    },
+    defaultZoom: {
+      type: Number,
+      default: () => 14,
     },
     filterLocations: {
       type: Array,
@@ -305,11 +333,12 @@ export default {
     showRefreshButton: false,
     activeFilter: null,
     currentPage: 1,
-    locationSearch: '',
+    locationSearch: null,
     i18n,
     markerClusterGroup: null,
     isMapView: false,
     isLoading: true,
+    isRendering: true,
     filters: {
       organisation_types: [],
       product_categories: [],
@@ -354,6 +383,9 @@ export default {
     $i18n() {
       return this.i18n;
     },
+    icons() {
+      return 'blaaaa';
+    },
     activeLocation() {
       return this.locations.filter((location) => location.id === this.activeLocationId)[0];
     },
@@ -365,7 +397,7 @@ export default {
   provide() {
     return {
       $i18n: this.i18n,
-      $icons: icons,
+      $icons: this.icons,
       categoryColors,
     };
   },
@@ -395,33 +427,40 @@ export default {
     this.activeFilter = this.filter;
     this.categoryColors = categoryColors;
   },
-  mounted() {
+  async mounted() {
     this.renderMap();
-    this.askLocation();
+    await this.askLocation();
+    this.isRendering = false;
     this.fetchLocations();
     this.fetchOrganisationTypes();
     this.fetchCategories();
   },
   methods: {
     askLocation() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.map.setView(new Leaflet.LatLng(position.coords.latitude, position.coords.longitude));
-        this.fetchLocations();
+      return new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.map.setView(new Leaflet.LatLng(position.coords.latitude, position.coords.longitude));
+          resolve();
+        }, resolve);
       });
     },
     renderMap() {
-      this.map = Leaflet.map(this.$refs.map).setView([this.defaultCenter[0], this.defaultCenter[1]], 14);
+      this.map = Leaflet.map(this.$refs.map).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
 
       Leaflet.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
         maxZoom: 19,
         attribution: `&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
       }).addTo(this.map);
 
+      this.map.on('movestart', () => {
+        this.isLoading = true;
+      });
+
       this.map.on(
         'moveend',
         debounce(() => {
-          this.fetchLocations();
-        }, 1000)
+          !this.isRendering && this.fetchLocations();
+        }, 500)
       );
     },
     updateMarkers() {

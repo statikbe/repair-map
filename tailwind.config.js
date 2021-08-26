@@ -1,13 +1,15 @@
-const merge = require('lodash.merge');
 const { tailwindConfig } = require('repair-components');
 
-module.exports = merge(tailwindConfig, {
+module.exports = {
+  presets: [tailwindConfig],
   mode: 'jit',
   purge: {
-    content: ['**/*.vue', './node_modules/repair-components/**/*.{vue,js}'],
-    options: {
-      whitelistPatterns: [/^multiselect(.*)/],
-    },
+    content: [
+      './src/components/**/*.vue',
+      '**/*.vue',
+      './node_modules/repair-components/**/*.{vue,js}',
+      './node_modules/repair-components/safelist.txt',
+      './safelist.txt',
+    ],
   },
-  important: '#repair-map',
-});
+};
