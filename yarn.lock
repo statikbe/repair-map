@@ -1056,10 +1056,10 @@
     reduce-css-calc "^2.1.8"
     resolve "^1.20.0"
 
-"@tiptap/core@^2.0.0-beta.101", "@tiptap/core@^2.0.0-beta.81":
-  version "2.0.0-beta.101"
-  resolved "https://registry.yarnpkg.com/@tiptap/core/-/core-2.0.0-beta.101.tgz#e882836fcbe2b65d851039ddaa0401275a4afe9c"
-  integrity sha512-IhU+uZ+2F2jTKm2qoIxhzkef6OLYvuTuARhCRoZO7xhOMh314hps/QBC25X6OUqU57S/rn8jLMcyTo0V8Qv7og==
+"@tiptap/core@^2.0.0-beta.102", "@tiptap/core@^2.0.0-beta.81":
+  version "2.0.0-beta.102"
+  resolved "https://registry.yarnpkg.com/@tiptap/core/-/core-2.0.0-beta.102.tgz#14afa2f00bef254ee34d78646a597269dd98dc8a"
+  integrity sha512-ykSAyYfyb14xiYWQ6mTaa+GF6j5dQvSDgeXQDNcy8xvBjZHm1g+51D0jm9FF/dsrY0rEps5h8yX883h7MaGFHA==
   dependencies:
     "@types/prosemirror-commands" "^1.0.4"
     "@types/prosemirror-inputrules" "^1.0.4"
@@ -1123,12 +1123,12 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-document/-/extension-document-2.0.0-beta.13.tgz#8cfb29d4de64bf4a790817f730c05b4f9b7167b2"
   integrity sha512-nrufdKziA/wovaY4DjGkc8OGuIZi8CH8CW3+yYfeWbruwFKkyZHlZy9nplFWSEqBHPAeqD+px9r91yGMW3ontA==
 
-"@tiptap/extension-dropcursor@^2.0.0-beta.18":
-  version "2.0.0-beta.18"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-dropcursor/-/extension-dropcursor-2.0.0-beta.18.tgz#25f0676b0cae6900ac18e11a2e1ea2627904dfa3"
-  integrity sha512-P9cMKO7YXsqp62WA2sliWA6TZThO0yoQprv8Em5BPnW53ttZn9RR9sZaeLL/y02cl/aLVtqdLtl2CPSER43ieA==
+"@tiptap/extension-dropcursor@^2.0.0-beta.19":
+  version "2.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-dropcursor/-/extension-dropcursor-2.0.0-beta.19.tgz#8a37ffe27e484eb44dd18297830d1fd8ce0c50ce"
+  integrity sha512-rslIcVvD42NNh5sEbkCkG03DWMFBrS5KoK+lDOdIcC1DjmTtpVgcLvvE01btzaB3ljx+UVqI2Zaxa6VOiTeEMw==
   dependencies:
-    "@types/prosemirror-dropcursor" "^1.0.2"
+    "@types/prosemirror-dropcursor" "^1.0.3"
     prosemirror-dropcursor "^1.3.5"
 
 "@tiptap/extension-floating-menu@^2.0.0-beta.25":
@@ -1215,18 +1215,18 @@
   integrity sha512-0EtAwuRldCAoFaL/iXgkRepEeOd55rPg5N4FQUN1xTwZT7PDofukP0DG/2jff/Uj17x4uTaJAa9qlFWuNnDvjw==
 
 "@tiptap/starter-kit@^2.0.0-beta.77":
-  version "2.0.0-beta.99"
-  resolved "https://registry.yarnpkg.com/@tiptap/starter-kit/-/starter-kit-2.0.0-beta.99.tgz#4baf6bbced4f36c0b68fdf0e757a65ccedd6e62f"
-  integrity sha512-oTp4M8V7n9U80VtQgjM9mOfH5eArpONtFugjUPI/iN85MjibOyMaB/VaYVPRqfGAr2dPJs+53uqA+RZHErgaDA==
+  version "2.0.0-beta.101"
+  resolved "https://registry.yarnpkg.com/@tiptap/starter-kit/-/starter-kit-2.0.0-beta.101.tgz#9a91ef5b7361c37c991fb72348cae6a4162dd936"
+  integrity sha512-1SoVrPe2JMPo5/Je0NprZWN8G0q0EOTpoVHQ/+VwthectJBz1TyCuNOqoR1WNL9II6Fj9AZelyhPWacw7vM27A==
   dependencies:
-    "@tiptap/core" "^2.0.0-beta.101"
+    "@tiptap/core" "^2.0.0-beta.102"
     "@tiptap/extension-blockquote" "^2.0.0-beta.15"
     "@tiptap/extension-bold" "^2.0.0-beta.15"
     "@tiptap/extension-bullet-list" "^2.0.0-beta.15"
     "@tiptap/extension-code" "^2.0.0-beta.16"
     "@tiptap/extension-code-block" "^2.0.0-beta.17"
     "@tiptap/extension-document" "^2.0.0-beta.13"
-    "@tiptap/extension-dropcursor" "^2.0.0-beta.18"
+    "@tiptap/extension-dropcursor" "^2.0.0-beta.19"
     "@tiptap/extension-gapcursor" "^2.0.0-beta.19"
     "@tiptap/extension-hard-break" "^2.0.0-beta.15"
     "@tiptap/extension-heading" "^2.0.0-beta.15"
@@ -1354,7 +1354,7 @@
     "@types/prosemirror-state" "*"
     "@types/prosemirror-view" "*"
 
-"@types/prosemirror-dropcursor@^1.0.2":
+"@types/prosemirror-dropcursor@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@types/prosemirror-dropcursor/-/prosemirror-dropcursor-1.0.3.tgz#49250849b8a0b86e8c29eb1ba70a463e53e46947"
   integrity sha512-b0/8njnJ4lwyHKcGuCMf3x7r1KjxyugB1R/c2iMCjplsJHSC7UY9+OysqgJR5uUXRekUSGniiLgBtac/lvH6wg==
@@ -7675,7 +7675,7 @@ renderkid@^2.0.4:
 
 "repair-components@https://github.com/statikbe/repair-components":
   version "0.1.0"
-  resolved "https://github.com/statikbe/repair-components#deedb6e911de0e59890fccea48eb5c2f85f234de"
+  resolved "https://github.com/statikbe/repair-components#3adf68f3be05cf95ef883908e0c3dfc950f41537"
   dependencies:
     "@mdi/js" "^5.9.55"
     "@tiptap/core" "^2.0.0-beta.81"

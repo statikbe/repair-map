@@ -86,8 +86,8 @@
       <!-- TYPE FILTER -->
       <section-filter
         v-else-if="isFilterActive('TYPE')"
-        :title="$i18n.t('filter.type.title')"
-        :text="$i18n.t('filter.type.text')"
+        :title="$i18n.t('filter_type_title')"
+        :text="$i18n.t('filter_type_text')"
         @submit="onFilterSubmit"
         @close="toggleFilter(null)"
       >
@@ -109,8 +109,8 @@
       <!-- CATEGORY FILTER -->
       <section-filter
         v-else-if="isFilterActive('CATEGORY')"
-        :title="$i18n.t('filter.category.title')"
-        :text="$i18n.t('filter.category.text')"
+        :title="$i18n.t('filter_category_title')"
+        :text="$i18n.t('filter_category_text')"
         @submit="onFilterSubmit"
         @close="toggleFilter(null)"
       >
@@ -128,23 +128,20 @@
             <div class="text-white font-bold ml-1">
               {{ $i18n.localizeField(categoryGroups[categoryCode].name) }}
             </div>
-            <div v-for="(category, key) in categoryGroups[categoryCode].data" :key="key">
-              <input
-                type="checkbox"
-                v-model="filters.product_categories"
-                :value="category.code"
-                :id="`filter-category-${category.id}`"
-                class="mr-1"
-              />
-              <label :for="`filter-category-${category.id}`">{{ $i18n.localizeField(category.name) }}</label>
-            </div>
+            <r-checkbox
+              v-model="filters.product_categories"
+              v-for="(category, key) in categoryGroups[categoryCode].data"
+              :key="key"
+              :label="$i18n.localizeField(category.name)"
+              :value="category.code"
+            />
           </div>
         </div>
       </section-filter>
       <!-- LOCATION FILTER -->
       <section-filter
         v-else-if="isFilterActive('LOCATION')"
-        :title="$i18n.t('filter.location.title')"
+        :title="$i18n.t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
       >
@@ -161,7 +158,7 @@
             <div class="w-full md:w-1/3 px-2 relative">
               <r-loader v-if="isLoading" />
               <div :class="{ invisible: isLoading }">
-                <p class="my-6">{{ $i18n.t('locations.results.n', { n: locationTotal }) }}</p>
+                <p class="my-6">{{ $i18n.t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
@@ -229,6 +226,7 @@
               link
               color="secondary"
               icon-after="mdiChevronRight"
+              target="_blank"
             >
               Suggest a repair initiative that is not on the map
             </r-button>
@@ -253,7 +251,7 @@ import {
   RSection,
 } from 'repair-components';
 
-// import * as icons from 'repair-components/src/assets/icons';
+import categoryColors from '../src/constants/categoryColors';
 
 import SectionFilter from './components/SectionFilter.vue';
 import CardLocation from './components/CardLocation.vue';
@@ -265,13 +263,6 @@ import debounce from 'lodash.debounce';
 
 import 'leaflet.markercluster';
 
-import 'leaflet/dist/leaflet.css';
-import 'leaflet.markercluster/dist/MarkerCluster.css';
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-
-import i18n from './i18n';
-import categoryColors from './constants/categoryColors';
-
 import markerImage from './assets/img/markers/default.png';
 
 const qsOptions = {
@@ -279,9 +270,9 @@ const qsOptions = {
 };
 
 export default {
+  name: 'repair-map',
   components: {
     CardLocation,
-    SectionFilter,
     RApp,
     RButton,
     RCheckbox,
@@ -292,6 +283,12 @@ export default {
     RPanel,
     RRadio,
     RSection,
+    SectionFilter,
+  },
+  provide() {
+    return {
+      $icons: this.$icons,
+    };
   },
   props: {
     filter: {
@@ -334,7 +331,6 @@ export default {
     activeFilter: null,
     currentPage: 1,
     locationSearch: null,
-    i18n,
     markerClusterGroup: null,
     isMapView: false,
     isLoading: true,
@@ -346,6 +342,9 @@ export default {
     },
   }),
   computed: {
+    categoryColors() {
+      return categoryColors;
+    },
     categoryGroups() {
       const categoryGroups = {};
 
@@ -380,26 +379,12 @@ export default {
     totalPages() {
       return Math.ceil(this.locations.length / 10);
     },
-    $i18n() {
-      return this.i18n;
-    },
-    icons() {
-      return 'blaaaa';
-    },
     activeLocation() {
       return this.locations.filter((location) => location.id === this.activeLocationId)[0];
     },
     isMobile() {
       return window.innerWidth < 768;
     },
-  },
-
-  provide() {
-    return {
-      $i18n: this.i18n,
-      $icons: this.icons,
-      categoryColors,
-    };
   },
   watch: {
     locations() {
@@ -425,7 +410,6 @@ export default {
     }
 
     this.activeFilter = this.filter;
-    this.categoryColors = categoryColors;
   },
   async mounted() {
     this.renderMap();
@@ -621,3 +605,8 @@ export default {
   },
 };
 </script>
+
+<style src="leaflet/dist/leaflet.css"></style>
+<style src="leaflet.markercluster/dist/MarkerCluster.css"></style>
+<style src="leaflet.markercluster/dist/MarkerCluster.Default.css"></style>
+<style src="./assets/css/app.css"></style>

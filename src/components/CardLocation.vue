@@ -10,7 +10,7 @@
     tabindex="0"
     @keydown.enter="$emit('click')"
   >
-    <h3 class="text-h3 text-primary inline-block">
+    <h3 class="text-h3 text-primary inline-flex items-center">
       <slot
         name="locationTitle"
         v-bind="{
@@ -63,9 +63,9 @@
 
 <script>
 import { RIcon } from 'repair-components';
+import categoryColors from '../constants/categoryColors';
 
 export default {
-  inject: ['$i18n', '$icons', 'categoryColors'],
   components: {
     RIcon,
   },
@@ -81,6 +81,11 @@ export default {
     extended: {
       type: Boolean,
       default: () => false,
+    },
+  },
+  computed: {
+    categoryColors() {
+      return categoryColors;
     },
   },
 };
