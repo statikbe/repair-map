@@ -28,38 +28,6 @@ export default {
 
 ## Customization
 
-### Default locations
-
-This will add a radio button labeled "Leuven" to the location filters:
-
-```vue
-<template>
-  <repair-map :filter-locations="filterLocations" />
-</template>
-
-<script>
-import RepairMap from 'repair-map';
-
-export default {
-  components: {
-    RepairMap,
-  },
-  computed: {
-    filterLocations() {
-      return [
-        {
-          name: 'Leuven',
-          bbox: [50.824177, 4.640198, 50.943362, 4.772457],
-        },
-      ];
-    },
-  },
-};
-</script>
-```
-
-The `bbox` will be contained within the map when filtering.
-
 ### Filter triggers
 
 To implement your own filter triggers, disable the default buttons with `:show-filter-buttons="false"`, then pass the `filter` prop:
@@ -117,13 +85,30 @@ export default {
 
 This will be applied to the list items as well as the Leaflet popups.
 
+### Theme
+
+To change the theme to match your own brand, simply change these CSS variables:
+
+```css
+:root {
+  --repair-primary: #71b8c5;
+  --repair-primary-dark: #5a939d;
+  --repair-primary-contrast: white;
+
+  --repair-secondary: #9c7a97;
+  --repair-secondary-dark: #7c6178;
+  --repair-secondary-contrast: white;
+}
+```
+
+Dark variants are used for things like hover states, contrast variants are used for things like button text.
+
 ## Props
 
-| Prop              | Type    | Default  | Description                                                                                                                                                                                                                           |
-| ----------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| filter            | String  | `null`   | Filter that is currently active. To be used with custom filter buttons (see above)                                                                                                                                                    |
-| defaultCenter     | Array   | `[0, 0]` | The default coordinates that the map will center to when the user _does not_ provide his browser location.                                                                                                                            |
-| filterLocations   | Array   | `[]`     | A list of default locations that can be selected in the location filter. Every value should be an `Object` with a `name` and `bbox` key. The `bbox` should be an `Array` of either 2 (lat / lng) or 4 (latA, lngA, latB, lngB) items. |
-| locale            | String  | `null`   |                                                                                                                                                                                                                                       |
-| itemsPerPage      | Number  | `10`     |                                                                                                                                                                                                                                       |
-| showFilterButtons | Boolean | `true`   |                                                                                                                                                                                                                                       |
+| Prop              | Type    | Default  | Description                                                                                                |
+| ----------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| filter            | String  | `null`   | Filter that is currently active. To be used with custom filter buttons (see above)                         |
+| defaultCenter     | Array   | `[0, 0]` | The default coordinates that the map will center to when the user _does not_ provide his browser location. |
+| locale            | String  | `null`   |                                                                                                            |
+| itemsPerPage      | Number  | `10`     |                                                                                                            |
+| showFilterButtons | Boolean | `true`   |                                                                                                            |

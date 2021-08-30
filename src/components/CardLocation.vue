@@ -18,13 +18,13 @@
           defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
         }"
       >
-        {{ $i18n.localizeField(location.name) }}
+        {{ $localizeField(location.name) }}
         <r-icon name="mdiChevronRight" />
       </slot>
     </h3>
     <div v-if="location.organisation_type" class="font-semibold text-small">
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisation_type.code]" class="mr-1" />
-      <span>{{ $i18n.localizeField(location.organisation_type.name) }}</span>
+      <span>{{ $localizeField(location.organisation_type.name) }}</span>
     </div>
     <div v-if="location.product_categories" class="mt-4">
       <div class="flex flex-wrap -m-1">
@@ -33,7 +33,7 @@
           :key="category.id"
           class="m-1 px-2 bg-white text-tiny text-secondary font-bold rounded-md"
         >
-          {{ $i18n.localizeField(category.name) }}
+          {{ $localizeField(category.name) }}
         </span>
       </div>
       <div v-if="extended" class="text-tiny leading-none mt-3">

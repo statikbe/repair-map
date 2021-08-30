@@ -47,7 +47,7 @@
               :key="organisationType.code"
               @click="clearFilter('organisation_types', organisationType.code)"
             >
-              <span>{{ $i18n.localizeField(organisationType.name) }}</span>
+              <span>{{ $localizeField(organisationType.name) }}</span>
               <r-icon name="mdiClose" class="ml-1" />
             </button>
           </template>
@@ -61,7 +61,7 @@
               :key="category.code"
               @click="clearFilter('product_categories', category.code)"
             >
-              {{ $i18n.localizeField(category.name) }}
+              {{ $localizeField(category.name) }}
               <r-icon name="mdiClose" />
             </button>
           </template>
@@ -77,7 +77,7 @@
               :key="organisationType.code"
               @click.native="clearFilter('organisation_types', organisationType.code)"
             >
-              {{ $i18n.localizeField(organisationType.name) }}
+              {{ $localizeField(organisationType.name) }}
               <r-icon name="mdiClose" />
             </r-button>
           </template>
@@ -86,8 +86,8 @@
       <!-- TYPE FILTER -->
       <section-filter
         v-else-if="isFilterActive('TYPE')"
-        :title="$i18n.t('filter_type_title')"
-        :text="$i18n.t('filter_type_text')"
+        :title="$t('filter_type_title')"
+        :text="$t('filter_type_text')"
         @submit="onFilterSubmit"
         @close="toggleFilter(null)"
       >
@@ -96,12 +96,12 @@
           :key="key"
           v-model="filters.organisation_types"
           :value="organisationType.code"
-          :label="$i18n.localizeField(organisationType.name)"
+          :label="$localizeField(organisationType.name)"
         >
           <template #label>
             <span>
               <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
-              <span>{{ $i18n.localizeField(organisationType.name) }}</span>
+              <span>{{ $localizeField(organisationType.name) }}</span>
             </span>
           </template>
         </r-checkbox>
@@ -109,8 +109,8 @@
       <!-- CATEGORY FILTER -->
       <section-filter
         v-else-if="isFilterActive('CATEGORY')"
-        :title="$i18n.t('filter_category_title')"
-        :text="$i18n.t('filter_category_text')"
+        :title="$t('filter_category_title')"
+        :text="$t('filter_category_text')"
         @submit="onFilterSubmit"
         @close="toggleFilter(null)"
       >
@@ -126,13 +126,13 @@
             class="py-2 w-100 sm:w-1/2 md:w-1/3 lg:w-1/4"
           >
             <div class="text-white font-bold ml-1">
-              {{ $i18n.localizeField(categoryGroups[categoryCode].name) }}
+              {{ $localizeField(categoryGroups[categoryCode].name) }}
             </div>
             <r-checkbox
               v-model="filters.product_categories"
               v-for="(category, key) in categoryGroups[categoryCode].data"
               :key="key"
-              :label="$i18n.localizeField(category.name)"
+              :label="$localizeField(category.name)"
               :value="category.code"
             />
           </div>
@@ -141,14 +141,16 @@
       <!-- LOCATION FILTER -->
       <section-filter
         v-else-if="isFilterActive('LOCATION')"
-        :title="$i18n.t('filter_location_title')"
+        :title="$t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
       >
-        <r-mapbox-search v-model="locationSearch" label="Locatie" />
-        <div v-for="(location, key) in filterLocations" :key="key">
-          <r-radio v-model="filters.bbox" :value="location.bbox" :label="location.name" />
-        </div>
+        <r-mapbox-search
+          v-model="locationSearch"
+          :label="$t('filter_location')"
+          :config="mapboxSearchConfig"
+          class="max-w-2xl"
+        />
       </section-filter>
       <div class="relative">
         <r-loader v-if="isRendering" />
@@ -158,7 +160,7 @@
             <div class="w-full md:w-1/3 px-2 relative">
               <r-loader v-if="isLoading" />
               <div :class="{ invisible: isLoading }">
-                <p class="my-6">{{ $i18n.t('locations_results_n', { n: locationTotal }) }}</p>
+                <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
@@ -247,7 +249,6 @@ import {
   RMapboxSearch,
   RPagination,
   RPanel,
-  RRadio,
   RSection,
 } from 'repair-components';
 
@@ -281,7 +282,6 @@ export default {
     RMapboxSearch,
     RPagination,
     RPanel,
-    RRadio,
     RSection,
     SectionFilter,
   },
@@ -303,10 +303,6 @@ export default {
       type: Number,
       default: () => 14,
     },
-    filterLocations: {
-      type: Array,
-      default: () => [],
-    },
     locale: {
       type: String,
       default: () => null,
@@ -318,6 +314,10 @@ export default {
     showFilterButtons: {
       type: Boolean,
       default: () => true,
+    },
+    mapboxAccessToken: {
+      type: String,
+      default: () => null,
     },
   },
   data: () => ({
@@ -385,6 +385,15 @@ export default {
     isMobile() {
       return window.innerWidth < 768;
     },
+    mapboxSearchConfig() {
+      return {
+        access_token: this.mapboxAccessToken,
+        country: 'be,nl,fr,de,lu,gb,ch,at,us,ie',
+        limit: 10,
+        types: 'place,locality,postcode',
+        fuzzyMatch: false,
+      };
+    },
   },
   watch: {
     locations() {
@@ -403,10 +412,13 @@ export default {
     filter(filter) {
       this.activeFilter = filter;
     },
+    locationSearch(location) {
+      this.filters.bbox = location.bbox;
+    },
   },
   created() {
     if (this.locale) {
-      this.$i18n.setLocale(this.locale);
+      this.i18n.setLocale(this.locale);
     }
 
     this.activeFilter = this.filter;
@@ -561,8 +573,8 @@ export default {
 
       if (bbox) {
         this.map.fitBounds([
-          [bbox[0], bbox[1]],
-          [bbox[2], bbox[3]],
+          [bbox[1], bbox[0]],
+          [bbox[3], bbox[2]],
         ]);
       }
 
