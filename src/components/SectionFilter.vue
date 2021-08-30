@@ -5,9 +5,9 @@
       {{ text }}
     </p>
     <slot />
-    <r-button color="secondary" icon-after="mdiChevronRight" contrast class="mt-5" @click.native="$emit('submit')">
+    <!-- <r-button color="secondary" icon-after="mdiChevronRight" contrast class="mt-5" @click.native="$emit('submit')">
       {{ $i18n.t('filter_submit') }}
-    </r-button>
+    </r-button> -->
     <button
       class="absolute right-3 top-3 inline-block p-2 rounded-full border-0 text-huge leading-0 cursor-pointer bg-white text-black transition-colors"
       @click="$emit('close')"
@@ -18,13 +18,12 @@
 </template>
 
 <script>
-import { RButton, RIcon, RSection } from 'repair-components';
+import { RIcon, RSection } from 'repair-components';
 
 import categoryColors from '../constants/categoryColors';
 
 export default {
   components: {
-    RButton,
     RIcon,
     RSection,
   },

@@ -88,7 +88,6 @@
         v-else-if="isFilterActive('TYPE')"
         :title="$t('filter_type_title')"
         :text="$t('filter_type_text')"
-        @submit="onFilterSubmit"
         @close="toggleFilter(null)"
       >
         <r-checkbox
@@ -111,7 +110,6 @@
         v-else-if="isFilterActive('CATEGORY')"
         :title="$t('filter_category_title')"
         :text="$t('filter_category_text')"
-        @submit="onFilterSubmit"
         @close="toggleFilter(null)"
       >
         <div class="flex flex-wrap -my-2">
@@ -147,9 +145,10 @@
       >
         <r-mapbox-search
           v-model="locationSearch"
-          :label="$t('filter_location')"
+          :label="$t('filter_location_label')"
           :config="mapboxSearchConfig"
           class="max-w-2xl"
+          required
         />
       </section-filter>
       <div class="relative">
@@ -412,8 +411,17 @@ export default {
     filter(filter) {
       this.activeFilter = filter;
     },
-    locationSearch(location) {
-      this.filters.bbox = location.bbox;
+    filters: {
+      deep: true,
+      handler() {
+        this.fetchLocations();
+      },
+    },
+    locationSearch({ bbox }) {
+      this.map.fitBounds([
+        [bbox[1], bbox[0]],
+        [bbox[3], bbox[2]],
+      ]);
     },
   },
   created() {
@@ -497,14 +505,6 @@ export default {
       this.map.addLayer(this.markerClusterGroup);
       this.locationMarkers = newMarkers;
     },
-    fitBounds(location) {
-      const { bbox } = location;
-      if (bbox.length === 2) {
-        this.map.setView([bbox[0], bbox[1]], 14);
-      } else if (bbox.length === 4) {
-        this.map.fitBounds([bbox.slice(0, 2), bbox.slice(2)]);
-      }
-    },
     async fetchLocations() {
       const { filters, defaultQuery } = this;
 
@@ -564,21 +564,6 @@ export default {
     },
     clearFilter(filter, value) {
       this.filters[filter] = this.filters[filter].filter((item) => item !== value);
-      this.fetchLocations();
-    },
-    submitLocationFilter() {
-      const {
-        filters: { bbox },
-      } = this;
-
-      if (bbox) {
-        this.map.fitBounds([
-          [bbox[1], bbox[0]],
-          [bbox[3], bbox[2]],
-        ]);
-      }
-
-      this.fetchLocations();
     },
     isCurrentPage(index) {
       const indexMin = (this.currentPage - 1) * this.itemsPerPage;
@@ -592,10 +577,6 @@ export default {
       } else {
         this.openPopup(location.id);
       }
-    },
-    onFilterSubmit() {
-      this.toggleFilter(null);
-      this.fetchLocations();
     },
     scrollIntoView() {
       this.$refs.pageContainer.$el.scrollIntoView({
