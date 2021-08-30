@@ -318,6 +318,10 @@ export default {
       type: String,
       default: () => null,
     },
+    apiBaseUrl: {
+      type: String,
+      default: () => 'https://www.repairconnects.org/api/v1',
+    },
   },
   data: () => ({
     locations: [],
@@ -495,7 +499,6 @@ export default {
             this.openPopup(location.id);
           });
 
-          // marker.addTo(this.map);
           this.markerClusterGroup.addLayer(marker);
 
           newMarkers[location.id] = marker;
@@ -528,7 +531,7 @@ export default {
           data,
           meta: { total },
         },
-      } = await axios.get(`https://repmap.staging.statik.be/api/v1/locations?${query}`);
+      } = await axios.get(`${this.apiBaseUrl}/locations?${query}`);
 
       this.locationTotal = total;
       this.locations = data;
@@ -539,7 +542,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`https://repmap.staging.statik.be/api/v1/organisation_types?${query}`);
+      } = await axios.get(`${this.apiBaseUrl}/organisation_types?${query}`);
 
       this.organisationTypes = data;
     },
@@ -548,7 +551,7 @@ export default {
 
       const {
         data: { data },
-      } = await axios.get(`https://repmap.staging.statik.be/api/v1/product_categories?${query}`);
+      } = await axios.get(`${this.apiBaseUrl}/product_categories?${query}`);
 
       this.categories = data;
     },
