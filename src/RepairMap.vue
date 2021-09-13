@@ -367,12 +367,9 @@ export default {
       return categoryGroups;
     },
     showActiveFilters() {
-      const { filters, isFilterActive } = this;
+      const { filters } = this;
 
-      return (
-        isFilterActive(null) &&
-        (filters.organisation_types.length || filters.product_categories.length || filters.location)
-      );
+      return filters.organisation_types.length || filters.product_categories.length || filters.location;
     },
     defaultQuery() {
       return {

@@ -105,10 +105,10 @@ Dark variants are used for things like hover states, contrast variants are used 
 
 ## Props
 
-| Prop              | Type    | Default  | Description                                                                                                |
-| ----------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| filter            | String  | `null`   | Filter that is currently active. To be used with custom filter buttons (see above)                         |
-| defaultCenter     | Array   | `[0, 0]` | The default coordinates that the map will center to when the user _does not_ provide his browser location. |
-| locale            | String  | `null`   |                                                                                                            |
-| itemsPerPage      | Number  | `10`     |                                                                                                            |
-| showFilterButtons | Boolean | `true`   |                                                                                                            |
+| Prop              | Type    | Default               | Description                                                                                                                    |
+| ----------------- | ------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| filter            | String  | `null`                | Filter that is currently active. To be used with custom filter buttons (see above)                                             |
+| defaultCenter     | Array   | `[50.87959, 4.70093]` | The default coordinates that the map will center to when the user _does not_ provide his browser location. Defaults to Leuven. |
+| locale            | String  | `null`                |                                                                                                                                |
+| itemsPerPage      | Number  | `10`                  |                                                                                                                                |
+| showFilterButtons | Boolean | `true`                |                                                                                                                                |
