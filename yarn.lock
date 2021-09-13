@@ -7685,7 +7685,7 @@ renderkid@^2.0.4:
 
 "repair-components@https://github.com/statikbe/repair-components":
   version "0.1.0"
-  resolved "https://github.com/statikbe/repair-components#390a33c06303fd608aa6bf60aa1c84b76c87df83"
+  resolved "https://github.com/statikbe/repair-components#8f720a8644098cbfc038e6c4af94ac1ac14a66f5"
   dependencies:
     "@tiptap/core" "^2.0.0-beta.81"
     "@tiptap/extension-link" "^2.0.0-beta.18"
