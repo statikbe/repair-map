@@ -9,8 +9,11 @@
     "build": "vue-cli-service build --target lib lib/main.js",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve",
-    "yalc": "yalc link repair-components",
-    "test": "echo \"No test specified\""
+    "test": "echo \"No test specified\"",
+    "deploy": "sh deploy.sh"
+  },
+  "gitHooks": {
+    "pre-commit": "npm run build"
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",
