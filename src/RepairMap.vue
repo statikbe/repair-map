@@ -249,7 +249,7 @@ import {
   RPagination,
   RPanel,
   RSection,
-} from 'repair-components';
+} from '@statikbe/repair-components';
 
 import categoryColors from '../src/constants/categoryColors';
 

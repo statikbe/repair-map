@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { RIcon, RSection } from 'repair-components';
+import { RIcon, RSection } from '@statikbe/repair-components';
 
 import categoryColors from '../constants/categoryColors';
 

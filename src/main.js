@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { i18n } from 'repair-components';
+import { i18n } from '@statikbe/repair-components';
 
 import App from './App.vue';
 import plugin from '../lib/main';

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { RIcon } from 'repair-components';
+import { RIcon } from '@statikbe/repair-components';
 import categoryColors from '../constants/categoryColors';
 
 export default {

@@ -71,7 +71,7 @@ To customize the location title (and optional URL), you can use the `locationTit
 </template>
 
 <script>
-import { RIcon } from 'repair-components';
+import { RIcon } from '@statikbe/repair-components';
 import RepairMap from 'repair-map';
 
 export default {
