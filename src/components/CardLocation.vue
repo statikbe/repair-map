@@ -15,10 +15,11 @@
         name="locationTitle"
         v-bind="{
           location,
+          locationTitle,
           defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
         }"
       >
-        {{ $localizeField(location.name) }}
+        {{ locationTitle }}
         <r-icon name="mdiChevronRight" />
       </slot>
     </h3>
@@ -86,6 +87,9 @@ export default {
   computed: {
     categoryColors() {
       return categoryColors;
+    },
+    locationTitle() {
+      return this.$localizeField(this.location.name) || this.$t('location_name_fallback');
     },
   },
 };

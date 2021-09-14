@@ -9,4 +9,5 @@ export default {
   filter_type_title: 'Select the types of organisations of your choice',
   filter_submit: 'Update results',
   locations_results_n: '{n} search result(s) in your area',
+  location_name_fallback: 'Unnamed location',
 };

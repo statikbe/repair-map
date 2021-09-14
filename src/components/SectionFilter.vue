@@ -5,9 +5,6 @@
       {{ text }}
     </p>
     <slot />
-    <!-- <r-button color="secondary" icon-after="mdiChevronRight" contrast class="mt-5" @click.native="$emit('submit')">
-      {{ $i18n.t('filter_submit') }}
-    </r-button> -->
     <button
       class="absolute right-3 top-3 inline-block p-2 rounded-full border-0 text-huge leading-0 cursor-pointer bg-white text-black transition-colors"
       @click="$emit('close')"

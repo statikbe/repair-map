@@ -34,7 +34,75 @@
           </r-button>
         </div>
       </r-section>
-      <r-section v-if="showActiveFilters" color="secondary">
+      <!-- TYPE FILTER -->
+      <section-filter
+        v-if="isFilterActive('TYPE')"
+        :title="$t('filter_type_title')"
+        :text="$t('filter_type_text')"
+        @close="toggleFilter(null)"
+      >
+        <r-checkbox
+          v-for="(organisationType, key) in organisationTypes"
+          :key="key"
+          v-model="filters.organisation_types"
+          :value="organisationType.code"
+          :label="$localizeField(organisationType.name)"
+        >
+          <template #label>
+            <span>
+              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
+              <span>{{ $localizeField(organisationType.name) }}</span>
+            </span>
+          </template>
+        </r-checkbox>
+      </section-filter>
+      <!-- CATEGORY FILTER -->
+      <section-filter
+        v-else-if="isFilterActive('CATEGORY')"
+        :title="$t('filter_category_title')"
+        :text="$t('filter_category_text')"
+        @close="toggleFilter(null)"
+      >
+        <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
+          <div class="text-white font-bold ml-1">
+            {{ $localizeField(categoryGroup.name) }}
+          </div>
+          <r-grid class="!mt-0">
+            <r-grid-item
+              v-for="(category, key) in categoryGroup.data"
+              :key="key"
+              class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
+            >
+              <r-checkbox
+                v-model="filters.product_categories"
+                :label="$localizeField(category.name)"
+                :value="category.code"
+              />
+            </r-grid-item>
+          </r-grid>
+        </div>
+      </section-filter>
+      <!-- LOCATION FILTER -->
+      <section-filter
+        v-else-if="isFilterActive('LOCATION')"
+        :title="$t('filter_location_title')"
+        @submit="submitLocationFilter"
+        @close="toggleFilter(null)"
+      >
+        <r-mapbox-search
+          v-model="locationSearch"
+          :label="$t('filter_location_label')"
+          :config="mapboxSearchConfig"
+          class="max-w-2xl"
+          required
+        />
+      </section-filter>
+      <!-- ACTIVE FILTERS -->
+      <r-section
+        v-if="showActiveFilters"
+        color="secondary"
+        :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
+      >
         <h3 class="text-h3 text-white">Active filters:</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap align-middle -my-2 -mx-1 mb-2">
           <div class="my-2 ml-1 mr-2">Type:</div>
@@ -83,77 +151,9 @@
           </template>
         </div>
       </r-section>
-      <!-- TYPE FILTER -->
-      <section-filter
-        v-else-if="isFilterActive('TYPE')"
-        :title="$t('filter_type_title')"
-        :text="$t('filter_type_text')"
-        @close="toggleFilter(null)"
-      >
-        <r-checkbox
-          v-for="(organisationType, key) in organisationTypes"
-          :key="key"
-          v-model="filters.organisation_types"
-          :value="organisationType.code"
-          :label="$localizeField(organisationType.name)"
-        >
-          <template #label>
-            <span>
-              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
-              <span>{{ $localizeField(organisationType.name) }}</span>
-            </span>
-          </template>
-        </r-checkbox>
-      </section-filter>
-      <!-- CATEGORY FILTER -->
-      <section-filter
-        v-else-if="isFilterActive('CATEGORY')"
-        :title="$t('filter_category_title')"
-        :text="$t('filter_category_text')"
-        @close="toggleFilter(null)"
-      >
-        <div class="flex flex-wrap -my-2">
-          <div
-            v-for="categoryCode in [
-              'kitchen-and-household-item',
-              'computers-and-home-office',
-              'electronic-gadgets',
-              'home-entertainment',
-            ]"
-            :key="categoryCode"
-            class="py-2 w-100 sm:w-1/2 md:w-1/3 lg:w-1/4"
-          >
-            <div class="text-white font-bold ml-1">
-              {{ $localizeField(categoryGroups[categoryCode].name) }}
-            </div>
-            <r-checkbox
-              v-model="filters.product_categories"
-              v-for="(category, key) in categoryGroups[categoryCode].data"
-              :key="key"
-              :label="$localizeField(category.name)"
-              :value="category.code"
-            />
-          </div>
-        </div>
-      </section-filter>
-      <!-- LOCATION FILTER -->
-      <section-filter
-        v-else-if="isFilterActive('LOCATION')"
-        :title="$t('filter_location_title')"
-        @submit="submitLocationFilter"
-        @close="toggleFilter(null)"
-      >
-        <r-mapbox-search
-          v-model="locationSearch"
-          :label="$t('filter_location_label')"
-          :config="mapboxSearchConfig"
-          class="max-w-2xl"
-          required
-        />
-      </section-filter>
       <div class="relative">
         <r-loader v-if="isRendering" />
-        <r-section size="0" ref="pageContainer" :class="{ invisible: isRendering }">
+        <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
           <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
             <!-- LOCATION LIST -->
             <div class="w-full md:w-1/3 px-2 relative">
@@ -369,7 +369,7 @@ export default {
     showActiveFilters() {
       const { filters } = this;
 
-      return filters.organisation_types.length || filters.product_categories.length || filters.location;
+      return filters.organisation_types.length || filters.product_categories.length;
     },
     defaultQuery() {
       return {
