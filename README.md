@@ -3,27 +3,18 @@
 ## Installation
 
 ```
-yarn add git@github.com:statikbe/repair-map.git
+yarn add @statikbe/repair-map
 ```
 
 Integrate with Vue:
 
-In a `.vue` file:
+```javascript
+import Vue from 'vue';
+import RepairMapPlugin from 'repair-map';
 
-```vue
-<template>
-  <repair-map />
-</template>
+Vue.use(RepairMapPlugin);
 
-<script>
-import { RepairMap } from 'repair-map';
-
-export default {
-  components: {
-    RepairMap,
-  },
-};
-</script>
+new Vue({});
 ```
 
 ## Customization
@@ -34,9 +25,9 @@ To implement your own filter triggers, disable the default buttons with `:show-f
 
 ```vue
 <template>
-  <button @click="activeFilter = 'TYPE'">Type</button>
-  <button @click="activeFilter = 'CATEGORY'">Category</button>
-  <button @click="activeFilter = 'LOCATION'">Location</button>
+  <button @click="setActiveFilter('TYPE')">Type</button>
+  <button @click="setActiveFilter('CATEGORY')">Category</button>
+  <button @click="setActiveFilter('LOCATION')">Location</button>
   <repair-map :show-filter-buttons="false" :filter="activeFilter" @filter-close="activeFilter = null" />
 </template>
 
@@ -50,6 +41,11 @@ export default {
   data: () => ({
     activeFilter: null,
   }),
+  methods: {
+    setActiveFilter(filter) {
+      this.activeFilter = filter;
+    },
+  },
 };
 </script>
 ```
