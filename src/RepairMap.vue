@@ -2,8 +2,8 @@
   <div id="repair-map">
     <r-app class="relative">
       <r-section v-if="showFilterButtons">
-        <h2 class="text-h2 text-secondary">Find interesting repair locations in your region.</h2>
-        <div class="font-bold mb-3">Search by:</div>
+        <h2 class="text-h2 text-secondary">{{ $t('page_title') }}</h2>
+        <div class="font-bold mb-3">{{ $t('label_search_by') }}</div>
         <div class="flex flex-wrap -m-2">
           <r-button
             color="secondary"
@@ -11,7 +11,7 @@
             @click.native="toggleFilter('TYPE')"
             class="m-2"
           >
-            Type
+            {{ $t('filter_type_label') }}
             <r-icon :name="isFilterActive('TYPE') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
           <r-button
@@ -20,7 +20,7 @@
             @click.native="toggleFilter('CATEGORY')"
             class="m-2"
           >
-            Category
+            {{ $t('filter_category_label') }}
             <r-icon :name="isFilterActive('CATEGORY') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
           <r-button
@@ -29,7 +29,7 @@
             @click.native="toggleFilter('LOCATION')"
             class="m-2"
           >
-            Location
+            {{ $t('filter_location_label') }}
             <r-icon :name="isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
         </div>
@@ -181,15 +181,6 @@
             <!-- LEAFLET MAP -->
             <div class="w-full md:w-2/3 px-2 md:sticky top-0">
               <div class="relative">
-                <r-button
-                  color="secondary"
-                  v-show="showRefreshButton"
-                  class="absolute top-2 right-2 z-[999]"
-                  @click.native="fetchLocations"
-                >
-                  <r-icon name="mdiRefresh" />
-                  Search again in this area
-                </r-button>
                 <div class="aspect-w-1 aspect-h-1 md:aspect-none">
                   <div class="md:h-screen" ref="map"></div>
                 </div>
@@ -216,11 +207,8 @@
       </div>
       <r-section>
         <r-panel>
-          <h2 class="text-h2 text-secondary">A repair initiative missing on the map?</h2>
-          <p class="md:w-8/12 mb-6">
-            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus
-            porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
+          <h2 class="text-h2 text-secondary">{{ $t('create_new_title') }}</h2>
+          <p class="md:w-8/12 mb-6">{{ $t('create_new_text') }}</p>
           <slot name="suggestionCta">
             <r-button
               href="https://mapping.sharepair.org/location/new"
@@ -229,7 +217,7 @@
               icon-after="mdiChevronRight"
               target="_blank"
             >
-              Suggest a repair initiative that is not on the map
+              {{ $t('create_new_cta') }}
             </r-button>
           </slot>
         </r-panel>
@@ -330,7 +318,6 @@ export default {
     organisationTypes: [],
     categories: [],
     activeLocationId: null,
-    showRefreshButton: false,
     activeFilter: null,
     currentPage: 1,
     locationSearch: null,
@@ -427,7 +414,7 @@ export default {
   },
   created() {
     if (this.locale) {
-      this.i18n.setLocale(this.locale);
+      this.$i18n.setLocale(this.locale);
     }
 
     this.activeFilter = this.filter;
