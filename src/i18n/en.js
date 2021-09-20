@@ -1,8 +1,8 @@
 export default {
-  create_new_cta: 'Suggest a repair initiative that is not on the map',
+  create_new_cta: 'Suggest a new repair initiative',
   create_new_text:
-    'Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  create_new_title: 'A repair initiative missing on the map?',
+    "It's our goal to represent the diversity of players active in the domain of repair. Do you know a repair café, repair shop, makerspace or or other initiative in your region, let us know.",
+  create_new_title: 'A repair initiative missing on this map?',
   filter_category_label: 'Category',
   filter_category_text:
     "Every repair organisation has its own specialties, do's and dont's. Filter the list based on the product category for which you want to find a repair spot in your region.",
@@ -13,9 +13,10 @@ export default {
   filter_type_text:
     'Different types of organisations contribute to city repair, each one having its own approach and focus. Depending on the problem you have, you can choose to have something repaired at a professional repair shop, repair it together with someone at a repair café.',
   filter_type_title: 'Select the types of organisations of your choice',
-  filter_submit: 'Update results',
   label_search_by: 'Search by:',
-  locations_results_n: '{n} search result(s) in your area',
+  locations_results_0:
+    '0 search results found in your region. Unfortunately, there are no repair initiatives registered at your location yet. You can zoom out on the map a bit to find players that are a bit further away from you, or add a new initiative to the map yourself via the link at the bottom of this page.',
+  locations_results_n: '{n} search result(s) found in your region.',
   location_name_fallback: 'Unnamed location',
   page_title: 'Find interesting repair locations in your region.',
 };

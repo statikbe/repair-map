@@ -1,21 +1,22 @@
 export default {
-  create_new_cta: 'Suggest a repair initiative that is not on the map',
+  create_new_cta: 'Schlagen Sie eine neue Reparaturinitiative vor',
   create_new_text:
-    'Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  create_new_title: 'A repair initiative missing on the map?',
-  filter_category_label: 'Category',
+    'Unser Ziel ist es, die Vielfalt der Akteure im Reparaturbereich abzubilden. Kennst du ein Repair Café, Repair Shop, Makerspace oder eine andere Initiative in deiner Region, lass es uns wissen.',
+  create_new_title: 'Kennen Sie eine Reparaturinitiative, die hier noch nicht aufgeführt ist?',
+  filter_category_label: 'Kategorie',
   filter_category_text:
-    "Every repair organisation has its own specialties, do's and dont's. Filter the list based on the product category for which you want to find a repair spot in your region.",
-  filter_category_title: 'Select the product category',
-  filter_location_label: 'Location',
-  filter_location_title: 'Search by country or city',
-  filter_type_label: 'Type',
+    "Jede Reparaturorganisation hat ihre eigenen Spezialitäten, Do's und Dont's. Filtern Sie die Liste nach der Produktkategorie, für die Sie eine Reparaturstelle in Ihrer Region finden möchten.",
+  filter_category_title: 'Wählen Sie die Produktkategorie',
+  filter_location_label: 'Stelle',
+  filter_location_title: 'Suche nach Land oder Stadt',
+  filter_type_label: 'Typ',
   filter_type_text:
-    'Different types of organisations contribute to city repair, each one having its own approach and focus. Depending on the problem you have, you can choose to have something repaired at a professional repair shop, repair it together with someone at a repair café.',
-  filter_type_title: 'Select the types of organisations of your choice',
-  filter_submit: 'Update results',
-  label_search_by: 'Search by:',
-  locations_results_n: '{n} search result(s) in your area',
-  location_name_fallback: 'Unnamed location',
-  page_title: 'Find interesting repair locations in your region.',
+    'Verschiedene Arten von Organisationen tragen zur Erholung der Wirtschaft bei, die jeweils ihren eigenen Ansatz und Schwerpunkt haben. Je nachdem, welches Problem Sie haben, können Sie etwas in einer professionellen Werkstatt reparieren lassen oder es zusammen mit jemandem in einem Repair-Café reparieren.',
+  filter_type_title: 'Wählen Sie die Arten von Organisationen Ihrer Wahl aus',
+  label_search_by: 'Suche nach:',
+  locations_results_0:
+    '0 Suchergebnisse in Ihrer Region gefunden. Leider sind an Ihrem Standort noch keine Reparaturinitiativen registriert. Sie können die Karte etwas herauszoomen, um Spieler etwas weiter von Ihnen entfernt zu finden, oder über den Link am Ende dieser Seite selbst eine neue Initiative zur Karte hinzufügen.',
+  locations_results_n: '{n} Suchergebnisse in Ihrer Region gefunden.',
+  location_name_fallback: 'Unbenannter Ort',
+  page_title: 'Finden Sie interessante Reparaturstandorte in Ihrer Region.',
 };

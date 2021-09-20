@@ -1,21 +1,22 @@
 export default {
-  create_new_cta: 'Suggest a repair initiative that is not on the map',
+  create_new_cta: 'Stel een nieuw repair initiatief voor',
   create_new_text:
-    'Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  create_new_title: 'A repair initiative missing on the map?',
-  filter_category_label: 'Category',
+    'Het is ons doel om de grote diversiteit aan spelers in het domein van repair voor te stellen op deze kaart. Ken jij een repair café, professionele hersteller, een makerspace of een ander initiatief in je buurt? Laat het ons weten.',
+  create_new_title: 'Ken je een repair initiatief dat hier nog niet bij staat?',
+  filter_category_label: 'Categorie',
   filter_category_text:
-    "Every repair organisation has its own specialties, do's and dont's. Filter the list based on the product category for which you want to find a repair spot in your region.",
-  filter_category_title: 'Select the product category',
-  filter_location_label: 'Location',
-  filter_location_title: 'Search by country or city',
+    "Elke herstelorganisatie heeft zijn eigen specialiteiten, do's en dont's. Filter de lijst op de productcategorie waarvoor u een herstelorganisatie in uw regio wilt vinden.",
+  filter_category_title: 'Selecteer de productcategorie',
+  filter_location_label: 'Plaats',
+  filter_location_title: 'Zoek op land of stad',
   filter_type_label: 'Type',
   filter_type_text:
-    'Different types of organisations contribute to city repair, each one having its own approach and focus. Depending on the problem you have, you can choose to have something repaired at a professional repair shop, repair it together with someone at a repair café.',
-  filter_type_title: 'Select the types of organisations of your choice',
-  filter_submit: 'Update results',
-  label_search_by: 'Search by:',
-  locations_results_n: '{n} search result(s) in your area',
-  location_name_fallback: 'Unnamed location',
-  page_title: 'Find interesting repair locations in your region.',
+    'Verschillende soorten organisaties dragen bij aan herstel, elk met een eigen aanpak en focus. Afhankelijk van het probleem dat je hebt, kun je ervoor kiezen om iets te laten repareren bij een professionele reparatiewerkplaats of samen met iemand in een repair café.',
+  filter_type_title: 'Selecteer de soorten organisaties van uw keuze',
+  label_search_by: 'Zoeken op:',
+  locations_results_0:
+    '0 zoekresultaten gevonden in jouw regio. Er zijn helaas nog geen repair initiatieven geregistreerd op jouw locatie. Je kan wat uitzoomen op de kaart om spelers terug te vinden die iets verder van je verwijderd zijn, of zelf een nieuw initatief toevoegen aan de kaart via de link onderaan deze pagina.',
+  locations_results_n: '{n} zoekresultat(en) gevonden in jouw regio.',
+  location_name_fallback: 'Naamloze locatie',
+  page_title: 'Vind interessante herstelorganisaties in uw regio.',
 };
