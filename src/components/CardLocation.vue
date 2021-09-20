@@ -41,8 +41,7 @@
         <div class="flex">
           <r-icon name="mdiMapMarker" size="1.5em" class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0" />
           <div class="leading-normal truncate">
-            {{ location.address.street }} {{ location.address.number }}, {{ location.address.postal_code }}
-            {{ location.address.city }}, {{ location.address.country }}
+            {{ location.address_formatted }}
           </div>
         </div>
         <div v-for="(contacts, type) in location.contacts" :key="type" class="flex mt-1">

@@ -83171,8 +83171,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var SectionFilter = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"32a57ce0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CardLocation.vue?vue&type=template&id=6106062f&
-var CardLocationvue_type_template_id_6106062f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"p-5 rounded-3xl bg-gray-100 transition-colors mb-3 border-4 border-solid font-base",class:{
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"32a57ce0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CardLocation.vue?vue&type=template&id=efb17c30&
+var CardLocationvue_type_template_id_efb17c30_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"p-5 rounded-3xl bg-gray-100 transition-colors mb-3 border-4 border-solid font-base",class:{
     'border-primary ': _vm.isActive,
     'border-gray-100': !_vm.isActive,
     'hover:border-gray-200 hover:bg-gray-200 cursor-pointer': !_vm.isActive && !_vm.extended,
@@ -83181,18 +83181,17 @@ var CardLocationvue_type_template_id_6106062f_render = function () {var _vm=this
         location: _vm.location,
         locationTitle: _vm.locationTitle,
         defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
-      })],2),(_vm.location.organisation_type)?_c('div',{staticClass:"font-semibold text-small"},[_c('r-icon',{staticClass:"mr-1",attrs:{"name":"mdiMapMarker","fill":_vm.categoryColors[_vm.location.organisation_type.code]}}),_c('span',[_vm._v(_vm._s(_vm.$localizeField(_vm.location.organisation_type.name)))])],1):_vm._e(),(_vm.location.product_categories)?_c('div',{staticClass:"mt-4"},[_c('div',{staticClass:"flex flex-wrap -m-1"},_vm._l((_vm.location.product_categories),function(category){return _c('span',{key:category.id,staticClass:"m-1 px-2 bg-white text-tiny text-secondary font-bold rounded-md"},[_vm._v(" "+_vm._s(_vm.$localizeField(category.name))+" ")])}),0),(_vm.extended)?_c('div',{staticClass:"text-tiny leading-none mt-3"},[_c('div',{staticClass:"flex"},[_c('r-icon',{staticClass:"leading-none text-primary mr-1 flex-shrink-0 flex-grow-0",attrs:{"name":"mdiMapMarker","size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},[_vm._v(" "+_vm._s(_vm.location.address.street)+" "+_vm._s(_vm.location.address.number)+", "+_vm._s(_vm.location.address.postal_code)+" "+_vm._s(_vm.location.address.city)+", "+_vm._s(_vm.location.address.country)+" ")])],1),_vm._l((_vm.location.contacts),function(contacts,type){return _c('div',{key:type,staticClass:"flex mt-1"},[_c('r-icon',{staticClass:"leading-none text-primary mr-1 flex-shrink-0 flex-grow-0",attrs:{"name":("contact_" + type),"size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},_vm._l((contacts),function(contact,key){return _c('div',{key:key},[_c('a',{attrs:{"href":contact.value,"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(_vm._s(contact.name))])])}),0)],1)})],2):_vm._e()]):_vm._e()])}
-var CardLocationvue_type_template_id_6106062f_staticRenderFns = []
+      })],2),(_vm.location.organisation_type)?_c('div',{staticClass:"font-semibold text-small"},[_c('r-icon',{staticClass:"mr-1",attrs:{"name":"mdiMapMarker","fill":_vm.categoryColors[_vm.location.organisation_type.code]}}),_c('span',[_vm._v(_vm._s(_vm.$localizeField(_vm.location.organisation_type.name)))])],1):_vm._e(),(_vm.location.product_categories)?_c('div',{staticClass:"mt-4"},[_c('div',{staticClass:"flex flex-wrap -m-1"},_vm._l((_vm.location.product_categories),function(category){return _c('span',{key:category.id,staticClass:"m-1 px-2 bg-white text-tiny text-secondary font-bold rounded-md"},[_vm._v(" "+_vm._s(_vm.$localizeField(category.name))+" ")])}),0),(_vm.extended)?_c('div',{staticClass:"text-tiny leading-none mt-3"},[_c('div',{staticClass:"flex"},[_c('r-icon',{staticClass:"leading-none text-primary mr-1 flex-shrink-0 flex-grow-0",attrs:{"name":"mdiMapMarker","size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},[_vm._v(" "+_vm._s(_vm.location.address_formatted)+" ")])],1),_vm._l((_vm.location.contacts),function(contacts,type){return _c('div',{key:type,staticClass:"flex mt-1"},[_c('r-icon',{staticClass:"leading-none text-primary mr-1 flex-shrink-0 flex-grow-0",attrs:{"name":("contact_" + type),"size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},_vm._l((contacts),function(contact,key){return _c('div',{key:key},[_c('a',{attrs:{"href":contact.value,"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(_vm._s(contact.name))])])}),0)],1)})],2):_vm._e()]):_vm._e()])}
+var CardLocationvue_type_template_id_efb17c30_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CardLocation.vue?vue&type=template&id=6106062f&
+// CONCATENATED MODULE: ./src/components/CardLocation.vue?vue&type=template&id=efb17c30&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CardLocation.vue?vue&type=script&lang=js&
 
-//
 //
 //
 //
@@ -83303,8 +83302,8 @@ var es_function_name = __webpack_require__("b0c0");
 
 var CardLocation_component = normalizeComponent(
   components_CardLocationvue_type_script_lang_js_,
-  CardLocationvue_type_template_id_6106062f_render,
-  CardLocationvue_type_template_id_6106062f_staticRenderFns,
+  CardLocationvue_type_template_id_efb17c30_render,
+  CardLocationvue_type_template_id_efb17c30_staticRenderFns,
   false,
   null,
   null,

@@ -13,7 +13,7 @@
     "deploy": "sh deploy.sh"
   },
   "gitHooks": {
-    "pre-commit": "npm run build",
+    "pre-commit": "npm run build && git add dist",
     "pre-push": "npx np --no-2fa"
   },
   "dependencies": {
