@@ -413,13 +413,13 @@ export default {
     },
   },
   created() {
-    if (this.locale) {
-      this.$i18n.setLocale(this.locale);
-    }
-
     this.activeFilter = this.filter;
   },
   async mounted() {
+    if (this.locale && this.$i18n) {
+      this.$i18n.setLocale(this.locale);
+    }
+
     this.renderMap();
     await this.askLocation();
     this.isRendering = false;
