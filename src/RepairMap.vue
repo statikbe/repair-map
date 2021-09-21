@@ -417,7 +417,7 @@ export default {
   },
   async mounted() {
     if (this.locale && this.$i18n) {
-      this.$i18n.setLocale(this.locale);
+      this.$i18n.locale = this.locale;
     }
 
     this.renderMap();

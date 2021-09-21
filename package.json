@@ -1,6 +1,6 @@
 {
   "name": "@statikbe/repair-map",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "main": "./dist/repair-map.umd.js",
   "files": [
     "**"
