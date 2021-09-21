@@ -2,6 +2,9 @@ const { tailwindConfig } = require('@statikbe/repair-components');
 
 module.exports = {
   presets: [tailwindConfig],
+  corePlugins: {
+    preflight: false,
+  },
   important: '#repair-map',
   mode: 'jit',
   purge: {
