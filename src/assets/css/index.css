@@ -12,3 +12,8 @@
 .leaflet-popup-tip-container {
   display: none;
 }
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  text-decoration: none;
+}
