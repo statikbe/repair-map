@@ -1,19 +1,19 @@
-.leaflet-popup-content {
+#repair-map .leaflet-popup-content {
   margin: 0;
   line-height: initial;
 }
 
-.leaflet-popup-content-wrapper {
+#repair-map .leaflet-popup-content-wrapper {
   background: none;
   color: initial;
   box-shadow: none;
 }
 
-.leaflet-popup-tip-container {
+#repair-map .leaflet-popup-tip-container {
   display: none;
 }
 
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
+#repair-map .leaflet-control-zoom-in,
+#repair-map .leaflet-control-zoom-out {
   text-decoration: none;
 }

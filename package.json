@@ -12,9 +12,6 @@
     "test": "echo \"No test specified\"",
     "deploy": "sh deploy.sh"
   },
-  "gitHooks": {
-    "pre-commit": "npm run build && git add dist"
-  },
   "dependencies": {
     "@mdi/js": "^5.9.55",
     "@statikbe/repair-components": "^0.4.0",

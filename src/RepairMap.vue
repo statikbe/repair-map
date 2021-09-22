@@ -211,7 +211,7 @@
           <p class="md:w-8/12 mb-6">{{ $t('create_new_text') }}</p>
           <slot name="suggestionCta">
             <r-button
-              href="https://mapping.sharepair.org/location/new"
+              href="https://mapping.sharepair.org/location/create"
               link
               color="secondary"
               icon-after="mdiChevronRight"
@@ -257,6 +257,8 @@ const qsOptions = {
   arrayFormat: 'comma',
 };
 
+const defaultCenter = [50.87959, 4.70093];
+
 export default {
   name: 'repair-map',
   components: {
@@ -284,7 +286,7 @@ export default {
     },
     defaultCenter: {
       type: Array,
-      default: () => [50.87959, 4.70093],
+      default: () => defaultCenter,
     },
     defaultZoom: {
       type: Number,
@@ -421,7 +423,15 @@ export default {
     }
 
     this.renderMap();
-    await this.askLocation();
+
+    if (
+      this.defaultCenter[0] === defaultCenter[0] &&
+      this.defaultCenter[1] === defaultCenter[1] &&
+      navigator.geolocation
+    ) {
+      await this.askLocation();
+    }
+
     this.isRendering = false;
     this.fetchLocations();
     this.fetchOrganisationTypes();
