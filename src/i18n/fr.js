@@ -7,8 +7,9 @@ export default {
   filter_category_text:
     'Chaque organisation de réparation a ses propres spécialités, choses à faire et à ne pas faire. Filtrez la liste en fonction de la catégorie de produits pour laquelle vous souhaitez trouver un point de réparation dans votre région.',
   filter_category_title: 'Sélectionnez la catégorie de produit',
-  filter_location_label: 'Entrez votre code postal ou votre ville',
-  filter_location_placeholder: 'ex. 75015 ou Paris',
+  filter_location_label: 'Endroit',
+  filter_location_search_label: 'Entrez votre code postal ou votre ville',
+  filter_location_search_placeholder: 'ex. 75015 ou Paris',
   filter_location_title: 'Cherchez des organisations dans votre région',
   filter_type_label: 'Type',
   filter_type_text:

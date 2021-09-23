@@ -7,8 +7,9 @@ export default {
   filter_category_text:
     "Jede Reparaturorganisation hat ihre eigenen Spezialitäten, Do's und Dont's. Filtern Sie die Liste nach der Produktkategorie, für die Sie eine Reparaturstelle in Ihrer Region finden möchten.",
   filter_category_title: 'Wählen Sie die Produktkategorie',
-  filter_location_label: 'Geben Sie die Postleitzahl oder den Ort ein',
-  filter_location_placeholder: 'z.B.: 8004 oder Zürich',
+  filter_location_label: 'Stelle',
+  filter_location_search_label: 'Geben Sie die Postleitzahl oder den Ort ein',
+  filter_location_search_placeholder: 'z.B.: 8004 oder Zürich',
   filter_location_title: 'Suchen Sie nach Organisationen in Ihrer Region',
   filter_type_label: 'Typ',
   filter_type_text:

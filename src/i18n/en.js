@@ -7,8 +7,9 @@ export default {
   filter_category_text:
     "Every repair organisation has its own specialties, do's and dont's. Filter the list based on the product category for which you want to find a repair spot in your region.",
   filter_category_title: 'Select the product category',
-  filter_location_label: 'Enter your zip code or city',
-  filter_location_placeholder: 'e.g. E16 1XB or London',
+  filter_location_label: 'Location',
+  filter_location_search_label: 'Enter your zip code or city',
+  filter_location_search_placeholder: 'e.g. E16 1XB or London',
   filter_location_title: 'Search for organisations in your region',
   filter_type_label: 'Type',
   filter_type_text:

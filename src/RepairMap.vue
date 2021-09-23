@@ -91,8 +91,8 @@
       >
         <r-mapbox-search
           v-model="locationSearch"
-          :label="$t('filter_location_label')"
-          :placeholder="$t('filter_location_placeholder')"
+          :label="$t('filter_location_search_label')"
+          :placeholder="$t('filter_location_search_placeholder')"
           :config="mapboxSearchConfig"
           class="max-w-2xl"
           required
