@@ -114,4 +114,6 @@ Dark variants are used for hover states, contrast variants are used for button t
 
 ## Publishing on NPM
 
+First, run `yarn build` to build this package as a library.
+
 To publish this package to the NPM registry, make sure you are logged in with statikbe credentials (see 1pw) using `npm login`, then run `npx np --no-2fa`. Respect the [semantic versioning](https://semver.org/) guidelines when doing so!
