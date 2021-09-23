@@ -11,10 +11,11 @@ Integrate with Vue:
 ```javascript
 import Vue from 'vue';
 import RepairMapPlugin from 'repair-map';
+import { i18n } from 'repair-map';
 
 Vue.use(RepairMapPlugin);
 
-new Vue({});
+new Vue({ i18n });
 ```
 
 ## Customization
@@ -52,7 +53,7 @@ export default {
 
 ### Location title
 
-To customize the location title (and optional URL), you can use the `locationTitle` slot, like so:
+To customize the location title (and optionally, the URL), you can use the `locationTitle` slot, like so:
 
 ```vue
 <template>
@@ -97,14 +98,20 @@ To change the theme to match your own brand, simply change these CSS variables:
 }
 ```
 
-Dark variants are used for things like hover states, contrast variants are used for things like button text.
+Dark variants are used for hover states, contrast variants are used for button text etc.
 
 ## Props
 
-| Prop              | Type    | Default               | Description                                                                                                                    |
-| ----------------- | ------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| filter            | String  | `null`                | Filter that is currently active. To be used with custom filter buttons (see above)                                             |
-| defaultCenter     | Array   | `[50.87959, 4.70093]` | The default coordinates that the map will center to when the user _does not_ provide his browser location. Defaults to Leuven. |
-| locale            | String  | `null`                |                                                                                                                                |
-| itemsPerPage      | Number  | `10`                  |                                                                                                                                |
-| showFilterButtons | Boolean | `true`                |                                                                                                                                |
+| Prop              | Type    | Default               | Description                                                                                                                                               |
+| ----------------- | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| filter            | String  | `null`                | Filter that is currently active. To be used with custom filter buttons (see above)                                                                        |
+| defaultCenter     | Array   | `[50.87959, 4.70093]` | The default coordinates that the map will center to on load. Defaults to Leuven. If this prop is provided, the user location will not be asked.           |
+| defaultZoom       | Number  | `14`                  | The default zoom level of the map.                                                                                                                        |
+| locale            | String  | `null`                | The preferred language of the interface. Currently only `en`, `fr`, `de` and `nl` are supported.                                                          |
+| itemsPerPage      | Number  | `10`                  | Number of initiative results per page.                                                                                                                    |
+| showFilterButtons | Boolean | `true`                | Set to false to implement your own filter buttons.                                                                                                        |
+| mapboxAccessToken | String  | `null`                | Providing a [Mapbox access token](https://docs.mapbox.com/help/getting-started/access-tokens/) will enable searching for locations to center your map to. |
+
+## Publishing on NPM
+
+To publish this package to the NPM registry, make sure you are logged in with statikbe credentials (see 1pw) using `npm login`, then run `npx np --no-2fa`. Respect the [semantic versioning](https://semver.org/) guidelines when doing so!
