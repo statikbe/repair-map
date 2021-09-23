@@ -7,8 +7,9 @@ export default {
   filter_category_text:
     "Elke herstelorganisatie heeft zijn eigen specialiteiten, do's en dont's. Filter de lijst op de productcategorie waarvoor u een herstelorganisatie in uw regio wilt vinden.",
   filter_category_title: 'Selecteer de productcategorie',
-  filter_location_label: 'Plaats',
-  filter_location_title: 'Zoek op land of stad',
+  filter_location_label: 'Geef je postcode of gemeente in',
+  filter_location_placeholder: 'bv. 3000 of Leuven',
+  filter_location_title: 'Zoek naar locaties in jouw buurt',
   filter_type_label: 'Type',
   filter_type_text:
     'Verschillende soorten organisaties dragen bij aan herstel, elk met een eigen aanpak en focus. Afhankelijk van het probleem dat je hebt, kun je ervoor kiezen om iets te laten repareren bij een professionele reparatiewerkplaats of samen met iemand in een repair café.',
