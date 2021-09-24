@@ -1017,9 +1017,9 @@
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
 "@statikbe/repair-components@^0.4.0":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@statikbe/repair-components/-/repair-components-0.4.7.tgz#5cb846e06f1104594d2f79c608e06616ca7bd4f0"
-  integrity sha512-sNl9n3nAEg6Ag5vVRrsoVqsL4rpkbROnNkhkFpq0lwsmgqswFyOxsoUt0qsIJ+raJ7z0B9oZ7/HpDApqQZDPew==
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@statikbe/repair-components/-/repair-components-0.4.8.tgz#c9ba44d56b6e89c2178fbb822b3320e4bd6b8b05"
+  integrity sha512-rKXRLRrvt8zULfwxNuE35Li0bAm3gjSAkqgyQ16L1qdKqPU+fLp4R+2bQk3ZO/15L+jSXOdfUSPbEWOABvaX0w==
   dependencies:
     "@tiptap/core" "^2.0.0-beta.81"
     "@tiptap/extension-link" "^2.0.0-beta.18"
