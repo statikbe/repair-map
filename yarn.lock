@@ -1017,9 +1017,9 @@
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
 "@statikbe/repair-components@^0.4.0":
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/@statikbe/repair-components/-/repair-components-0.4.5.tgz#ad823df069c751cc97ddb476f42ae0b67d1f848d"
-  integrity sha512-oulHEXFq4zy9MoqAHnQ+kEi/UYUXDmcryLOG5524nZMP8Aly4biC4IaWsqYZ3aGS0gvqxXz3jwc4qREIH3eBYg==
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/@statikbe/repair-components/-/repair-components-0.4.6.tgz#9795d5f21bb6f57d710b80e87f0690ba6cd78552"
+  integrity sha512-A6LbyqOKwRAKyFHGbYsD5U8Wyqy1PRv5WMS3GVLxpRICbsvzdC26+zzkfQ9adZJHSlbseiB/iFF8rVxQHORQng==
   dependencies:
     "@tiptap/core" "^2.0.0-beta.81"
     "@tiptap/extension-link" "^2.0.0-beta.18"
@@ -1032,6 +1032,7 @@
     mdi-es "^6.1.96"
     v-tooltip "^2.1.3"
     vue "^2.6.11"
+    vue-cookies "^1.7.4"
     vue-i18n "^8.25.0"
     vue-js-modal "^2.0.0-rc.6"
     vue-multiselect "^2.1.6"
@@ -9024,6 +9025,11 @@ vue-cli-plugin-tailwind@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/vue-cli-plugin-tailwind/-/vue-cli-plugin-tailwind-2.0.6.tgz#c68d5f00aaae49896cf88d5dd341bcbdc900ee0a"
   integrity sha512-HgR3gSmlnypNU+hlqoiRBJsnShXSoig4XTFNZiPlyVZBtkDZdfD884wTxz+GDJHzWLPtv4wnAyuO95UCsPbyoQ==
+
+vue-cookies@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/vue-cookies/-/vue-cookies-1.7.4.tgz#d241d0a0431da0795837651d10b4d73e7c8d3e8d"
+  integrity sha512-mOS5Btr8V9zvAtkmQ7/TfqJIropOx7etDAgBywPCmHjvfJl2gFbH2XgoMghleLoyyMTi5eaJss0mPN7arMoslA==
 
 vue-eslint-parser@^7.0.0:
   version "7.6.0"
