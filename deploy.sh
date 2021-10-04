@@ -4,7 +4,7 @@
 set -e
 
 # build
-npx vue-cli-service build 
+npx vue-cli-service build --mode github
 
 # navigate into the build output directory
 cd dist

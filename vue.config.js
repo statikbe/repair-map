@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/repair-map/',
+  publicPath: process.env.VUE_APP_BASE_ROUTE || '/',
   // configureWebpack: {
   //   output: {
   //     libraryExport: 'default'
