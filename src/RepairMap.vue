@@ -24,6 +24,7 @@
             <r-icon :name="isFilterActive('CATEGORY') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
           <r-button
+            v-if="mapboxSearchConfig"
             color="secondary"
             :class="{ 'bg-secondary-dark': isFilterActive('LOCATION') }"
             @click.native="toggleFilter('LOCATION')"
