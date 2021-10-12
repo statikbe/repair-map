@@ -1,6 +1,23 @@
 # Repair map
 
-## Installation
+## Implementation as an embed (iframe)
+
+The easiest, but least configurable way to implement the Repair map component, is to use an embed.
+
+Simply create an `iframe` and pass the embed URL with optional query parameters:
+
+```
+<iframe src="https://mapping.sharepair.org/embed?lang=de&mapboxAccessToken=xxx">
+```
+
+Passing the `lang` parameter is recommended to display the component in your webpage's language (will default to English)
+You can also provide your own `mapboxAccessToken` parameter to enable the location filter.
+
+## Implementation as a Vue component
+
+The recommended way to implement the Repair map component, allows the most flexibility and customizability.
+
+### Installation
 
 ```
 yarn add @statikbe/repair-map
@@ -18,9 +35,9 @@ Vue.use(RepairMapPlugin);
 new Vue({ i18n });
 ```
 
-## Customization
+### Customization
 
-### Filter triggers
+#### Filter triggers
 
 To implement your own filter triggers, disable the default buttons with `:show-filter-buttons="false"`, then pass the `filter` prop:
 
@@ -51,7 +68,7 @@ export default {
 </script>
 ```
 
-### Location title
+#### Location title
 
 To customize the location title (and optionally, the URL), you can use the `locationTitle` slot, like so:
 
@@ -82,7 +99,7 @@ export default {
 
 This will be applied to the list items as well as the Leaflet popups.
 
-### Theme
+#### Theme
 
 To change the theme to match your own brand, simply change these CSS variables:
 
@@ -100,7 +117,7 @@ To change the theme to match your own brand, simply change these CSS variables:
 
 Dark variants are used for hover states, contrast variants are used for button text etc.
 
-## Props
+### Props
 
 | Prop              | Type    | Default               | Description                                                                                                                                               |
 | ----------------- | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -112,7 +129,9 @@ Dark variants are used for hover states, contrast variants are used for button t
 | showFilterButtons | Boolean | `true`                | Set to false to implement your own filter buttons.                                                                                                        |
 | mapboxAccessToken | String  | `null`                | Providing a [Mapbox access token](https://docs.mapbox.com/help/getting-started/access-tokens/) will enable searching for locations to center your map to. |
 
-## Publishing on NPM
+## For developers
+
+### Publishing to NPM
 
 First, run `yarn build` to build this package as a library.
 

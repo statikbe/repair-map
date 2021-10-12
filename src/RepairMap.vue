@@ -84,7 +84,7 @@
       </section-filter>
       <!-- LOCATION FILTER -->
       <section-filter
-        v-else-if="isFilterActive('LOCATION')"
+        v-else-if="isFilterActive('LOCATION') && mapboxSearchConfig"
         :title="$t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
@@ -376,13 +376,16 @@ export default {
       return window.innerWidth < 768;
     },
     mapboxSearchConfig() {
-      return {
-        access_token: this.mapboxAccessToken || qs.parse(location.search.substr(1)).mapboxAccessToken,
-        country: 'be,nl,fr,de,lu,gb,ch,at,us,ie',
-        limit: 10,
-        types: 'place,locality,postcode',
-        fuzzyMatch: false,
-      };
+      const access_token = this.mapboxAccessToken || qs.parse(location.search.substr(1)).mapboxAccessToken;
+      return access_token
+        ? {
+            access_token,
+            country: 'be,nl,fr,de,lu,gb,ch,at,us,ie',
+            limit: 10,
+            types: 'place,locality,postcode',
+            fuzzyMatch: false,
+          }
+        : null;
     },
   },
   watch: {
