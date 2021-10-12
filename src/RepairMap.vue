@@ -377,7 +377,7 @@ export default {
     },
     mapboxSearchConfig() {
       return {
-        access_token: this.mapboxAccessToken,
+        access_token: this.mapboxAccessToken || qs.parse(location.search.substr(1)).mapboxAccessToken,
         country: 'be,nl,fr,de,lu,gb,ch,at,us,ie',
         limit: 10,
         types: 'place,locality,postcode',
