@@ -255,6 +255,8 @@ import 'leaflet.markercluster';
 
 import markerImage from './assets/img/markers/default.png';
 
+import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
+
 const qsOptions = {
   arrayFormat: 'comma',
 };
@@ -424,7 +426,8 @@ export default {
   },
   async mounted() {
     if (this.$i18n) {
-      this.$i18n.locale = this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang;
+      this.$i18n.locale =
+        this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
     }
 
     this.renderMap();
@@ -600,8 +603,6 @@ export default {
   },
 };
 </script>
-
-<script src="iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
 
 <style src="leaflet/dist/leaflet.css"></style>
 <style src="leaflet.markercluster/dist/MarkerCluster.css"></style>
