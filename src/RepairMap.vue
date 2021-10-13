@@ -601,6 +601,8 @@ export default {
 };
 </script>
 
+<script src="iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
+
 <style src="leaflet/dist/leaflet.css"></style>
 <style src="leaflet.markercluster/dist/MarkerCluster.css"></style>
 <style src="leaflet.markercluster/dist/MarkerCluster.Default.css"></style>
