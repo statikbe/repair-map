@@ -2,12 +2,18 @@
 
 ## Implementation as an embed (iframe)
 
-The easiest, but least configurable way to implement the Repair map component, is to use an embed.
+The easiest, but least configurable way to implement the Repair map component, is to use an embedded iframe. It's recommended to include [iframe-resizer](https://github.com/davidjbradshaw/iframe-resizer) in your application to handle proper resizing of the component.
+
+Note: the `iframe` itself should span the entire the viewport width; so try not to put in inside a container.
 
 Simply create an `iframe` and pass the embed URL with optional query parameters:
 
 ```
-<iframe src="https://mapping.sharepair.org/embed?lang=de&mapboxAccessToken=xxx">
+<iframe id="repair-map" src="https://mapping.sharepair.org/embed?lang=de&mapboxAccessToken=xxx" style="width: 1px; min-width: 100%;"></iframe>
+<script src="https://unpkg.com/iframe-resizer@4.3.2/js/iframeResizer.min.js"></script>
+<script>
+  iFrameResize({    }, '#repair-map');
+</script>
 ```
 
 Passing the `lang` parameter is recommended to display the component in your webpage's language (will default to English)
