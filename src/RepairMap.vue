@@ -184,7 +184,7 @@
             <div class="w-full md:w-2/3 px-2 md:sticky top-0">
               <div class="relative">
                 <div class="aspect-w-1 aspect-h-1 md:aspect-none">
-                  <div class="md:h-screen" ref="map"></div>
+                  <div :class="embed ? 'md:h-full' : 'md:h-screen'" ref="map"></div>
                 </div>
               </div>
               <div v-show="false">
@@ -315,6 +315,10 @@ export default {
     apiBaseUrl: {
       type: String,
       default: () => 'https://www.repairconnects.org/api/v1',
+    },
+    embed: {
+      type: Boolean,
+      default: () => false,
     },
   },
   data: () => ({

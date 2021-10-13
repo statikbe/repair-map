@@ -1,5 +1,5 @@
 <template>
-  <repair-map />
+  <repair-map embed />
 </template>
 
 <script>

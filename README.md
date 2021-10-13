@@ -9,7 +9,7 @@ Note: the `iframe` itself should span the entire the viewport width; so try not 
 Create an `iframe` and pass the embed URL with optional query parameters:
 
 ```
-<iframe id="repair-map" src="https://mapping.sharepair.org/embed?lang=de&mapboxAccessToken=xxx" style="width: 1px; min-width: 100%;"></iframe>
+<iframe id="repair-map" src="https://mapping.sharepair.org/embed?lang=de&mapboxAccessToken=xxx" frameborder="0" style="width: 1px; min-width: 100%;"></iframe>
 <script src="https://unpkg.com/iframe-resizer@4.3.2/js/iframeResizer.min.js"></script>
 <script>
   iFrameResize({}, '#repair-map');
