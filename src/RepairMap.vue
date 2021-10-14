@@ -183,8 +183,12 @@
             <!-- LEAFLET MAP -->
             <div class="w-full md:w-2/3 px-2 md:sticky top-0">
               <div class="relative">
-                <div class="aspect-w-1 aspect-h-1 md:aspect-none">
-                  <div :class="embed ? 'md:h-full' : 'md:h-screen'" ref="map"></div>
+                <div class="aspect-w-1 aspect-h-1" :class="{ 'md:aspect-none': !embed }">
+                  <div
+                    :class="{ 'md:h-screen': !embed }"
+                    :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
+                    ref="map"
+                  ></div>
                 </div>
               </div>
               <div v-show="false">
@@ -262,6 +266,9 @@ const qsOptions = {
 };
 
 const defaultCenter = [50.87959, 4.70093];
+
+const windowHeight = window.innerHeight;
+const windowWidth = window.innerWidth;
 
 export default {
   name: 'repair-map',
@@ -393,6 +400,12 @@ export default {
             fuzzyMatch: false,
           }
         : null;
+    },
+    windowHeight() {
+      return windowHeight;
+    },
+    windowWidth() {
+      return windowWidth;
     },
   },
   watch: {
