@@ -217,7 +217,7 @@
           <p class="md:w-8/12 mb-6">{{ $t('create_new_text') }}</p>
           <slot name="suggestionCta">
             <r-button
-              href="https://mapping.sharepair.org/location/create"
+              :href="`https://mapping.sharepair.org/${$i18n.locale}/location/create`"
               link
               color="secondary"
               icon-after="mdiChevronRight"
