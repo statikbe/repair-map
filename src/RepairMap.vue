@@ -154,12 +154,12 @@
         </div>
       </r-section>
       <div class="relative">
-        <r-loader v-if="isRendering" />
+        <!-- <r-loader v-if="isRendering" /> -->
         <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
           <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
             <!-- LOCATION LIST -->
-            <div class="w-full md:w-1/3 px-2 relative">
-              <r-loader v-if="isLoading" />
+            <div v-show="!isMobile" class="w-full md:w-1/3 px-2 relative">
+              <r-loader v-show="isLoading" />
               <div :class="{ invisible: isLoading }">
                 <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
@@ -172,7 +172,19 @@
                       @click.native="onLocationClick(location)"
                     >
                       <template #locationTitle="slotProps">
-                        <slot name="locationTitle" v-bind="slotProps" />
+                        <slot name="locationTitle" v-bind="slotProps">
+                          <a
+                            v-if="embed"
+                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
+                              $localizeField(location.slug) || location.id
+                            }`"
+                            :class="slotProps.defaultClass"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {{ $localizeField(location.name) || $t('location_name_fallback') }}
+                          </a>
+                        </slot>
                       </template>
                     </card-location>
                   </template>
@@ -195,7 +207,19 @@
                 <div ref="popup" class="w-[350px] relative">
                   <card-location v-if="activeLocation" :location="activeLocation" extended>
                     <template #locationTitle="slotProps">
-                      <slot name="locationTitle" v-bind="slotProps" />
+                      <slot name="locationTitle" v-bind="slotProps">
+                        <a
+                          v-if="embed"
+                          :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
+                            $localizeField(activeLocation.slug) || activeLocation.id
+                          }`"
+                          :class="slotProps.defaultClass"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {{ $localizeField(activeLocation.name) || $t('location_name_fallback') }}
+                        </a>
+                      </slot>
                     </template>
                   </card-location>
                   <button
