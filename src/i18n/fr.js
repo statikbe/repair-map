@@ -1,4 +1,5 @@
 export default {
+  card_location_other: 'autres',
   create_new_cta: 'Suggérer une nouvelle initiative de réparation',
   create_new_text:
     'Notre objectif est de présenter la grande diversité des acteurs du domaine de la réparation sur cette carte. Connaissez-vous un repair café, un réparateur professionnel, un makerspace ou une autre initiative dans votre région ? Faites le nous savoir.',

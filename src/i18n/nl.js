@@ -1,4 +1,5 @@
 export default {
+  card_location_other: 'overig',
   create_new_cta: 'Stel een nieuw repair initiatief voor',
   create_new_text:
     'Het is ons doel om de grote diversiteit aan spelers in het domein van repair voor te stellen op deze kaart. Ken jij een Repair Café, professionele hersteller, een makerspace of een ander initiatief in je buurt? Laat het ons weten.',

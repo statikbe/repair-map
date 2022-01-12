@@ -1,4 +1,5 @@
 export default {
+  card_location_other: 'weitere',
   create_new_cta: 'Schlagen Sie eine neue Reparaturinitiative vor',
   create_new_text:
     'Unser Ziel ist es, die Vielfalt der Akteure im Reparaturbereich abzubilden. Kennst du ein Repair Café, Repair Shop, Makerspace oder eine andere Initiative in deiner Region, lass es uns wissen.',

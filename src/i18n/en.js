@@ -1,4 +1,5 @@
 export default {
+  card_location_other: 'others',
   create_new_cta: 'Suggest a new repair initiative',
   create_new_text:
     "It's our goal to represent the diversity of players active in the domain of repair. Do you know a repair café, repair shop, makerspace or other initiative in your region, let us know.",

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-5 rounded-3xl bg-gray-100 transition-colors mb-3 border-4 border-solid font-base"
+    class="p-5 mb-3 transition-colors bg-gray-100 border-4 border-solid rounded-3xl font-base"
     :class="{
       'border-primary ': isActive,
       'border-gray-100': !isActive,
@@ -10,7 +10,7 @@
     tabindex="0"
     @keydown.enter="$emit('click')"
   >
-    <h3 class="text-h3 text-primary inline-flex items-center">
+    <h3 class="inline-flex items-center text-h3 text-primary">
       <slot
         name="locationTitle"
         v-bind="{
@@ -30,16 +30,21 @@
     <div v-if="location.product_categories" class="mt-4">
       <div class="flex flex-wrap -m-1">
         <span
-          v-for="category in location.product_categories"
+          v-for="category in location.product_categories.slice(0, 4)"
           :key="category.id"
-          class="m-1 px-2 bg-white text-tiny text-secondary font-bold rounded-md"
+          class="px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"
         >
           {{ $localizeField(category.name) }}
         </span>
+        <span
+          v-if="location.product_categories.length > 4"
+          class="px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"
+          >+ {{ location.product_categories.length - 4 }} {{ $t('card_location_other') }}</span
+        >
       </div>
-      <div v-if="extended" class="text-tiny leading-none mt-3">
+      <div v-if="extended" class="mt-3 leading-none text-tiny">
         <div class="flex">
-          <r-icon name="mdiMapMarker" size="1.5em" class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0" />
+          <r-icon name="mdiMapMarker" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
           <div class="leading-normal truncate">
             {{ location.address_formatted }}
           </div>
@@ -48,7 +53,7 @@
           <r-icon
             :name="`contact_${type}`"
             size="1.5em"
-            class="leading-none text-primary mr-1 flex-shrink-0 flex-grow-0"
+            class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary"
           />
           <div class="leading-normal truncate">
             <div v-for="(contact, key) in contacts" :key="key">
