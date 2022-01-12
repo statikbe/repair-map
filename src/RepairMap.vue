@@ -3,7 +3,7 @@
     <r-app class="relative">
       <r-section v-if="showFilterButtons">
         <h2 class="text-h2 text-secondary">{{ $t('page_title') }}</h2>
-        <div class="font-bold mb-3">{{ $t('label_search_by') }}</div>
+        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
         <div class="flex flex-wrap -m-2">
           <r-button
             color="secondary"
@@ -65,8 +65,13 @@
         @close="toggleFilter(null)"
       >
         <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
-          <div class="text-white font-bold ml-1">
-            {{ $localizeField(categoryGroup.name) }}
+          <div class="font-bold text-white">
+            <r-checkbox
+              v-model="filters.product_categories"
+              :label="$localizeField(categoryGroup.name)"
+              :value="categoryGroup.code"
+              class="category-group"
+            />
           </div>
           <r-grid class="!mt-0">
             <r-grid-item
@@ -105,15 +110,15 @@
         color="secondary"
         :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
       >
-        <h3 class="text-h3 text-white">Active filters:</h3>
-        <div v-if="filters.organisation_types.length" class="flex flex-wrap align-middle -my-2 -mx-1 mb-2">
+        <h3 class="text-white text-h3">Active filters:</h3>
+        <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">Type:</div>
           <template v-for="organisationType in organisationTypes">
             <button
               v-if="filters.organisation_types.includes(organisationType.code)"
               color="secondary"
               contrast
-              class="my-2 mx-1 p-1 leading-none text-small font-base bg-white text-secondary border-0 font-bold cursor-pointer rounded hover:bg-secondary-dark hover:text-white transition-colors"
+              class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
               :key="organisationType.code"
               @click="clearFilter('organisation_types', organisationType.code)"
             >
@@ -122,12 +127,12 @@
             </button>
           </template>
         </div>
-        <div v-if="filters.product_categories.length" class="flex flex-wrap align-middle -my-2 -mx-1 mb-2">
+        <div v-if="filters.product_categories.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">Category:</div>
           <template v-for="category in categories">
             <button
               v-if="filters.product_categories.includes(category.code)"
-              class="my-2 mx-1 p-1 leading-none text-small font-base bg-white text-secondary border-0 font-bold cursor-pointer rounded hover:bg-secondary-dark hover:text-white transition-colors"
+              class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
               :key="category.code"
               @click="clearFilter('product_categories', category.code)"
             >
@@ -136,7 +141,7 @@
             </button>
           </template>
         </div>
-        <div v-if="filters.location" class="flex flex-wrap align-middle -m-1">
+        <div v-if="filters.location" class="flex flex-wrap -m-1 align-middle">
           <template v-for="organisationType in organisationTypes">
             <r-button
               v-if="filters.organisation_types.includes(organisationType.code)"
@@ -156,9 +161,9 @@
       <div class="relative">
         <!-- <r-loader v-if="isRendering" /> -->
         <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
-          <div class="flex flex-wrap md:flex-nowrap -mx-2 relative items-start">
+          <div class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap">
             <!-- LOCATION LIST -->
-            <div v-show="!isMobile" class="w-full md:w-1/3 px-2 relative">
+            <div v-show="!isMobile" class="relative hidden w-full px-2 md:block md:w-1/3">
               <r-loader v-show="isLoading" />
               <div :class="{ invisible: isLoading }">
                 <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
@@ -193,7 +198,7 @@
               </div>
             </div>
             <!-- LEAFLET MAP -->
-            <div class="w-full md:w-2/3 px-2 md:sticky top-0">
+            <div class="top-0 w-full px-2 md:w-2/3 md:sticky">
               <div class="relative">
                 <div class="aspect-w-1 aspect-h-1" :class="{ 'md:aspect-none': !embed }">
                   <div
@@ -224,7 +229,7 @@
                   </card-location>
                   <button
                     type="button"
-                    class="absolute top-3 right-3 border-0 padding-0 bg-opacity-0 cursor-pointer"
+                    class="absolute bg-opacity-0 border-0 cursor-pointer top-3 right-3 padding-0"
                     @click="map.closePopup()"
                   >
                     <r-icon name="mdiClose" />
@@ -238,7 +243,7 @@
       <r-section>
         <r-panel>
           <h2 class="text-h2 text-secondary">{{ $t('create_new_title') }}</h2>
-          <p class="md:w-8/12 mb-6">{{ $t('create_new_text') }}</p>
+          <p class="mb-6 md:w-8/12">{{ $t('create_new_text') }}</p>
           <slot name="suggestionCta">
             <r-button
               :href="`https://mapping.sharepair.org/${$i18n.locale}/location/create`"
@@ -381,22 +386,23 @@ export default {
 
       this.categories.forEach((category) => {
         if (!category.parent_category) return;
-
         if (!Object.hasOwnProperty.call(categoryGroups, category.parent_category.code)) {
           categoryGroups[category.parent_category.code] = {
             ...category.parent_category,
             data: [],
           };
         }
-
         categoryGroups[category.parent_category.code].data.push(category);
       });
-
       return categoryGroups;
     },
     showActiveFilters() {
       const { filters } = this;
-
+      // const parentCategory = this.categories;
+      const test = this.categories.filter((category) => {
+        return filters.product_categories.includes(category.code);
+      });
+      console.log(test);
       return filters.organisation_types.length || filters.product_categories.length;
     },
     defaultQuery() {
@@ -649,3 +655,8 @@ export default {
 <style src="leaflet.markercluster/dist/MarkerCluster.css"></style>
 <style src="leaflet.markercluster/dist/MarkerCluster.Default.css"></style>
 <style src="./assets/css/app.css"></style>
+<style lang="css">
+.category-group > label span {
+  font-weight: bold;
+}
+</style>
