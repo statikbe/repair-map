@@ -200,7 +200,7 @@
             <!-- LEAFLET MAP -->
             <div class="top-0 w-full px-2 md:w-2/3 md:sticky">
               <div class="relative">
-                <div class="aspect-w-1 aspect-h-2 sm:aspect-h-1" :class="{ 'md:aspect-none': !embed }">
+                <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-h-1" :class="{ 'md:aspect-none': !embed }">
                   <div
                     :class="{ 'md:h-screen': !embed }"
                     :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
@@ -209,7 +209,7 @@
                 </div>
               </div>
               <div v-show="false">
-                <div ref="popup" class="w-[350px] relative">
+                <div ref="popup" class="w-[325px] sm:w-[350px] relative">
                   <card-location v-if="activeLocation" :location="activeLocation" extended>
                     <template #locationTitle="slotProps">
                       <slot name="locationTitle" v-bind="slotProps">
