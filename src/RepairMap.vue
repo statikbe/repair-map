@@ -399,10 +399,6 @@ export default {
     showActiveFilters() {
       const { filters } = this;
       // const parentCategory = this.categories;
-      const test = this.categories.filter((category) => {
-        return filters.product_categories.includes(category.code);
-      });
-      console.log(test);
       return filters.organisation_types.length || filters.product_categories.length;
     },
     defaultQuery() {
@@ -556,6 +552,10 @@ export default {
 
       this.map.addLayer(this.markerClusterGroup);
       this.locationMarkers = newMarkers;
+
+      if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
+        this.openPopup(this.activeLocation.id);
+      }
     },
     async fetchLocations() {
       const { filters, defaultQuery } = this;
@@ -642,6 +642,7 @@ export default {
       this.activeLocationId = locationId;
       marker
         .bindPopup(this.$refs.popup, {
+          // autoClose: false,
           maxWidth: 350,
           closeButton: false,
         })
