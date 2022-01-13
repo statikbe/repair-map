@@ -83786,8 +83786,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var SectionFilter = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"46564b94-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CardLocation.vue?vue&type=template&id=5700e811&
-var CardLocationvue_type_template_id_5700e811_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"p-5 mb-3 transition-colors bg-gray-100 border-4 border-solid rounded-3xl font-base",class:{
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"46564b94-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CardLocation.vue?vue&type=template&id=6c3494b6&
+var CardLocationvue_type_template_id_6c3494b6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"p-5 mb-3 transition-colors bg-gray-100 border-4 border-solid rounded-3xl font-base",class:{
     'border-primary ': _vm.isActive,
     'border-gray-100': !_vm.isActive,
     'hover:border-gray-200 hover:bg-gray-200 cursor-pointer': !_vm.isActive && !_vm.extended,
@@ -83796,17 +83796,19 @@ var CardLocationvue_type_template_id_5700e811_render = function () {var _vm=this
         location: _vm.location,
         locationTitle: _vm.locationTitle,
         defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
-      })],2),(_vm.location.organisation_type)?_c('div',{staticClass:"font-semibold text-small"},[_c('r-icon',{staticClass:"mr-1",attrs:{"name":"mdiMapMarker","fill":_vm.categoryColors[_vm.location.organisation_type.code]}}),_c('span',[_vm._v(_vm._s(_vm.$localizeField(_vm.location.organisation_type.name)))])],1):_vm._e(),(_vm.location.product_categories)?_c('div',{staticClass:"mt-4"},[_c('div',{staticClass:"flex flex-wrap -m-1"},[_vm._l((_vm.location.product_categories.slice(0, 4)),function(category){return _c('span',{key:category.id,staticClass:"px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"},[_vm._v(" "+_vm._s(_vm.$localizeField(category.name))+" ")])}),(_vm.location.product_categories.length > 4)?_c('span',{staticClass:"px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"},[_vm._v("+ "+_vm._s(_vm.location.product_categories.length - 4)+" "+_vm._s(_vm.$t('card_location_other')))]):_vm._e()],2),(_vm.extended)?_c('div',{staticClass:"mt-3 leading-none text-tiny"},[_c('div',{staticClass:"flex"},[_c('r-icon',{staticClass:"flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary",attrs:{"name":"mdiMapMarker","size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},[_vm._v(" "+_vm._s(_vm.location.address_formatted)+" ")])],1),_vm._l((_vm.location.contacts),function(contacts,type){return _c('div',{key:type,staticClass:"flex mt-1"},[_c('r-icon',{staticClass:"flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary",attrs:{"name":("contact_" + type),"size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},_vm._l((contacts),function(contact,key){return _c('div',{key:key},[_c('a',{attrs:{"href":contact.value,"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(_vm._s(contact.name))])])}),0)],1)})],2):_vm._e()]):_vm._e()])}
-var CardLocationvue_type_template_id_5700e811_staticRenderFns = []
+      })],2),(_vm.location.organisation_type)?_c('div',{staticClass:"font-semibold text-small"},[_c('r-icon',{staticClass:"mr-1",attrs:{"name":"mdiMapMarker","fill":_vm.categoryColors[_vm.location.organisation_type.code]}}),_c('span',[_vm._v(_vm._s(_vm.$localizeField(_vm.location.organisation_type.name)))])],1):_vm._e(),(_vm.location.product_categories)?_c('div',{staticClass:"mt-4"},[_c('div',{staticClass:"flex flex-wrap -m-1"},[_vm._l((_vm.location.product_categories.slice(0, 4)),function(category){return _c('span',{key:category.id,staticClass:"px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"},[_vm._v(" "+_vm._s(_vm.$localizeField(category.name))+" ")])}),(_vm.location.product_categories.length > 4)?_c('span',{staticClass:"px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"},[_vm._v("+ "+_vm._s(_vm.location.product_categories.length - 4)+" "+_vm._s(_vm.$t('card_location_other')))]):_vm._e()],2),(_vm.extended)?_c('div',{staticClass:"mt-3 leading-none text-tiny"},[_c('div',{staticClass:"flex"},[_c('r-icon',{staticClass:"flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary",attrs:{"name":"mdiMapMarker","size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},[_vm._v(" "+_vm._s(_vm.location.address_formatted)+" ")])],1),_vm._l((_vm.location.contacts),function(contacts,type){return _c('div',{key:type,staticClass:"flex mt-1"},[(type !== 'google')?[_c('r-icon',{staticClass:"flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary",attrs:{"name":("contact_" + type),"size":"1.5em"}}),_c('div',{staticClass:"leading-normal truncate"},_vm._l((contacts),function(contact,key){return _c('div',{key:key},[_c('a',{attrs:{"href":contact.value,"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(_vm._s(contact.name))])])}),0)]:_vm._e()],2)})],2):_vm._e()]):_vm._e()])}
+var CardLocationvue_type_template_id_6c3494b6_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CardLocation.vue?vue&type=template&id=5700e811&
+// CONCATENATED MODULE: ./src/components/CardLocation.vue?vue&type=template&id=6c3494b6&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CardLocation.vue?vue&type=script&lang=js&
 
+//
+//
 //
 //
 //
@@ -83922,8 +83924,8 @@ var es_function_name = __webpack_require__("b0c0");
 
 var CardLocation_component = normalizeComponent(
   components_CardLocationvue_type_script_lang_js_,
-  CardLocationvue_type_template_id_5700e811_render,
-  CardLocationvue_type_template_id_5700e811_staticRenderFns,
+  CardLocationvue_type_template_id_6c3494b6_render,
+  CardLocationvue_type_template_id_6c3494b6_staticRenderFns,
   false,
   null,
   null,
@@ -84790,7 +84792,7 @@ var RepairMap_component = normalizeComponent(
 });
 // CONCATENATED MODULE: ./src/i18n/nl.js
 /* harmony default export */ var nl = ({
-  card_location_other: 'overig',
+  card_location_other: 'andere',
   create_new_cta: 'Stel een nieuw repair initiatief voor',
   create_new_text: 'Het is ons doel om de grote diversiteit aan spelers in het domein van repair voor te stellen op deze kaart. Ken jij een Repair Café, professionele hersteller, een makerspace of een ander initiatief in je buurt? Laat het ons weten.',
   create_new_title: 'Ken je een repair initiatief dat hier nog niet bij staat?',

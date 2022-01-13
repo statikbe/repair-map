@@ -50,16 +50,18 @@
           </div>
         </div>
         <div v-for="(contacts, type) in location.contacts" :key="type" class="flex mt-1">
-          <r-icon
-            :name="`contact_${type}`"
-            size="1.5em"
-            class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary"
-          />
-          <div class="leading-normal truncate">
-            <div v-for="(contact, key) in contacts" :key="key">
-              <a :href="contact.value" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a>
+          <template v-if="type !== 'google'">
+            <r-icon
+              :name="`contact_${type}`"
+              size="1.5em"
+              class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary"
+            />
+            <div class="leading-normal truncate">
+              <div v-for="(contact, key) in contacts" :key="key">
+                <a :href="contact.value" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a>
+              </div>
             </div>
-          </div>
+          </template>
         </div>
       </div>
     </div>
