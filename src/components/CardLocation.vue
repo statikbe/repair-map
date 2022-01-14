@@ -16,12 +16,12 @@
         v-bind="{
           location,
           locationTitle,
-          defaultClass: '!text-primary hover:!text-primary-dark transition-colors no-underline',
+          defaultClass: '!text-primary hover:!text-primary-dark transition-colors hover:no-underline',
         }"
       >
         {{ locationTitle }}
-        <r-icon name="mdiChevronRight" />
       </slot>
+      <r-icon name="mdiChevronRight" />
     </h3>
     <div v-if="location.organisation_type" class="font-semibold text-small">
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisation_type.code]" class="mr-1" />
