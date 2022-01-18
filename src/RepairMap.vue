@@ -473,6 +473,7 @@ export default {
         this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
     }
 
+    this.setFiltersFromUrl();
     this.renderMap();
 
     if (
@@ -489,6 +490,26 @@ export default {
     this.fetchCategories();
   },
   methods: {
+    setFiltersFromUrl() {
+      const params = qs.parse(location.search.substr(1), qsOptions);
+      const { filters } = this;
+
+      if (params.organisation_types) {
+        if (Array.isArray(params.organisation_types)) {
+          filters.organisation_types = params.organisation_types;
+        } else {
+          filters.organisation_types = params.organisation_types.split(',');
+        }
+      }
+
+      if (params.product_categories) {
+        if (Array.isArray(params.product_categories)) {
+          filters.product_categories = params.product_categories;
+        } else {
+          filters.product_categories = params.product_categories.split(',');
+        }
+      }
+    },
     askLocation() {
       return new Promise((resolve) => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -588,7 +609,6 @@ export default {
     },
     async fetchOrganisationTypes() {
       const query = qs.stringify(this.defaultQuery, qsOptions);
-
       const {
         data: { data },
       } = await axios.get(`${this.apiBaseUrl}/organisation_types?${query}`);
