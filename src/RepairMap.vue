@@ -67,10 +67,10 @@
         <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
           <div class="font-bold text-white">
             <r-checkbox
-              v-model="filters.product_categories"
+              v-model="categoriesAllSelected"
               :label="$localizeField(categoryGroup.name)"
-              :value="categoryGroup.code"
               class="category-group"
+              @change.native="selectAllCategories(categoryGroup.code)"
             />
           </div>
           <r-grid class="!mt-0">
@@ -363,6 +363,7 @@ export default {
     locationTotal: 0,
     organisationTypes: [],
     categories: [],
+    categoryGroups: {},
     activeLocationId: null,
     activeFilter: null,
     currentPage: 1,
@@ -376,25 +377,11 @@ export default {
       product_categories: [],
       location: null,
     },
+    categoriesAllSelected: false,
   }),
   computed: {
     categoryColors() {
       return categoryColors;
-    },
-    categoryGroups() {
-      const categoryGroups = {};
-
-      this.categories.forEach((category) => {
-        if (!category.parent_category) return;
-        if (!Object.hasOwnProperty.call(categoryGroups, category.parent_category.code)) {
-          categoryGroups[category.parent_category.code] = {
-            ...category.parent_category,
-            data: [],
-          };
-        }
-        categoryGroups[category.parent_category.code].data.push(category);
-      });
-      return categoryGroups;
     },
     showActiveFilters() {
       const { filters } = this;
@@ -435,6 +422,19 @@ export default {
     },
   },
   watch: {
+    categories() {
+      this.categories.forEach((category) => {
+        // console.log(category);
+        if (!category.parent_category) return;
+        if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
+          this.categoryGroups[category.parent_category.code] = {
+            ...category.parent_category,
+            data: [],
+          };
+        }
+        this.categoryGroups[category.parent_category.code].data.push(category);
+      });
+    },
     locations() {
       this.updateMarkers();
     },
@@ -454,6 +454,7 @@ export default {
     filters: {
       deep: true,
       handler() {
+        this.checkIfAllSelected();
         this.fetchLocations();
       },
     },
@@ -490,6 +491,21 @@ export default {
     this.fetchCategories();
   },
   methods: {
+    checkIfAllSelected() {
+      const { filters } = this;
+      const allSelected =
+        filters.product_categories.length === this.categoryGroups['computers-en-home-office'].data.length;
+      this.categoriesAllSelected = allSelected;
+    },
+    selectAllCategories(categoryGroup) {
+      this.filters.product_categories = [];
+      console.log(this.categoriesAllSelected);
+      if (this.categoriesAllSelected) {
+        this.categoryGroups[categoryGroup].data.forEach((category) => {
+          this.filters.product_categories.push(category.code);
+        });
+      }
+    },
     setFiltersFromUrl() {
       const params = qs.parse(location.search.substr(1), qsOptions);
       const { filters } = this;
