@@ -6,52 +6,52 @@
         <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
         <div class="flex flex-wrap -m-2">
           <r-button
-              color="secondary"
-              :class="{ 'bg-secondary-dark': isFilterActive('TYPE') }"
-              @click.native="toggleFilter('TYPE')"
-              class="m-2"
+            color="secondary"
+            :class="{ 'bg-secondary-dark': isFilterActive('TYPE') }"
+            @click.native="toggleFilter('TYPE')"
+            class="m-2"
           >
             {{ $t('filter_type_label') }}
-            <r-icon :name="isFilterActive('TYPE') ? 'mdiChevronUp' : 'mdiChevronDown'"/>
+            <r-icon :name="isFilterActive('TYPE') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
           <r-button
-              color="secondary"
-              :class="{ 'bg-secondary-dark': isFilterActive('CATEGORY') }"
-              @click.native="toggleFilter('CATEGORY')"
-              class="m-2"
+            color="secondary"
+            :class="{ 'bg-secondary-dark': isFilterActive('CATEGORY') }"
+            @click.native="toggleFilter('CATEGORY')"
+            class="m-2"
           >
             {{ $t('filter_category_label') }}
-            <r-icon :name="isFilterActive('CATEGORY') ? 'mdiChevronUp' : 'mdiChevronDown'"/>
+            <r-icon :name="isFilterActive('CATEGORY') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
           <r-button
-              v-if="mapboxSearchConfig"
-              color="secondary"
-              :class="{ 'bg-secondary-dark': isFilterActive('LOCATION') }"
-              @click.native="toggleFilter('LOCATION')"
-              class="m-2"
+            v-if="mapboxSearchConfig"
+            color="secondary"
+            :class="{ 'bg-secondary-dark': isFilterActive('LOCATION') }"
+            @click.native="toggleFilter('LOCATION')"
+            class="m-2"
           >
             {{ $t('filter_location_label') }}
-            <r-icon :name="isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'"/>
+            <r-icon :name="isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
         </div>
       </r-section>
       <!-- TYPE FILTER -->
       <section-filter
-          v-if="isFilterActive('TYPE')"
-          :title="$t('filter_type_title')"
-          :text="$t('filter_type_text')"
-          @close="toggleFilter(null)"
+        v-if="isFilterActive('TYPE')"
+        :title="$t('filter_type_title')"
+        :text="$t('filter_type_text')"
+        @close="toggleFilter(null)"
       >
         <r-checkbox
-            v-for="(organisationType, key) in organisationTypes"
-            :key="key"
-            v-model="filters.organisation_types"
-            :value="organisationType.code"
-            :label="$localizeField(organisationType.name)"
+          v-for="(organisationType, key) in organisationTypes"
+          :key="key"
+          v-model="filters.organisation_types"
+          :value="organisationType.code"
+          :label="$localizeField(organisationType.name)"
         >
           <template #label>
             <span>
-              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1"/>
+              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
               <span>{{ $localizeField(organisationType.name) }}</span>
             </span>
           </template>
@@ -59,30 +59,30 @@
       </section-filter>
       <!-- CATEGORY FILTER -->
       <section-filter
-          v-else-if="isFilterActive('CATEGORY')"
-          :title="$t('filter_category_title')"
-          :text="$t('filter_category_text')"
-          @close="toggleFilter(null)"
+        v-else-if="isFilterActive('CATEGORY')"
+        :title="$t('filter_category_title')"
+        :text="$t('filter_category_text')"
+        @close="toggleFilter(null)"
       >
         <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
           <div class="font-bold text-white">
             <r-checkbox
-                v-model="categoriesAllSelectedGroup[categoryGroup.code]"
-                :label="$localizeField(categoryGroup.name)"
-                class="category-group"
-                @change.native="selectAllCategories(categoryGroup.code)"
+              v-model="categoriesAllSelectedGroup[categoryGroup.code]"
+              :label="$localizeField(categoryGroup.name)"
+              class="category-group"
+              @change.native="selectAllCategories(categoryGroup.code)"
             />
           </div>
           <r-grid class="!mt-0">
             <r-grid-item
-                v-for="(category, key) in categoryGroup.data"
-                :key="key"
-                class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
+              v-for="(category, key) in categoryGroup.data"
+              :key="key"
+              class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
             >
               <r-checkbox
-                  v-model="filters.product_categories"
-                  :label="$localizeField(category.name)"
-                  :value="category.code"
+                v-model="filters.product_categories"
+                :label="$localizeField(category.name)"
+                :value="category.code"
               />
             </r-grid-item>
           </r-grid>
@@ -90,40 +90,40 @@
       </section-filter>
       <!-- LOCATION FILTER -->
       <section-filter
-          v-else-if="isFilterActive('LOCATION') && mapboxSearchConfig"
-          :title="$t('filter_location_title')"
-          @submit="submitLocationFilter"
-          @close="toggleFilter(null)"
+        v-else-if="isFilterActive('LOCATION') && mapboxSearchConfig"
+        :title="$t('filter_location_title')"
+        @submit="submitLocationFilter"
+        @close="toggleFilter(null)"
       >
         <r-mapbox-search
-            v-model="locationSearch"
-            :label="$t('filter_location_search_label')"
-            :placeholder="$t('filter_location_search_placeholder')"
-            :config="mapboxSearchConfig"
-            class="max-w-2xl"
-            required
+          v-model="locationSearch"
+          :label="$t('filter_location_search_label')"
+          :placeholder="$t('filter_location_search_placeholder')"
+          :config="mapboxSearchConfig"
+          class="max-w-2xl"
+          required
         />
       </section-filter>
       <!-- ACTIVE FILTERS -->
       <r-section
-          v-if="showActiveFilters"
-          color="secondary"
-          :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
+        v-if="showActiveFilters"
+        color="secondary"
+        :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
       >
         <h3 class="text-white text-h3">Active filters:</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">Type:</div>
           <template v-for="organisationType in organisationTypes">
             <button
-                v-if="filters.organisation_types.includes(organisationType.code)"
-                color="secondary"
-                contrast
-                class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-                :key="organisationType.code"
-                @click="clearFilter('organisation_types', organisationType.code)"
+              v-if="filters.organisation_types.includes(organisationType.code)"
+              color="secondary"
+              contrast
+              class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
+              :key="organisationType.code"
+              @click="clearFilter('organisation_types', organisationType.code)"
             >
               <span>{{ $localizeField(organisationType.name) }}</span>
-              <r-icon name="mdiClose" class="ml-1"/>
+              <r-icon name="mdiClose" class="ml-1" />
             </button>
           </template>
         </div>
@@ -131,29 +131,29 @@
           <div class="my-2 ml-1 mr-2">Category:</div>
           <template v-for="category in categories">
             <button
-                v-if="filters.product_categories.includes(category.code)"
-                class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-                :key="category.code"
-                @click="clearFilter('product_categories', category.code)"
+              v-if="filters.product_categories.includes(category.code)"
+              class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
+              :key="category.code"
+              @click="clearFilter('product_categories', category.code)"
             >
               {{ $localizeField(category.name) }}
-              <r-icon name="mdiClose"/>
+              <r-icon name="mdiClose" />
             </button>
           </template>
         </div>
         <div v-if="filters.location" class="flex flex-wrap -m-1 align-middle">
           <template v-for="organisationType in organisationTypes">
             <r-button
-                v-if="filters.organisation_types.includes(organisationType.code)"
-                color="secondary"
-                contrast
-                size="small"
-                class="m-1"
-                :key="organisationType.code"
-                @click.native="clearFilter('organisation_types', organisationType.code)"
+              v-if="filters.organisation_types.includes(organisationType.code)"
+              color="secondary"
+              contrast
+              size="small"
+              class="m-1"
+              :key="organisationType.code"
+              @click.native="clearFilter('organisation_types', organisationType.code)"
             >
               {{ $localizeField(organisationType.name) }}
-              <r-icon name="mdiClose"/>
+              <r-icon name="mdiClose" />
             </r-button>
           </template>
         </div>
@@ -164,28 +164,28 @@
           <div class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap">
             <!-- LOCATION LIST -->
             <div v-show="!isMobile" class="relative hidden w-full px-2 md:block md:w-1/3">
-              <r-loader v-show="isLoading"/>
+              <r-loader v-show="isLoading" />
               <div :class="{ invisible: isLoading }">
-                <p class="my-6">{{ $t('locations_results_n', {n: locationTotal}) }}</p>
+                <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
-                        v-if="isCurrentPage(index)"
-                        :location="location"
-                        :is-active="activeLocationId === location.id"
-                        :key="location.id"
-                        @click.native="onLocationClick(location)"
+                      v-if="isCurrentPage(index)"
+                      :location="location"
+                      :is-active="activeLocationId === location.id"
+                      :key="location.id"
+                      @click.native="onLocationClick(location)"
                     >
                       <template #locationTitle="slotProps">
                         <slot name="locationTitle" v-bind="slotProps">
                           <a
-                              v-if="embed"
-                              :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
+                            v-if="embed"
+                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
                               $localizeField(location.slug) || location.id
                             }`"
-                              :class="slotProps.defaultClass"
-                              target="_blank"
-                              rel="noopener noreferrer"
+                            :class="slotProps.defaultClass"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             {{ $localizeField(location.name) || $t('location_name_fallback') }}
                           </a>
@@ -202,9 +202,9 @@
               <div class="relative">
                 <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-h-1" :class="{ 'md:aspect-none': !embed }">
                   <div
-                      :class="{ 'md:h-screen': !embed }"
-                      :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
-                      ref="map"
+                    :class="{ 'md:h-screen': !embed }"
+                    :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
+                    ref="map"
                   ></div>
                 </div>
               </div>
@@ -214,13 +214,13 @@
                     <template #locationTitle="slotProps">
                       <slot name="locationTitle" v-bind="slotProps">
                         <a
-                            v-if="embed"
-                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
+                          v-if="embed"
+                          :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
                             $localizeField(activeLocation.slug) || activeLocation.id
                           }`"
-                            :class="slotProps.defaultClass"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          :class="slotProps.defaultClass"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
                           {{ $localizeField(activeLocation.name) || $t('location_name_fallback') }}
                         </a>
@@ -228,11 +228,11 @@
                     </template>
                   </card-location>
                   <button
-                      type="button"
-                      class="absolute bg-opacity-0 border-0 cursor-pointer top-3 right-3 padding-0"
-                      @click="map.closePopup()"
+                    type="button"
+                    class="absolute bg-opacity-0 border-0 cursor-pointer top-3 right-3 padding-0"
+                    @click="map.closePopup()"
                   >
-                    <r-icon name="mdiClose"/>
+                    <r-icon name="mdiClose" />
                   </button>
                 </div>
               </div>
@@ -246,11 +246,11 @@
           <p class="mb-6 md:w-8/12">{{ $t('create_new_text') }}</p>
           <slot name="suggestionCta">
             <r-button
-                :href="`https://mapping.sharepair.org/${$i18n.locale}/location/create`"
-                link
-                color="secondary"
-                icon-after="mdiChevronRight"
-                target="_blank"
+              :href="`https://mapping.sharepair.org/${$i18n.locale}/location/create`"
+              link
+              color="secondary"
+              icon-after="mdiChevronRight"
+              target="_blank"
             >
               {{ $t('create_new_cta') }}
             </r-button>
@@ -384,7 +384,7 @@ export default {
       return categoryColors;
     },
     showActiveFilters() {
-      const {filters} = this;
+      const { filters } = this;
       // const parentCategory = this.categories;
       return filters.organisation_types.length || filters.product_categories.length;
     },
@@ -405,14 +405,14 @@ export default {
     mapboxSearchConfig() {
       const access_token = this.mapboxAccessToken || qs.parse(location.search.substr(1)).mapboxAccessToken;
       return access_token
-          ? {
+        ? {
             access_token,
             country: 'be,nl,fr,de,lu,gb,ch,at,us,ie',
             limit: 10,
             types: 'place,locality,postcode',
             fuzzyMatch: false,
           }
-          : null;
+        : null;
     },
     windowHeight() {
       return windowHeight;
@@ -462,7 +462,7 @@ export default {
         this.fetchLocations();
       },
     },
-    locationSearch({bbox}) {
+    locationSearch({ bbox }) {
       this.map.fitBounds([
         [bbox[1], bbox[0]],
         [bbox[3], bbox[2]],
@@ -475,16 +475,16 @@ export default {
   async mounted() {
     if (this.$i18n) {
       this.$i18n.locale =
-          this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
+        this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
     }
 
     this.setFiltersFromUrl();
     this.renderMap();
 
     if (
-        this.defaultCenter[0] === defaultCenter[0] &&
-        this.defaultCenter[1] === defaultCenter[1] &&
-        navigator.geolocation
+      this.defaultCenter[0] === defaultCenter[0] &&
+      this.defaultCenter[1] === defaultCenter[1] &&
+      navigator.geolocation
     ) {
       await this.askLocation();
     }
@@ -504,26 +504,30 @@ export default {
       return categoryCodes;
     },
     checkIfAllSelected() {
-      const {filters} = this;
+      const { filters } = this;
       // loop through the categoryGroups and check if the categories are all checked from this group
       for (const code of Object.keys(this.categoryGroups)) {
-        this.categoriesAllSelectedGroup[code] = this.getCategoryCodesForGroup(code).every(code => {
+        this.categoriesAllSelectedGroup[code] = this.getCategoryCodesForGroup(code).every((code) => {
           return filters.product_categories.includes(code);
         });
       }
     },
     selectAllCategories(categoryGroup) {
       var categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
-      if (this.categoriesAllSelectedGroup[categoryGroup]) { // add items to filter array
+      if (this.categoriesAllSelectedGroup[categoryGroup]) {
+        // add items to filter array
         categoryGroupCodes.forEach((categoryCode) => {
-          if (!this.filters.product_categories.includes(categoryCode)) { // only add when not already in filter array
+          if (!this.filters.product_categories.includes(categoryCode)) {
+            // only add when not already in filter array
             this.filters.product_categories.push(categoryCode);
           }
         });
-      } else { // remove items from filter array
+      } else {
+        // remove items from filter array
         categoryGroupCodes.forEach((categoryCode) => {
           const index = this.filters.product_categories.indexOf(categoryCode);
-          if (index > -1) { // only remove when in filter array
+          if (index > -1) {
+            // only remove when in filter array
             this.filters.product_categories.splice(index, 1);
           }
         });
@@ -531,7 +535,7 @@ export default {
     },
     setFiltersFromUrl() {
       const params = qs.parse(location.search.substr(1), qsOptions);
-      const {filters} = this;
+      const { filters } = this;
 
       if (params.organisation_types) {
         if (Array.isArray(params.organisation_types)) {
@@ -572,10 +576,10 @@ export default {
       });
 
       this.map.on(
-          'moveend',
-          debounce(() => {
-            !this.isRendering && this.fetchLocations();
-          }, 500)
+        'moveend',
+        debounce(() => {
+          !this.isRendering && this.fetchLocations();
+        }, 500)
       );
     },
     updateMarkers() {
@@ -594,8 +598,8 @@ export default {
           const marker = Leaflet.marker([location.geometry.latitude, location.geometry.longitude], {
             icon: Leaflet.icon({
               iconUrl: location.organisation_type
-                  ? require(`./assets/img/markers/${location.organisation_type.code}.png`)
-                  : markerImage,
+                ? require(`./assets/img/markers/${location.organisation_type.code}.png`)
+                : markerImage,
               iconSize: [20, 32],
               iconAnchor: [10, 32],
               popupAnchor: [0, -16],
@@ -620,19 +624,19 @@ export default {
       }
     },
     async fetchLocations() {
-      const {filters, defaultQuery} = this;
+      const { filters, defaultQuery } = this;
 
       const mapBounds = this.map.getBounds();
       const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
 
       const query = qs.stringify(
-          {
-            ...defaultQuery,
-            ...filters,
-            bbox,
-            per_page: 1000,
-          },
-          qsOptions
+        {
+          ...defaultQuery,
+          ...filters,
+          bbox,
+          per_page: 1000,
+        },
+        qsOptions
       );
 
       this.isLoading = true;
@@ -640,7 +644,7 @@ export default {
       const {
         data: {
           data,
-          meta: {total},
+          meta: { total },
         },
       } = await axios.get(`${this.apiBaseUrl}/locations?${query}`);
 
@@ -651,7 +655,7 @@ export default {
     async fetchOrganisationTypes() {
       const query = qs.stringify(this.defaultQuery, qsOptions);
       const {
-        data: {data},
+        data: { data },
       } = await axios.get(`${this.apiBaseUrl}/organisation_types?${query}`);
 
       this.organisationTypes = data;
@@ -660,7 +664,7 @@ export default {
       const query = qs.stringify(this.defaultQuery, qsOptions);
 
       const {
-        data: {data},
+        data: { data },
       } = await axios.get(`${this.apiBaseUrl}/product_categories?${query}`);
 
       this.categories = data;
@@ -702,12 +706,12 @@ export default {
       marker.unbindPopup();
       this.activeLocationId = locationId;
       marker
-          .bindPopup(this.$refs.popup, {
-            // autoClose: false,
-            maxWidth: 350,
-            closeButton: false,
-          })
-          .openPopup();
+        .bindPopup(this.$refs.popup, {
+          // autoClose: false,
+          maxWidth: 350,
+          closeButton: false,
+        })
+        .openPopup();
     },
   },
 };
