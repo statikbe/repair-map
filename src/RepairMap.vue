@@ -67,10 +67,10 @@
         <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
           <div class="font-bold text-white">
             <r-checkbox
-              v-model="filters.product_categories"
+              v-model="categoriesAllSelectedGroup[categoryGroup.code]"
               :label="$localizeField(categoryGroup.name)"
-              :value="categoryGroup.code"
               class="category-group"
+              @change.native="selectAllCategories(categoryGroup.code)"
             />
           </div>
           <r-grid class="!mt-0">
@@ -363,6 +363,7 @@ export default {
     locationTotal: 0,
     organisationTypes: [],
     categories: [],
+    categoryGroups: {},
     activeLocationId: null,
     activeFilter: null,
     currentPage: 1,
@@ -376,25 +377,11 @@ export default {
       product_categories: [],
       location: null,
     },
+    categoriesAllSelectedGroup: {},
   }),
   computed: {
     categoryColors() {
       return categoryColors;
-    },
-    categoryGroups() {
-      const categoryGroups = {};
-
-      this.categories.forEach((category) => {
-        if (!category.parent_category) return;
-        if (!Object.hasOwnProperty.call(categoryGroups, category.parent_category.code)) {
-          categoryGroups[category.parent_category.code] = {
-            ...category.parent_category,
-            data: [],
-          };
-        }
-        categoryGroups[category.parent_category.code].data.push(category);
-      });
-      return categoryGroups;
     },
     showActiveFilters() {
       const { filters } = this;
@@ -435,6 +422,23 @@ export default {
     },
   },
   watch: {
+    categories() {
+      this.categories.forEach((category) => {
+        //  if category is parent: add to the parent group for allSelectedItems
+        if (!category.parent_category) {
+          this.categoriesAllSelectedGroup[category.code] = false;
+          return;
+        }
+        // if category is child: add to parent group
+        if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
+          this.categoryGroups[category.parent_category.code] = {
+            ...category.parent_category,
+            data: [],
+          };
+        }
+        this.categoryGroups[category.parent_category.code].data.push(category);
+      });
+    },
     locations() {
       this.updateMarkers();
     },
@@ -454,6 +458,7 @@ export default {
     filters: {
       deep: true,
       handler() {
+        this.checkIfAllSelected();
         this.fetchLocations();
       },
     },
@@ -490,6 +495,44 @@ export default {
     this.fetchCategories();
   },
   methods: {
+    getCategoryCodesForGroup(groupName) {
+      var categoryCodes = [];
+      this.categoryGroups[groupName].data.forEach((category) => {
+        categoryCodes.push(category.code);
+      });
+
+      return categoryCodes;
+    },
+    checkIfAllSelected() {
+      const { filters } = this;
+      // loop through the categoryGroups and check if the categories are all checked from this group
+      for (const code of Object.keys(this.categoryGroups)) {
+        this.categoriesAllSelectedGroup[code] = this.getCategoryCodesForGroup(code).every((code) => {
+          return filters.product_categories.includes(code);
+        });
+      }
+    },
+    selectAllCategories(categoryGroup) {
+      var categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
+      if (this.categoriesAllSelectedGroup[categoryGroup]) {
+        // add items to filter array
+        categoryGroupCodes.forEach((categoryCode) => {
+          if (!this.filters.product_categories.includes(categoryCode)) {
+            // only add when not already in filter array
+            this.filters.product_categories.push(categoryCode);
+          }
+        });
+      } else {
+        // remove items from filter array
+        categoryGroupCodes.forEach((categoryCode) => {
+          const index = this.filters.product_categories.indexOf(categoryCode);
+          if (index > -1) {
+            // only remove when in filter array
+            this.filters.product_categories.splice(index, 1);
+          }
+        });
+      }
+    },
     setFiltersFromUrl() {
       const params = qs.parse(location.search.substr(1), qsOptions);
       const { filters } = this;
@@ -519,7 +562,9 @@ export default {
       });
     },
     renderMap() {
-      this.map = Leaflet.map(this.$refs.map).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
+      this.map = Leaflet.map(this.$refs.map, {
+        scrollWheelZoom: false,
+      }).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
 
       Leaflet.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
         maxZoom: 19,

@@ -137,6 +137,8 @@ Dark variants are used for hover states, contrast variants are used for button t
 | showFilterButtons | Boolean | `true`                | Set to false to implement your own filter buttons.                                                                                                        |
 | mapboxAccessToken | String  | `null`                | Providing a [Mapbox access token](https://docs.mapbox.com/help/getting-started/access-tokens/) will enable searching for locations to center your map to. |
 
+If you want a prefilterd map on load, you can pass some params to the url: `organisation_types=` and `product_categories=`.
+
 ## For developers
 
 ### Publishing to NPM
