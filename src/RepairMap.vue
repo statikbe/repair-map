@@ -535,7 +535,9 @@ export default {
       });
     },
     renderMap() {
-      this.map = Leaflet.map(this.$refs.map).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
+      this.map = Leaflet.map(this.$refs.map, {
+        scrollWheelZoom: false,
+      }).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
 
       Leaflet.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
         maxZoom: 19,
