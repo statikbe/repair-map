@@ -1181,6 +1181,28 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "2532":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var notARegExp = __webpack_require__("5a34");
+var requireObjectCoercible = __webpack_require__("1d80");
+var correctIsRegExpLogic = __webpack_require__("ab13");
+
+// `String.prototype.includes` method
+// https://tc39.es/ecma262/#sec-string.prototype.includes
+$({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }, {
+  includes: function includes(searchString /* , position = 0 */) {
+    return !!~String(requireObjectCoercible(this))
+      .indexOf(notARegExp(searchString), arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+
 /***/ "2573":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4772,6 +4794,33 @@ module.exports = fails(function () {
 
 /***/ }),
 
+/***/ "44d2":
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__("b622");
+var create = __webpack_require__("7c73");
+var definePropertyModule = __webpack_require__("9bf2");
+
+var UNSCOPABLES = wellKnownSymbol('unscopables');
+var ArrayPrototype = Array.prototype;
+
+// Array.prototype[@@unscopables]
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+if (ArrayPrototype[UNSCOPABLES] == undefined) {
+  definePropertyModule.f(ArrayPrototype, UNSCOPABLES, {
+    configurable: true,
+    value: create(null)
+  });
+}
+
+// add a key to Array.prototype[@@unscopables]
+module.exports = function (key) {
+  ArrayPrototype[UNSCOPABLES][key] = true;
+};
+
+
+/***/ }),
+
 /***/ "44de":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5502,6 +5551,20 @@ module.exports = {
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAgCAYAAAASYli2AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAFKADAAQAAAABAAAAIAAAAADmfO67AAAC8ElEQVRIDaWWO2hTURjHk5vUxFiqICgKUeggOjm0TZrqooKQSRwKBQfFQXQpiiBSl0zqZKk4OCgo+EAR0eIiBVsNNDZtROqgIKW0NmRwSH1AmpiHvy/mXG7uPWmT+sHJ9/p//3PuecbtaiChUGhPpVIZoO2n7QT2w+12z6NH29vbxyYmJoq6Urc92NPTEyyXyyPEj9tzFn8B8sGZmZlRS6xq1hF2d3cfYDSvyGyxA3U+pMPT09MX0RWVNwkhC0E2TiKgkk3qkVQqdV5hPWKEw+EOyMYwt6lEC7o3GAzOptPpL1JjyE+xWLwMYafY6xHm/GZ/f/8GqfV0dXVtZg4eY/vWQ1ar6chms4uZTOaDAVmU0XXoyMit0GLkDtNO0WZpWgE3IAkv7agOAaDk8XgOTU1NvVf5SCTytFAovMHvVTGlGdRB8hsNjH0qaNP3rGSSSyQSOa/Xe8GGU66PteiUT96uIjb91uZX3Wg0mqQmp8sJl6yyuSmtIJJ5q6/sWCxWxv6jfKsulUoVIZTz6RC2QsgRJMCu2NtoEdva2uZlDrWE1J7t6+vbrSG9pom5+KKi3+9fklX+pAMQ25TP5xNcFnKs3tHxLvQQ+pgOT/yz3EBen8/3kkK5XXSyg09/oktoYi8kZkxOTi6gUxpASyHDMJ5LgSyKyLN/at2/c1xjH6W6ShgIBO422lvNdEHtLYWrEsbj8e8E7qtgi3qZJ+GOqlGf7OLc3iAom7ZVuc3q/lZFJiHn9itDf6QSzWjwv5guGYgpJqFE2EtXAK2Y2bWN67XpMpF1hLwNixA22pNmkRjgljhqw3VBnDpCSbKfrqIyYq8hl+Q6s2MchMzlT3oftANt/mveZHk2HOIgFARg2ejyPjuEznLsiHOORC2gJZQcN7MULddwVjWUTCYb3VAu86G3Viibm+YEl8MD5aPHGf0RRlmxxOrMhiMUFOfzIcXqtsmyYCdXI5OaVQkFwHydQc3RTtPBN4n9t/DXbmuzJH8B5Tn6ahMUUJkAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ "5a34":
+/***/ (function(module, exports, __webpack_require__) {
+
+var isRegExp = __webpack_require__("44e7");
+
+module.exports = function (it) {
+  if (isRegExp(it)) {
+    throw TypeError("The method doesn't accept regular expressions");
+  } return it;
+};
+
 
 /***/ }),
 
@@ -7787,6 +7850,82 @@ module.exports = exports;
 
 /***/ }),
 
+/***/ "a434":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var toAbsoluteIndex = __webpack_require__("23cb");
+var toInteger = __webpack_require__("a691");
+var toLength = __webpack_require__("50c4");
+var toObject = __webpack_require__("7b0b");
+var arraySpeciesCreate = __webpack_require__("65f0");
+var createProperty = __webpack_require__("8418");
+var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
+
+var max = Math.max;
+var min = Math.min;
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAXIMUM_ALLOWED_LENGTH_EXCEEDED = 'Maximum allowed length exceeded';
+
+// `Array.prototype.splice` method
+// https://tc39.es/ecma262/#sec-array.prototype.splice
+// with adding support of @@species
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  splice: function splice(start, deleteCount /* , ...items */) {
+    var O = toObject(this);
+    var len = toLength(O.length);
+    var actualStart = toAbsoluteIndex(start, len);
+    var argumentsLength = arguments.length;
+    var insertCount, actualDeleteCount, A, k, from, to;
+    if (argumentsLength === 0) {
+      insertCount = actualDeleteCount = 0;
+    } else if (argumentsLength === 1) {
+      insertCount = 0;
+      actualDeleteCount = len - actualStart;
+    } else {
+      insertCount = argumentsLength - 2;
+      actualDeleteCount = min(max(toInteger(deleteCount), 0), len - actualStart);
+    }
+    if (len + insertCount - actualDeleteCount > MAX_SAFE_INTEGER) {
+      throw TypeError(MAXIMUM_ALLOWED_LENGTH_EXCEEDED);
+    }
+    A = arraySpeciesCreate(O, actualDeleteCount);
+    for (k = 0; k < actualDeleteCount; k++) {
+      from = actualStart + k;
+      if (from in O) createProperty(A, k, O[from]);
+    }
+    A.length = actualDeleteCount;
+    if (insertCount < actualDeleteCount) {
+      for (k = actualStart; k < len - actualDeleteCount; k++) {
+        from = k + actualDeleteCount;
+        to = k + insertCount;
+        if (from in O) O[to] = O[from];
+        else delete O[to];
+      }
+      for (k = len; k > len - actualDeleteCount + insertCount; k--) delete O[k - 1];
+    } else if (insertCount > actualDeleteCount) {
+      for (k = len - actualDeleteCount; k > actualStart; k--) {
+        from = k + actualDeleteCount - 1;
+        to = k + insertCount - 1;
+        if (from in O) O[to] = O[from];
+        else delete O[to];
+      }
+    }
+    for (k = 0; k < insertCount; k++) {
+      O[k + actualStart] = arguments[k + 2];
+    }
+    O.length = len - actualDeleteCount + insertCount;
+    return A;
+  }
+});
+
+
+/***/ }),
+
 /***/ "a4b4":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8233,6 +8372,28 @@ if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumb
   NumberPrototype.constructor = NumberWrapper;
   redefine(global, NUMBER, NumberWrapper);
 }
+
+
+/***/ }),
+
+/***/ "ab13":
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__("b622");
+
+var MATCH = wellKnownSymbol('match');
+
+module.exports = function (METHOD_NAME) {
+  var regexp = /./;
+  try {
+    '/./'[METHOD_NAME](regexp);
+  } catch (error1) {
+    try {
+      regexp[MATCH] = false;
+      return '/./'[METHOD_NAME](regexp);
+    } catch (error2) { /* empty */ }
+  } return false;
+};
 
 
 /***/ }),
@@ -67048,6 +67209,29 @@ module.exports = function (object, names) {
 
 /***/ }),
 
+/***/ "caad":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $includes = __webpack_require__("4d64").includes;
+var addToUnscopables = __webpack_require__("44d2");
+
+// `Array.prototype.includes` method
+// https://tc39.es/ecma262/#sec-array.prototype.includes
+$({ target: 'Array', proto: true }, {
+  includes: function includes(el /* , fromIndex = 0 */) {
+    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables('includes');
+
+
+/***/ }),
+
 /***/ "cc12":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -83346,12 +83530,12 @@ var es_string_split = __webpack_require__("1276");
 var repair_components_umd = __webpack_require__("c7c0");
 var repair_components_umd_default = /*#__PURE__*/__webpack_require__.n(repair_components_umd);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"782b9586-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=template&id=2f676ff4&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"repair-map"}},[_c('r-app',{staticClass:"relative"},[(_vm.showFilterButtons)?_c('r-section',[_c('h2',{staticClass:"text-h2 text-secondary"},[_vm._v(_vm._s(_vm.$t('page_title')))]),_c('div',{staticClass:"mb-3 font-bold"},[_vm._v(_vm._s(_vm.$t('label_search_by')))]),_c('div',{staticClass:"flex flex-wrap -m-2"},[_c('r-button',{staticClass:"m-2",class:{ 'bg-secondary-dark': _vm.isFilterActive('TYPE') },attrs:{"color":"secondary"},nativeOn:{"click":function($event){return _vm.toggleFilter('TYPE')}}},[_vm._v(" "+_vm._s(_vm.$t('filter_type_label'))+" "),_c('r-icon',{attrs:{"name":_vm.isFilterActive('TYPE') ? 'mdiChevronUp' : 'mdiChevronDown'}})],1),_c('r-button',{staticClass:"m-2",class:{ 'bg-secondary-dark': _vm.isFilterActive('CATEGORY') },attrs:{"color":"secondary"},nativeOn:{"click":function($event){return _vm.toggleFilter('CATEGORY')}}},[_vm._v(" "+_vm._s(_vm.$t('filter_category_label'))+" "),_c('r-icon',{attrs:{"name":_vm.isFilterActive('CATEGORY') ? 'mdiChevronUp' : 'mdiChevronDown'}})],1),(_vm.mapboxSearchConfig)?_c('r-button',{staticClass:"m-2",class:{ 'bg-secondary-dark': _vm.isFilterActive('LOCATION') },attrs:{"color":"secondary"},nativeOn:{"click":function($event){return _vm.toggleFilter('LOCATION')}}},[_vm._v(" "+_vm._s(_vm.$t('filter_location_label'))+" "),_c('r-icon',{attrs:{"name":_vm.isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'}})],1):_vm._e()],1)]):_vm._e(),(_vm.isFilterActive('TYPE'))?_c('section-filter',{attrs:{"title":_vm.$t('filter_type_title'),"text":_vm.$t('filter_type_text')},on:{"close":function($event){return _vm.toggleFilter(null)}}},_vm._l((_vm.organisationTypes),function(organisationType,key){return _c('r-checkbox',{key:key,attrs:{"value":organisationType.code,"label":_vm.$localizeField(organisationType.name)},scopedSlots:_vm._u([{key:"label",fn:function(){return [_c('span',[_c('r-icon',{staticClass:"mr-1",attrs:{"name":"mdiMapMarker","fill":_vm.categoryColors[organisationType.code]}}),_c('span',[_vm._v(_vm._s(_vm.$localizeField(organisationType.name)))])],1)]},proxy:true}],null,true),model:{value:(_vm.filters.organisation_types),callback:function ($$v) {_vm.$set(_vm.filters, "organisation_types", $$v)},expression:"filters.organisation_types"}})}),1):(_vm.isFilterActive('CATEGORY'))?_c('section-filter',{attrs:{"title":_vm.$t('filter_category_title'),"text":_vm.$t('filter_category_text')},on:{"close":function($event){return _vm.toggleFilter(null)}}},_vm._l((_vm.categoryGroups),function(categoryGroup,categoryKey){return _c('div',{key:categoryKey,staticClass:"mb-6"},[_c('div',{staticClass:"font-bold text-white"},[_c('r-checkbox',{staticClass:"category-group",attrs:{"label":_vm.$localizeField(categoryGroup.name),"value":categoryGroup.code},model:{value:(_vm.filters.product_categories),callback:function ($$v) {_vm.$set(_vm.filters, "product_categories", $$v)},expression:"filters.product_categories"}})],1),_c('r-grid',{staticClass:"!mt-0"},_vm._l((categoryGroup.data),function(category,key){return _c('r-grid-item',{key:key,staticClass:"sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"},[_c('r-checkbox',{attrs:{"label":_vm.$localizeField(category.name),"value":category.code},model:{value:(_vm.filters.product_categories),callback:function ($$v) {_vm.$set(_vm.filters, "product_categories", $$v)},expression:"filters.product_categories"}})],1)}),1)],1)}),0):(_vm.isFilterActive('LOCATION') && _vm.mapboxSearchConfig)?_c('section-filter',{attrs:{"title":_vm.$t('filter_location_title')},on:{"submit":_vm.submitLocationFilter,"close":function($event){return _vm.toggleFilter(null)}}},[_c('r-mapbox-search',{staticClass:"max-w-2xl",attrs:{"label":_vm.$t('filter_location_search_label'),"placeholder":_vm.$t('filter_location_search_placeholder'),"config":_vm.mapboxSearchConfig,"required":""},model:{value:(_vm.locationSearch),callback:function ($$v) {_vm.locationSearch=$$v},expression:"locationSearch"}})],1):_vm._e(),(_vm.showActiveFilters)?_c('r-section',{class:{ 'border-t-1 border-solid border-secondary-dark': _vm.showActiveFilters && !_vm.isFilterActive(null) },attrs:{"color":"secondary"}},[_c('h3',{staticClass:"text-white text-h3"},[_vm._v("Active filters:")]),(_vm.filters.organisation_types.length)?_c('div',{staticClass:"flex flex-wrap mb-2 -mx-1 -my-2 align-middle"},[_c('div',{staticClass:"my-2 ml-1 mr-2"},[_vm._v("Type:")]),_vm._l((_vm.organisationTypes),function(organisationType){return [(_vm.filters.organisation_types.includes(organisationType.code))?_c('button',{key:organisationType.code,staticClass:"p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white",attrs:{"color":"secondary","contrast":""},on:{"click":function($event){return _vm.clearFilter('organisation_types', organisationType.code)}}},[_c('span',[_vm._v(_vm._s(_vm.$localizeField(organisationType.name)))]),_c('r-icon',{staticClass:"ml-1",attrs:{"name":"mdiClose"}})],1):_vm._e()]})],2):_vm._e(),(_vm.filters.product_categories.length)?_c('div',{staticClass:"flex flex-wrap mb-2 -mx-1 -my-2 align-middle"},[_c('div',{staticClass:"my-2 ml-1 mr-2"},[_vm._v("Category:")]),_vm._l((_vm.categories),function(category){return [(_vm.filters.product_categories.includes(category.code))?_c('button',{key:category.code,staticClass:"p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white",on:{"click":function($event){return _vm.clearFilter('product_categories', category.code)}}},[_vm._v(" "+_vm._s(_vm.$localizeField(category.name))+" "),_c('r-icon',{attrs:{"name":"mdiClose"}})],1):_vm._e()]})],2):_vm._e(),(_vm.filters.location)?_c('div',{staticClass:"flex flex-wrap -m-1 align-middle"},[_vm._l((_vm.organisationTypes),function(organisationType){return [(_vm.filters.organisation_types.includes(organisationType.code))?_c('r-button',{key:organisationType.code,staticClass:"m-1",attrs:{"color":"secondary","contrast":"","size":"small"},nativeOn:{"click":function($event){return _vm.clearFilter('organisation_types', organisationType.code)}}},[_vm._v(" "+_vm._s(_vm.$localizeField(organisationType.name))+" "),_c('r-icon',{attrs:{"name":"mdiClose"}})],1):_vm._e()]})],2):_vm._e()]):_vm._e(),_c('div',{staticClass:"relative"},[_c('r-section',{ref:"pageContainer",staticClass:"!py-0",class:{ invisible: _vm.isRendering }},[_c('div',{staticClass:"relative flex flex-wrap items-start -mx-2 md:flex-nowrap"},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isMobile),expression:"!isMobile"}],staticClass:"relative hidden w-full px-2 md:block md:w-1/3"},[_c('r-loader',{directives:[{name:"show",rawName:"v-show",value:(_vm.isLoading),expression:"isLoading"}]}),_c('div',{class:{ invisible: _vm.isLoading }},[_c('p',{staticClass:"my-6"},[_vm._v(_vm._s(_vm.$t('locations_results_n', { n: _vm.locationTotal })))]),_c('div',{staticClass:"my-6"},[_vm._l((_vm.locations),function(location,index){return [(_vm.isCurrentPage(index))?_c('card-location',{key:location.id,attrs:{"location":location,"is-active":_vm.activeLocationId === location.id},nativeOn:{"click":function($event){return _vm.onLocationClick(location)}},scopedSlots:_vm._u([{key:"locationTitle",fn:function(slotProps){return [_vm._t("locationTitle",[(_vm.embed)?_c('a',{class:slotProps.defaultClass,attrs:{"href":("https://mapping.sharepair.org/" + (_vm.$i18n.locale) + "/location/" + (_vm.$localizeField(location.slug) || location.id)),"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(" "+_vm._s(_vm.$localizeField(location.name) || _vm.$t('location_name_fallback'))+" ")]):_vm._e()],null,slotProps)]}}],null,true)}):_vm._e()]})],2),_c('r-pagination',{attrs:{"pages":_vm.totalPages},model:{value:(_vm.currentPage),callback:function ($$v) {_vm.currentPage=$$v},expression:"currentPage"}})],1)],1),_c('div',{staticClass:"top-0 w-full px-2 md:w-2/3 md:sticky"},[_c('div',{staticClass:"relative"},[_c('div',{staticClass:"aspect-w-1 h-[525px] sm:h-auto sm:aspect-h-1",class:{ 'md:aspect-none': !_vm.embed }},[_c('div',{ref:"map",class:{ 'md:h-screen': !_vm.embed },style:(_vm.embed && _vm.windowWidth > 768 ? ("height: " + _vm.windowHeight + "px;") : '')})])]),_c('div',{directives:[{name:"show",rawName:"v-show",value:(false),expression:"false"}]},[_c('div',{ref:"popup",staticClass:"w-[325px] sm:w-[350px] relative"},[(_vm.activeLocation)?_c('card-location',{attrs:{"location":_vm.activeLocation,"extended":""},scopedSlots:_vm._u([{key:"locationTitle",fn:function(slotProps){return [_vm._t("locationTitle",[(_vm.embed)?_c('a',{class:slotProps.defaultClass,attrs:{"href":("https://mapping.sharepair.org/" + (_vm.$i18n.locale) + "/location/" + (_vm.$localizeField(_vm.activeLocation.slug) || _vm.activeLocation.id)),"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(" "+_vm._s(_vm.$localizeField(_vm.activeLocation.name) || _vm.$t('location_name_fallback'))+" ")]):_vm._e()],null,slotProps)]}}],null,true)}):_vm._e(),_c('button',{staticClass:"absolute bg-opacity-0 border-0 cursor-pointer top-3 right-3 padding-0",attrs:{"type":"button"},on:{"click":function($event){return _vm.map.closePopup()}}},[_c('r-icon',{attrs:{"name":"mdiClose"}})],1)],1)])])])])],1),_c('r-section',[_c('r-panel',[_c('h2',{staticClass:"text-h2 text-secondary"},[_vm._v(_vm._s(_vm.$t('create_new_title')))]),_c('p',{staticClass:"mb-6 md:w-8/12"},[_vm._v(_vm._s(_vm.$t('create_new_text')))]),_vm._t("suggestionCta",[_c('r-button',{attrs:{"href":("https://mapping.sharepair.org/" + (_vm.$i18n.locale) + "/location/create"),"link":"","color":"secondary","icon-after":"mdiChevronRight","target":"_blank"}},[_vm._v(" "+_vm._s(_vm.$t('create_new_cta'))+" ")])])],2)],1)],1)],1)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"782b9586-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=template&id=36fd8864&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"repair-map"}},[_c('r-app',{staticClass:"relative"},[(_vm.showFilterButtons)?_c('r-section',[_c('h2',{staticClass:"text-h2 text-secondary"},[_vm._v(_vm._s(_vm.$t('page_title')))]),_c('div',{staticClass:"mb-3 font-bold"},[_vm._v(_vm._s(_vm.$t('label_search_by')))]),_c('div',{staticClass:"flex flex-wrap -m-2"},[_c('r-button',{staticClass:"m-2",class:{ 'bg-secondary-dark': _vm.isFilterActive('TYPE') },attrs:{"color":"secondary"},nativeOn:{"click":function($event){return _vm.toggleFilter('TYPE')}}},[_vm._v(" "+_vm._s(_vm.$t('filter_type_label'))+" "),_c('r-icon',{attrs:{"name":_vm.isFilterActive('TYPE') ? 'mdiChevronUp' : 'mdiChevronDown'}})],1),_c('r-button',{staticClass:"m-2",class:{ 'bg-secondary-dark': _vm.isFilterActive('CATEGORY') },attrs:{"color":"secondary"},nativeOn:{"click":function($event){return _vm.toggleFilter('CATEGORY')}}},[_vm._v(" "+_vm._s(_vm.$t('filter_category_label'))+" "),_c('r-icon',{attrs:{"name":_vm.isFilterActive('CATEGORY') ? 'mdiChevronUp' : 'mdiChevronDown'}})],1),(_vm.mapboxSearchConfig)?_c('r-button',{staticClass:"m-2",class:{ 'bg-secondary-dark': _vm.isFilterActive('LOCATION') },attrs:{"color":"secondary"},nativeOn:{"click":function($event){return _vm.toggleFilter('LOCATION')}}},[_vm._v(" "+_vm._s(_vm.$t('filter_location_label'))+" "),_c('r-icon',{attrs:{"name":_vm.isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'}})],1):_vm._e()],1)]):_vm._e(),(_vm.isFilterActive('TYPE'))?_c('section-filter',{attrs:{"title":_vm.$t('filter_type_title'),"text":_vm.$t('filter_type_text')},on:{"close":function($event){return _vm.toggleFilter(null)}}},_vm._l((_vm.organisationTypes),function(organisationType,key){return _c('r-checkbox',{key:key,attrs:{"value":organisationType.code,"label":_vm.$localizeField(organisationType.name)},scopedSlots:_vm._u([{key:"label",fn:function(){return [_c('span',[_c('r-icon',{staticClass:"mr-1",attrs:{"name":"mdiMapMarker","fill":_vm.categoryColors[organisationType.code]}}),_c('span',[_vm._v(_vm._s(_vm.$localizeField(organisationType.name)))])],1)]},proxy:true}],null,true),model:{value:(_vm.filters.organisation_types),callback:function ($$v) {_vm.$set(_vm.filters, "organisation_types", $$v)},expression:"filters.organisation_types"}})}),1):(_vm.isFilterActive('CATEGORY'))?_c('section-filter',{attrs:{"title":_vm.$t('filter_category_title'),"text":_vm.$t('filter_category_text')},on:{"close":function($event){return _vm.toggleFilter(null)}}},_vm._l((_vm.categoryGroups),function(categoryGroup,categoryKey){return _c('div',{key:categoryKey,staticClass:"mb-6"},[_c('div',{staticClass:"font-bold text-white"},[_c('r-checkbox',{staticClass:"category-group",attrs:{"label":_vm.$localizeField(categoryGroup.name)},nativeOn:{"change":function($event){return _vm.selectAllCategories(categoryGroup.code)}},model:{value:(_vm.categoriesAllSelectedGroup[categoryGroup.code]),callback:function ($$v) {_vm.$set(_vm.categoriesAllSelectedGroup, categoryGroup.code, $$v)},expression:"categoriesAllSelectedGroup[categoryGroup.code]"}})],1),_c('r-grid',{staticClass:"!mt-0"},_vm._l((categoryGroup.data),function(category,key){return _c('r-grid-item',{key:key,staticClass:"sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"},[_c('r-checkbox',{attrs:{"label":_vm.$localizeField(category.name),"value":category.code},model:{value:(_vm.filters.product_categories),callback:function ($$v) {_vm.$set(_vm.filters, "product_categories", $$v)},expression:"filters.product_categories"}})],1)}),1)],1)}),0):(_vm.isFilterActive('LOCATION') && _vm.mapboxSearchConfig)?_c('section-filter',{attrs:{"title":_vm.$t('filter_location_title')},on:{"submit":_vm.submitLocationFilter,"close":function($event){return _vm.toggleFilter(null)}}},[_c('r-mapbox-search',{staticClass:"max-w-2xl",attrs:{"label":_vm.$t('filter_location_search_label'),"placeholder":_vm.$t('filter_location_search_placeholder'),"config":_vm.mapboxSearchConfig,"required":""},model:{value:(_vm.locationSearch),callback:function ($$v) {_vm.locationSearch=$$v},expression:"locationSearch"}})],1):_vm._e(),(_vm.showActiveFilters)?_c('r-section',{class:{ 'border-t-1 border-solid border-secondary-dark': _vm.showActiveFilters && !_vm.isFilterActive(null) },attrs:{"color":"secondary"}},[_c('h3',{staticClass:"text-white text-h3"},[_vm._v("Active filters:")]),(_vm.filters.organisation_types.length)?_c('div',{staticClass:"flex flex-wrap mb-2 -mx-1 -my-2 align-middle"},[_c('div',{staticClass:"my-2 ml-1 mr-2"},[_vm._v("Type:")]),_vm._l((_vm.organisationTypes),function(organisationType){return [(_vm.filters.organisation_types.includes(organisationType.code))?_c('button',{key:organisationType.code,staticClass:"p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white",attrs:{"color":"secondary","contrast":""},on:{"click":function($event){return _vm.clearFilter('organisation_types', organisationType.code)}}},[_c('span',[_vm._v(_vm._s(_vm.$localizeField(organisationType.name)))]),_c('r-icon',{staticClass:"ml-1",attrs:{"name":"mdiClose"}})],1):_vm._e()]})],2):_vm._e(),(_vm.filters.product_categories.length)?_c('div',{staticClass:"flex flex-wrap mb-2 -mx-1 -my-2 align-middle"},[_c('div',{staticClass:"my-2 ml-1 mr-2"},[_vm._v("Category:")]),_vm._l((_vm.categories),function(category){return [(_vm.filters.product_categories.includes(category.code))?_c('button',{key:category.code,staticClass:"p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white",on:{"click":function($event){return _vm.clearFilter('product_categories', category.code)}}},[_vm._v(" "+_vm._s(_vm.$localizeField(category.name))+" "),_c('r-icon',{attrs:{"name":"mdiClose"}})],1):_vm._e()]})],2):_vm._e(),(_vm.filters.location)?_c('div',{staticClass:"flex flex-wrap -m-1 align-middle"},[_vm._l((_vm.organisationTypes),function(organisationType){return [(_vm.filters.organisation_types.includes(organisationType.code))?_c('r-button',{key:organisationType.code,staticClass:"m-1",attrs:{"color":"secondary","contrast":"","size":"small"},nativeOn:{"click":function($event){return _vm.clearFilter('organisation_types', organisationType.code)}}},[_vm._v(" "+_vm._s(_vm.$localizeField(organisationType.name))+" "),_c('r-icon',{attrs:{"name":"mdiClose"}})],1):_vm._e()]})],2):_vm._e()]):_vm._e(),_c('div',{staticClass:"relative"},[_c('r-section',{ref:"pageContainer",staticClass:"!py-0",class:{ invisible: _vm.isRendering }},[_c('div',{staticClass:"relative flex flex-wrap items-start -mx-2 md:flex-nowrap"},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isMobile),expression:"!isMobile"}],staticClass:"relative hidden w-full px-2 md:block md:w-1/3"},[_c('r-loader',{directives:[{name:"show",rawName:"v-show",value:(_vm.isLoading),expression:"isLoading"}]}),_c('div',{class:{ invisible: _vm.isLoading }},[_c('p',{staticClass:"my-6"},[_vm._v(_vm._s(_vm.$t('locations_results_n', { n: _vm.locationTotal })))]),_c('div',{staticClass:"my-6"},[_vm._l((_vm.locations),function(location,index){return [(_vm.isCurrentPage(index))?_c('card-location',{key:location.id,attrs:{"location":location,"is-active":_vm.activeLocationId === location.id},nativeOn:{"click":function($event){return _vm.onLocationClick(location)}},scopedSlots:_vm._u([{key:"locationTitle",fn:function(slotProps){return [_vm._t("locationTitle",[(_vm.embed)?_c('a',{class:slotProps.defaultClass,attrs:{"href":("https://mapping.sharepair.org/" + (_vm.$i18n.locale) + "/location/" + (_vm.$localizeField(location.slug) || location.id)),"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(" "+_vm._s(_vm.$localizeField(location.name) || _vm.$t('location_name_fallback'))+" ")]):_vm._e()],null,slotProps)]}}],null,true)}):_vm._e()]})],2),_c('r-pagination',{attrs:{"pages":_vm.totalPages},model:{value:(_vm.currentPage),callback:function ($$v) {_vm.currentPage=$$v},expression:"currentPage"}})],1)],1),_c('div',{staticClass:"top-0 w-full px-2 md:w-2/3 md:sticky"},[_c('div',{staticClass:"relative"},[_c('div',{staticClass:"aspect-w-1 h-[525px] sm:h-auto sm:aspect-h-1",class:{ 'md:aspect-none': !_vm.embed }},[_c('div',{ref:"map",class:{ 'md:h-screen': !_vm.embed },style:(_vm.embed && _vm.windowWidth > 768 ? ("height: " + _vm.windowHeight + "px;") : '')})])]),_c('div',{directives:[{name:"show",rawName:"v-show",value:(false),expression:"false"}]},[_c('div',{ref:"popup",staticClass:"w-[325px] sm:w-[350px] relative"},[(_vm.activeLocation)?_c('card-location',{attrs:{"location":_vm.activeLocation,"extended":""},scopedSlots:_vm._u([{key:"locationTitle",fn:function(slotProps){return [_vm._t("locationTitle",[(_vm.embed)?_c('a',{class:slotProps.defaultClass,attrs:{"href":("https://mapping.sharepair.org/" + (_vm.$i18n.locale) + "/location/" + (_vm.$localizeField(_vm.activeLocation.slug) || _vm.activeLocation.id)),"target":"_blank","rel":"noopener noreferrer"}},[_vm._v(" "+_vm._s(_vm.$localizeField(_vm.activeLocation.name) || _vm.$t('location_name_fallback'))+" ")]):_vm._e()],null,slotProps)]}}],null,true)}):_vm._e(),_c('button',{staticClass:"absolute bg-opacity-0 border-0 cursor-pointer top-3 right-3 padding-0",attrs:{"type":"button"},on:{"click":function($event){return _vm.map.closePopup()}}},[_c('r-icon',{attrs:{"name":"mdiClose"}})],1)],1)])])])])],1),_c('r-section',[_c('r-panel',[_c('h2',{staticClass:"text-h2 text-secondary"},[_vm._v(_vm._s(_vm.$t('create_new_title')))]),_c('p',{staticClass:"mb-6 md:w-8/12"},[_vm._v(_vm._s(_vm.$t('create_new_text')))]),_vm._t("suggestionCta",[_c('r-button',{attrs:{"href":("https://mapping.sharepair.org/" + (_vm.$i18n.locale) + "/location/create"),"link":"","color":"secondary","icon-after":"mdiChevronRight","target":"_blank"}},[_vm._v(" "+_vm._s(_vm.$t('create_new_cta'))+" ")])])],2)],1)],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/RepairMap.vue?vue&type=template&id=2f676ff4&
+// CONCATENATED MODULE: ./src/RepairMap.vue?vue&type=template&id=36fd8864&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
 var es_object_to_string = __webpack_require__("d3b7");
@@ -83488,6 +83672,15 @@ var es_string_search = __webpack_require__("841c");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
 var es_array_map = __webpack_require__("d81d");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
+var es_array_includes = __webpack_require__("caad");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
+var es_string_includes = __webpack_require__("2532");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__("a434");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -83866,6 +84059,10 @@ var iframeResizer_contentWindow_min = __webpack_require__("d9d0");
 
 
 
+
+
+
+
 //
 //
 //
@@ -84229,6 +84426,7 @@ var _windowWidth = window.innerWidth;
       locationTotal: 0,
       organisationTypes: [],
       categories: [],
+      categoryGroups: {},
       activeLocationId: null,
       activeFilter: null,
       currentPage: 1,
@@ -84241,27 +84439,13 @@ var _windowWidth = window.innerWidth;
         organisation_types: [],
         product_categories: [],
         location: null
-      }
+      },
+      categoriesAllSelectedGroup: {}
     };
   },
   computed: {
     categoryColors: function categoryColors() {
       return constants_categoryColors;
-    },
-    categoryGroups: function categoryGroups() {
-      var categoryGroups = {};
-      this.categories.forEach(function (category) {
-        if (!category.parent_category) return;
-
-        if (!Object.hasOwnProperty.call(categoryGroups, category.parent_category.code)) {
-          categoryGroups[category.parent_category.code] = _objectSpread2(_objectSpread2({}, category.parent_category), {}, {
-            data: []
-          });
-        }
-
-        categoryGroups[category.parent_category.code].data.push(category);
-      });
-      return categoryGroups;
     },
     showActiveFilters: function showActiveFilters() {
       var filters = this.filters; // const parentCategory = this.categories;
@@ -84304,6 +84488,26 @@ var _windowWidth = window.innerWidth;
     }
   },
   watch: {
+    categories: function categories() {
+      var _this2 = this;
+
+      this.categories.forEach(function (category) {
+        //  if category is parent: add to the parent group for allSelectedItems
+        if (!category.parent_category) {
+          _this2.categoriesAllSelectedGroup[category.code] = false;
+          return;
+        } // if category is child: add to parent group
+
+
+        if (!Object.hasOwnProperty.call(_this2.categoryGroups, category.parent_category.code)) {
+          _this2.categoryGroups[category.parent_category.code] = _objectSpread2(_objectSpread2({}, category.parent_category), {}, {
+            data: []
+          });
+        }
+
+        _this2.categoryGroups[category.parent_category.code].data.push(category);
+      });
+    },
     locations: function locations() {
       this.updateMarkers();
     },
@@ -84323,6 +84527,7 @@ var _windowWidth = window.innerWidth;
     filters: {
       deep: true,
       handler: function handler() {
+        this.checkIfAllSelected();
         this.fetchLocations();
       }
     },
@@ -84335,37 +84540,37 @@ var _windowWidth = window.innerWidth;
     this.activeFilter = this.filter;
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (_this2.$i18n) {
-                _this2.$i18n.locale = _this2.locale || lib_default.a.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
+              if (_this3.$i18n) {
+                _this3.$i18n.locale = _this3.locale || lib_default.a.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
               }
 
-              _this2.setFiltersFromUrl();
+              _this3.setFiltersFromUrl();
 
-              _this2.renderMap();
+              _this3.renderMap();
 
-              if (!(_this2.defaultCenter[0] === defaultCenter[0] && _this2.defaultCenter[1] === defaultCenter[1] && navigator.geolocation)) {
+              if (!(_this3.defaultCenter[0] === defaultCenter[0] && _this3.defaultCenter[1] === defaultCenter[1] && navigator.geolocation)) {
                 _context.next = 6;
                 break;
               }
 
               _context.next = 6;
-              return _this2.askLocation();
+              return _this3.askLocation();
 
             case 6:
-              _this2.isRendering = false;
+              _this3.isRendering = false;
 
-              _this2.fetchLocations();
+              _this3.fetchLocations();
 
-              _this2.fetchOrganisationTypes();
+              _this3.fetchOrganisationTypes();
 
-              _this2.fetchCategories();
+              _this3.fetchCategories();
 
             case 10:
             case "end":
@@ -84376,6 +84581,48 @@ var _windowWidth = window.innerWidth;
     }))();
   },
   methods: {
+    getCategoryCodesForGroup: function getCategoryCodesForGroup(groupName) {
+      var categoryCodes = [];
+      this.categoryGroups[groupName].data.forEach(function (category) {
+        categoryCodes.push(category.code);
+      });
+      return categoryCodes;
+    },
+    checkIfAllSelected: function checkIfAllSelected() {
+      var filters = this.filters; // loop through the categoryGroups and check if the categories are all checked from this group
+
+      for (var _i = 0, _Object$keys = Object.keys(this.categoryGroups); _i < _Object$keys.length; _i++) {
+        var code = _Object$keys[_i];
+        this.categoriesAllSelectedGroup[code] = this.getCategoryCodesForGroup(code).every(function (code) {
+          return filters.product_categories.includes(code);
+        });
+      }
+    },
+    selectAllCategories: function selectAllCategories(categoryGroup) {
+      var _this4 = this;
+
+      var categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
+
+      if (this.categoriesAllSelectedGroup[categoryGroup]) {
+        // add items to filter array
+        categoryGroupCodes.forEach(function (categoryCode) {
+          if (!_this4.filters.product_categories.includes(categoryCode)) {
+            // only add when not already in filter array
+            _this4.filters.product_categories.push(categoryCode);
+          }
+        });
+      } else {
+        // remove items from filter array
+        categoryGroupCodes.forEach(function (categoryCode) {
+          var index = _this4.filters.product_categories.indexOf(categoryCode);
+
+          if (index > -1) {
+            // only remove when in filter array
+            _this4.filters.product_categories.splice(index, 1);
+          }
+        });
+      }
+    },
     setFiltersFromUrl: function setFiltersFromUrl() {
       var params = lib_default.a.parse(location.search.substr(1), qsOptions);
       var filters = this.filters;
@@ -84397,33 +84644,35 @@ var _windowWidth = window.innerWidth;
       }
     },
     askLocation: function askLocation() {
-      var _this3 = this;
+      var _this5 = this;
 
       return new Promise(function (resolve) {
         navigator.geolocation.getCurrentPosition(function (position) {
-          _this3.map.setView(new leaflet_src_default.a.LatLng(position.coords.latitude, position.coords.longitude));
+          _this5.map.setView(new leaflet_src_default.a.LatLng(position.coords.latitude, position.coords.longitude));
 
           resolve();
         }, resolve);
       });
     },
     renderMap: function renderMap() {
-      var _this4 = this;
+      var _this6 = this;
 
-      this.map = leaflet_src_default.a.map(this.$refs.map).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
+      this.map = leaflet_src_default.a.map(this.$refs.map, {
+        scrollWheelZoom: false
+      }).setView([this.defaultCenter[0], this.defaultCenter[1]], this.defaultZoom);
       leaflet_src_default.a.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "&copy; <a href=\"https://openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
       }).addTo(this.map);
       this.map.on('movestart', function () {
-        _this4.isLoading = true;
+        _this6.isLoading = true;
       });
       this.map.on('moveend', lodash_debounce_default()(function () {
-        !_this4.isRendering && _this4.fetchLocations();
+        !_this6.isRendering && _this6.fetchLocations();
       }, 500));
     },
     updateMarkers: function updateMarkers() {
-      var _this5 = this;
+      var _this7 = this;
 
       if (this.markerClusterGroup) {
         this.map.removeLayer(this.markerClusterGroup);
@@ -84444,10 +84693,10 @@ var _windowWidth = window.innerWidth;
             })
           });
           marker.on('click', function () {
-            _this5.openPopup(location.id);
+            _this7.openPopup(location.id);
           });
 
-          _this5.markerClusterGroup.addLayer(marker);
+          _this7.markerClusterGroup.addLayer(marker);
 
           newMarkers[location.id] = marker;
         }
@@ -84460,7 +84709,7 @@ var _windowWidth = window.innerWidth;
       }
     },
     fetchLocations: function fetchLocations() {
-      var _this6 = this;
+      var _this8 = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         var filters, defaultQuery, mapBounds, bbox, query, _yield$axios$get, _yield$axios$get$data, data, total;
@@ -84469,25 +84718,25 @@ var _windowWidth = window.innerWidth;
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                filters = _this6.filters, defaultQuery = _this6.defaultQuery;
-                mapBounds = _this6.map.getBounds();
+                filters = _this8.filters, defaultQuery = _this8.defaultQuery;
+                mapBounds = _this8.map.getBounds();
                 bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
                 query = lib_default.a.stringify(_objectSpread2(_objectSpread2(_objectSpread2({}, defaultQuery), filters), {}, {
                   bbox: bbox,
                   per_page: 1000
                 }), qsOptions);
-                _this6.isLoading = true;
+                _this8.isLoading = true;
                 _context2.next = 7;
-                return axios_default.a.get("".concat(_this6.apiBaseUrl, "/locations?").concat(query));
+                return axios_default.a.get("".concat(_this8.apiBaseUrl, "/locations?").concat(query));
 
               case 7:
                 _yield$axios$get = _context2.sent;
                 _yield$axios$get$data = _yield$axios$get.data;
                 data = _yield$axios$get$data.data;
                 total = _yield$axios$get$data.meta.total;
-                _this6.locationTotal = total;
-                _this6.locations = data;
-                _this6.isLoading = false;
+                _this8.locationTotal = total;
+                _this8.locations = data;
+                _this8.isLoading = false;
 
               case 14:
               case "end":
@@ -84498,7 +84747,7 @@ var _windowWidth = window.innerWidth;
       }))();
     },
     fetchOrganisationTypes: function fetchOrganisationTypes() {
-      var _this7 = this;
+      var _this9 = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
         var query, _yield$axios$get2, data;
@@ -84507,14 +84756,14 @@ var _windowWidth = window.innerWidth;
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                query = lib_default.a.stringify(_this7.defaultQuery, qsOptions);
+                query = lib_default.a.stringify(_this9.defaultQuery, qsOptions);
                 _context3.next = 3;
-                return axios_default.a.get("".concat(_this7.apiBaseUrl, "/organisation_types?").concat(query));
+                return axios_default.a.get("".concat(_this9.apiBaseUrl, "/organisation_types?").concat(query));
 
               case 3:
                 _yield$axios$get2 = _context3.sent;
                 data = _yield$axios$get2.data.data;
-                _this7.organisationTypes = data;
+                _this9.organisationTypes = data;
 
               case 6:
               case "end":
@@ -84525,7 +84774,7 @@ var _windowWidth = window.innerWidth;
       }))();
     },
     fetchCategories: function fetchCategories() {
-      var _this8 = this;
+      var _this10 = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var query, _yield$axios$get3, data;
@@ -84534,14 +84783,14 @@ var _windowWidth = window.innerWidth;
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                query = lib_default.a.stringify(_this8.defaultQuery, qsOptions);
+                query = lib_default.a.stringify(_this10.defaultQuery, qsOptions);
                 _context4.next = 3;
-                return axios_default.a.get("".concat(_this8.apiBaseUrl, "/product_categories?").concat(query));
+                return axios_default.a.get("".concat(_this10.apiBaseUrl, "/product_categories?").concat(query));
 
               case 3:
                 _yield$axios$get3 = _context4.sent;
                 data = _yield$axios$get3.data.data;
-                _this8.categories = data;
+                _this10.categories = data;
 
               case 6:
               case "end":
