@@ -22,4 +22,7 @@ export default {
   locations_results_n: '{n} zoekresultat(en) gevonden in jouw regio.',
   location_name_fallback: 'Naamloze locatie',
   page_title: 'Vind interessante herstelopties in uw regio.',
+  active_filters: 'Actieve filters:',
+  type_filters: 'Soort:',
+  category_filters: 'Categorie:',
 };

@@ -52,7 +52,7 @@
         <div v-for="(contacts, type) in location.contacts" :key="type" class="flex mt-1">
           <template v-if="type !== 'google'">
             <r-icon
-              :name="`contact_${type}`"
+              :name="`contact_${type.toLowerCase()}`"
               size="1.5em"
               class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary"
             />
