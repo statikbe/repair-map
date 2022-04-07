@@ -22,4 +22,7 @@ export default {
   locations_results_n: '{n} search result(s) found in your region.',
   location_name_fallback: 'Unnamed location',
   page_title: 'Find interesting repair locations in your region.',
+  active_filters: 'Active filters:',
+  type_filters: 'Type:',
+  category_filters: 'Category:',
 };

@@ -2,7 +2,7 @@ export default {
   card_location_other: 'autres',
   create_new_cta: 'Suggérer une nouvelle initiative de réparation',
   create_new_text:
-    'Notre objectif est de présenter la grande diversité des acteurs du domaine de la réparation sur cette carte. Connaissez-vous un repair café, un réparateur professionnel, un makerspace ou une autre initiative dans votre région ? Faites le nous savoir.',
+    'Notre objectif est de présenter la grande diversité des acteurs de la réparation sur cette carte. Connaissez-vous un repair café, un réparateur professionnel, un makerspace ou une autre initiative dans votre région ? Faites le nous savoir.',
   create_new_title: "Vous connaissez une initiative de réparation qui n'est pas encore répertoriée ici ?",
   filter_category_label: 'Catégorie',
   filter_category_text:
@@ -22,4 +22,7 @@ export default {
   locations_results_n: '{n} résultat(s) de recherche trouvés dans votre région.',
   location_name_fallback: 'Emplacement sans nom',
   page_title: 'Trouvez des organisations de réparation intéressantes dans votre région.',
+  active_filters: 'Filtres actifs:',
+  type_filter: 'Type:',
+  category_filters: 'Catégorie:',
 };

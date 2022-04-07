@@ -110,9 +110,9 @@
         color="secondary"
         :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
       >
-        <h3 class="text-white text-h3">Active filters:</h3>
+        <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
-          <div class="my-2 ml-1 mr-2">Type:</div>
+          <div class="my-2 ml-1 mr-2">{{$t('type_filters')}}</div>
           <template v-for="organisationType in organisationTypes">
             <button
               v-if="filters.organisation_types.includes(organisationType.code)"
@@ -128,7 +128,7 @@
           </template>
         </div>
         <div v-if="filters.product_categories.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
-          <div class="my-2 ml-1 mr-2">Category:</div>
+          <div class="my-2 ml-1 mr-2">{{$t('category_filters')}}</div>
           <template v-for="category in categories">
             <button
               v-if="filters.product_categories.includes(category.code)"
