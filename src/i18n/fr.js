@@ -2,7 +2,7 @@ export default {
   card_location_other: 'autres',
   create_new_cta: 'Suggérer une nouvelle initiative de réparation',
   create_new_text:
-    'Notre objectif est de présenter la grande diversité des acteurs de la réparation sur cette carte. Connaissez-vous un repair café, un réparateur professionnel, un makerspace ou une autre initiative dans votre région ? Faites le nous savoir.',
+    'Notre objectif est de présenter la grande diversité des acteurs de la réparation sur cette carte. Connaissez-vous un Repair Café, un réparateur professionnel, un makerspace ou une autre initiative dans votre région ? Faites le nous savoir.',
   create_new_title: "Vous connaissez une initiative de réparation qui n'est pas encore répertoriée ici ?",
   filter_category_label: 'Catégorie',
   filter_category_text:
@@ -14,7 +14,7 @@ export default {
   filter_location_title: 'Cherchez des organisations dans votre région',
   filter_type_label: 'Type',
   filter_type_text:
-    "Différents types d'organisations contribuent à l'économie de reprise, chacune ayant sa propre approche et ses propres objectifs. En fonction du problème que vous rencontrez, vous pouvez choisir de faire réparer quelque chose dans un atelier de réparation professionnel ou le réparer avec quelqu'un dans un repair café.",
+    "Différents types d'organisations contribuent à l'économie de reprise, chacune ayant sa propre approche et ses propres objectifs. En fonction du problème que vous rencontrez, vous pouvez choisir de faire réparer quelque chose dans un atelier de réparation professionnel ou le réparer avec quelqu'un dans un Repair Café.",
   filter_type_title: "Sélectionnez les types d'organisations de votre choix",
   label_search_by: 'Filtrer les résultats par:',
   locations_results_0:
