@@ -251,6 +251,7 @@
               color="secondary"
               icon-after="mdiChevronRight"
               target="_blank"
+              rel="noopener noreferrer"
             >
               {{ $t('create_new_cta') }}
             </r-button>

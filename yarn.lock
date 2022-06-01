@@ -1016,10 +1016,10 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@statikbe/repair-components@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@statikbe/repair-components/-/repair-components-0.7.4.tgz#b168becc293579cc74bf82ab8b952c370cd7b062"
-  integrity sha512-txRzqEQ4bk6tBI5H/cfIcEtJQrnwZo3S8i6uccrQBbJWVmYltzGjE1OWDpDntfRerVJZ/eXaQUyIkDb/CFIOmA==
+"@statikbe/repair-components@^0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@statikbe/repair-components/-/repair-components-0.7.5.tgz#e5a5e46bf4a29ce7cc5baf7dcdc3fd9667ae5cd6"
+  integrity sha512-M+oa5eRRWVwTgoK4VFxPqI5IsNdzyM+UFugHHux8h9JNfQfkz80qUfQuukaY3BCxUqKKfhOJtPPyo1dKEey9QQ==
   dependencies:
     "@tiptap/core" "^2.0.0-beta.81"
     "@tiptap/extension-link" "^2.0.0-beta.18"
