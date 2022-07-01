@@ -300,6 +300,11 @@ const defaultCenter = [50.87959, 4.70093];
 const windowHeight = window.innerHeight;
 const windowWidth = window.innerWidth;
 
+// For canceling previous request due to a new request on the map
+// TODO: Update axios and use the new abort api
+const CancelToken = axios.CancelToken;
+let cancel;
+
 export default {
   name: 'repair-map',
   components: {
@@ -576,6 +581,21 @@ export default {
         this.isLoading = true;
       });
 
+      let currentZoom = this.map.getZoom();
+
+      this.map.on('zoomend', function (e) {
+        const newZoom = e.sourceTarget._zoom;
+        const difference = currentZoom - newZoom;
+        if (difference > 0) {
+          console.log('zoom out');
+        } else if (difference < 0) {
+          console.log('zoomed in');
+        } else {
+          console.log('no change');
+        }
+        currentZoom = newZoom;
+      });
+
       this.map.on(
         'moveend',
         debounce(() => {
@@ -642,16 +662,43 @@ export default {
 
       this.isLoading = true;
 
-      const {
-        data: {
-          data,
-          meta: { total },
-        },
-      } = await axios.get(`${this.apiBaseUrl}/locations?${query}`);
+      const locationsUrl = `${this.apiBaseUrl}/locations?${query}`;
 
-      this.locationTotal = total;
-      this.locations = data;
-      this.isLoading = false;
+      if (typeof cancel != typeof undefined) {
+        cancel();
+      }
+
+      await axios
+        .get(locationsUrl, {
+          cancelToken: new CancelToken((c) => {
+            cancel = c;
+          }),
+        })
+        .then((response) => {
+          this.locationTotal = response.data.meta.total;
+          this.locations = response.data.data;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.isLoading = false;
+        });
+
+      // const {
+      //   data: {
+      //     data,
+      //     meta: { total },
+      //   },
+      // } = await axios
+      //   .get(locationsUrl, {
+      //     signal: controller.signal,
+      //   })
+      //   .then(function (response) {
+      //     return response;
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
     async fetchOrganisationTypes() {
       const query = qs.stringify(this.defaultQuery, qsOptions);
