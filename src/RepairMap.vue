@@ -581,21 +581,6 @@ export default {
         this.isLoading = true;
       });
 
-      let currentZoom = this.map.getZoom();
-
-      this.map.on('zoomend', function (e) {
-        const newZoom = e.sourceTarget._zoom;
-        const difference = currentZoom - newZoom;
-        if (difference > 0) {
-          console.log('zoom out');
-        } else if (difference < 0) {
-          console.log('zoomed in');
-        } else {
-          console.log('no change');
-        }
-        currentZoom = newZoom;
-      });
-
       this.map.on(
         'moveend',
         debounce(() => {
