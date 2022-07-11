@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",
-    "@statikbe/repair-components": "statikbe/repair-components#test",
+    "@statikbe/repair-components": "^0.7.7",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
