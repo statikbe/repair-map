@@ -20,8 +20,8 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "iframe-resizer": "^4.3.2",
-    "leaflet": "^1.7.1",
-    "leaflet.markercluster": "^1.5.0",
+    "leaflet": "^1.8.0",
+    "leaflet.markercluster": "^1.5.3",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^2.6.11"
