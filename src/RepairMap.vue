@@ -291,6 +291,8 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
+import { locationsQuery } from './graphql/locations.js';
+
 const qsOptions = {
   arrayFormat: 'comma',
 };
@@ -305,8 +307,16 @@ const windowWidth = window.innerWidth;
 const CancelToken = axios.CancelToken;
 let cancel;
 
+// console.log(mapBounds);
+
 export default {
   name: 'repair-map',
+  apollo: {
+    locationsGql: {
+      query: locationsQuery,
+      loadingKey: 'loading',
+    },
+  },
   components: {
     CardLocation,
     RApp,
@@ -365,6 +375,7 @@ export default {
   },
   data: () => ({
     locations: [],
+    locationsGql: [],
     locationMarkers: {},
     locationTotal: 0,
     organisationTypes: [],
