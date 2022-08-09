@@ -8,7 +8,7 @@ export const locationsQuery = gql`
     $yMax: Float! = 4.726524353027345
     $yMin: Float! = 4.675369262695313
   ) {
-    locationsGql: locationsBbox(locale: $locale, xMax: $xMax, xMin: $xMin, yMax: $yMax, yMin: $yMin) {
+    locations: locationsBbox(locale: $locale, xMax: $xMax, xMin: $xMin, yMax: $yMax, yMin: $yMin) {
       address {
         city
         country

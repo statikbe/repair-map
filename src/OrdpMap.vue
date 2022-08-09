@@ -291,6 +291,8 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
+import { locationsQuery } from './graphql/locations.js';
+
 const qsOptions = {
   arrayFormat: 'comma',
 };
@@ -302,13 +304,34 @@ const windowWidth = window.innerWidth;
 
 // For canceling previous request due to a new request on the map
 // TODO: Update axios and use the new abort api
-const CancelToken = axios.CancelToken;
-let cancel;
+// const CancelToken = axios.CancelToken;
+// let cancel;
 
 // console.log(mapBounds);
 
 export default {
   name: 'repair-map',
+  apollo: {
+    locations: {
+      query: locationsQuery,
+      loadingKey: 'loading',
+      variables() {
+        const mapBounds = this.map.getBounds();
+        console.log(mapBounds);
+
+        return {
+          locale: 'EN',
+          xMax: mapBounds.getNorth(),
+          xMin: mapBounds.getSouth(),
+          yMax: mapBounds.getEast(),
+          yMin: mapBounds.getWest(),
+        };
+      },
+      skip() {
+        return !this.map;
+      },
+    },
+  },
   components: {
     CardLocation,
     RApp,
@@ -367,7 +390,6 @@ export default {
   },
   data: () => ({
     locations: [],
-    locationsGql: [],
     locationMarkers: {},
     locationTotal: 0,
     organisationTypes: [],
@@ -504,6 +526,10 @@ export default {
     this.fetchCategories();
   },
   methods: {
+    fetchLocations() {
+      this.$apollo.queries.locations.skip = false;
+      this.$apollo.queries.locations.refetch();
+    },
     getCategoryCodesForGroup(groupName) {
       var categoryCodes = [];
       this.categoryGroups[groupName].data.forEach((category) => {
@@ -587,7 +613,7 @@ export default {
       this.map.on(
         'moveend',
         debounce(() => {
-          !this.isRendering && this.fetchLocations();
+          !this.isRendering && this.fetchLocations() && this.$apollo.queries.locations.refetch();
         }, 500)
       );
     },
@@ -632,62 +658,62 @@ export default {
         this.openPopup(this.activeLocation.id);
       }
     },
-    async fetchLocations() {
-      const { filters, defaultQuery } = this;
+    // async fetchLocations() {
+    //   const { filters, defaultQuery } = this;
 
-      const mapBounds = this.map.getBounds();
-      const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
+    //   const mapBounds = this.map.getBounds();
+    //   const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
 
-      const query = qs.stringify(
-        {
-          ...defaultQuery,
-          ...filters,
-          bbox,
-          per_page: 1000,
-        },
-        qsOptions
-      );
+    //   const query = qs.stringify(
+    //     {
+    //       ...defaultQuery,
+    //       ...filters,
+    //       bbox,
+    //       per_page: 1000,
+    //     },
+    //     qsOptions
+    //   );
 
-      this.isLoading = true;
+    //   this.isLoading = true;
 
-      const locationsUrl = `${this.apiBaseUrl}/locations?${query}`;
+    //   const locationsUrl = `${this.apiBaseUrl}/locations?${query}`;
 
-      if (typeof cancel != typeof undefined) {
-        cancel();
-      }
+    //   if (typeof cancel != typeof undefined) {
+    //     cancel();
+    //   }
 
-      await axios
-        .get(locationsUrl, {
-          cancelToken: new CancelToken((c) => {
-            cancel = c;
-          }),
-        })
-        .then((response) => {
-          this.locationTotal = response.data.meta.total;
-          this.locations = response.data.data;
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.isLoading = false;
-        });
+    //   await axios
+    //     .get(locationsUrl, {
+    //       cancelToken: new CancelToken((c) => {
+    //         cancel = c;
+    //       }),
+    //     })
+    //     .then((response) => {
+    //       this.locationTotal = response.data.meta.total;
+    //       this.locations = response.data.data;
+    //       this.isLoading = false;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       this.isLoading = false;
+    //     });
 
-      // const {
-      //   data: {
-      //     data,
-      //     meta: { total },
-      //   },
-      // } = await axios
-      //   .get(locationsUrl, {
-      //     signal: controller.signal,
-      //   })
-      //   .then(function (response) {
-      //     return response;
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-    },
+    //   // const {
+    //   //   data: {
+    //   //     data,
+    //   //     meta: { total },
+    //   //   },
+    //   // } = await axios
+    //   //   .get(locationsUrl, {
+    //   //     signal: controller.signal,
+    //   //   })
+    //   //   .then(function (response) {
+    //   //     return response;
+    //   //   })
+    //   //   .catch(function (error) {
+    //   //     console.log(error);
+    //   //   });
+    // },
     async fetchOrganisationTypes() {
       const query = qs.stringify(this.defaultQuery, qsOptions);
       const {

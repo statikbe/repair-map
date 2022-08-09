@@ -3,11 +3,9 @@
 </template>
 
 <script>
-import RepairMap from './RepairMap.vue';
-
 export default {
   components: {
-    RepairMap,
+    'repair-map': () => (process.env.VUE_APP_MAP === 'ordp' ? import('./OrdpMap.vue') : import('./RepairMap.vue')),
   },
 };
 </script>
