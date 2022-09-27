@@ -180,14 +180,12 @@
                         <slot name="locationTitle" v-bind="slotProps">
                           <a
                             v-if="embed"
-                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
-                              $localizeField(location.slug) || location.id
-                            }`"
+                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${location.id}`"
                             :class="slotProps.defaultClass"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {{ $localizeField(location.name) || $t('location_name_fallback') }}
+                            {{ location.name || $t('location_name_fallback') }}
                           </a>
                         </slot>
                       </template>
@@ -215,14 +213,12 @@
                       <slot name="locationTitle" v-bind="slotProps">
                         <a
                           v-if="embed"
-                          :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
-                            $localizeField(activeLocation.slug) || activeLocation.id
-                          }`"
+                          :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${activeLocation.id}`"
                           :class="slotProps.defaultClass"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {{ $localizeField(activeLocation.name) || $t('location_name_fallback') }}
+                          {{ activeLocation.name || $t('location_name_fallback') }}
                         </a>
                       </slot>
                     </template>
@@ -278,7 +274,7 @@ import {
 import categoryColors from '../src/constants/categoryColors';
 
 import SectionFilter from './components/SectionFilter.vue';
-import CardLocation from './components/CardLocation.vue';
+import CardLocation from './components/ordp/CardLocation.vue';
 
 import Leaflet from 'leaflet';
 import axios from 'axios';
@@ -317,10 +313,9 @@ export default {
       loadingKey: 'loading',
       variables() {
         const mapBounds = this.map.getBounds();
-        console.log(mapBounds);
 
         return {
-          locale: 'EN',
+          locale: this.locale.toUpperCase(),
           xMax: mapBounds.getNorth(),
           xMin: mapBounds.getSouth(),
           yMax: mapBounds.getEast(),
@@ -328,7 +323,14 @@ export default {
         };
       },
       skip() {
-        return !this.map;
+        return this.shouldSkipOrdpQuery();
+      },
+      // Optional result hook
+      result({ data }) {
+        this.isLoading = false;
+        if (data.locations) {
+          this.locationTotal = data.locations.length;
+        }
       },
     },
   },
@@ -365,7 +367,7 @@ export default {
     },
     locale: {
       type: String,
-      default: () => null,
+      default: () => qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en',
     },
     itemsPerPage: {
       type: Number,
@@ -505,8 +507,7 @@ export default {
   },
   async mounted() {
     if (this.$i18n) {
-      this.$i18n.locale =
-        this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
+      this.$i18n.locale = this.locale;
     }
 
     this.setFiltersFromUrl();
@@ -520,6 +521,7 @@ export default {
       await this.askLocation();
     }
 
+    console.log('hey');
     this.isRendering = false;
     this.fetchLocations();
     this.fetchOrganisationTypes();
@@ -527,7 +529,7 @@ export default {
   },
   methods: {
     fetchLocations() {
-      this.$apollo.queries.locations.skip = false;
+      this.$apollo.queries.locations.skip = this.shouldSkipOrdpQuery();
       this.$apollo.queries.locations.refetch();
     },
     getCategoryCodesForGroup(groupName) {
@@ -613,7 +615,7 @@ export default {
       this.map.on(
         'moveend',
         debounce(() => {
-          !this.isRendering && this.fetchLocations() && this.$apollo.queries.locations.refetch();
+          !this.isRendering && this.fetchLocations();
         }, 500)
       );
     },
@@ -629,11 +631,11 @@ export default {
       });
 
       this.locations.forEach((location) => {
-        if (location.geometry.latitude && location.geometry.latitude) {
-          const marker = Leaflet.marker([location.geometry.latitude, location.geometry.longitude], {
+        if (location.geometry.coordinates) {
+          const marker = Leaflet.marker(location.geometry.coordinates, {
             icon: Leaflet.icon({
-              iconUrl: location.organisation_type
-                ? require(`./assets/img/markers/${location.organisation_type.code}.png`)
+              iconUrl: location.organisationTypeCode
+                ? require(`./assets/img/markers/${location.organisationTypeCode}.png`)
                 : markerImage,
               iconSize: [20, 32],
               iconAnchor: [10, 32],
@@ -774,6 +776,9 @@ export default {
           closeButton: false,
         })
         .openPopup();
+    },
+    shouldSkipOrdpQuery() {
+      return !this.map || !this.locale;
     },
   },
 };

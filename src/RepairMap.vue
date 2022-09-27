@@ -278,7 +278,7 @@ import {
 import categoryColors from '../src/constants/categoryColors';
 
 import SectionFilter from './components/SectionFilter.vue';
-import CardLocation from './components/CardLocation.vue';
+import CardLocation from './components/repair/CardLocation.vue';
 
 import Leaflet from 'leaflet';
 import axios from 'axios';

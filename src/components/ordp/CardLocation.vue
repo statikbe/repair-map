@@ -23,11 +23,11 @@
       </slot>
       <r-icon name="mdiChevronRight" />
     </h3>
-    <div v-if="location.organisation_type" class="font-semibold text-small">
-      <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisation_type.code]" class="mr-1" />
-      <span>{{ $localizeField(location.organisation_type.name) }}</span>
+    <div v-if="location.organisationTypeCode" class="font-semibold text-small">
+      <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisationTypeCode]" class="mr-1" />
+      <span>{{ location.organisationTypeCode }}</span>
     </div>
-    <div v-if="location.product_categories" class="mt-4">
+<!--    <div v-if="location.product_categories" class="mt-4">
       <div class="flex flex-wrap -m-1">
         <span
           v-for="category in location.product_categories.slice(0, 4)"
@@ -64,13 +64,13 @@
           </template>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
 import { RIcon } from '@statikbe/repair-components';
-import categoryColors from '../constants/categoryColors';
+import categoryColors from '../../constants/categoryColors';
 
 export default {
   components: {
@@ -95,7 +95,7 @@ export default {
       return categoryColors;
     },
     locationTitle() {
-      return this.$localizeField(this.location.name) || this.$t('location_name_fallback');
+      return this.location.name || this.$t('location_name_fallback');
     },
   },
 };
