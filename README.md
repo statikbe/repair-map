@@ -136,8 +136,8 @@ Dark variants are used for hover states, contrast variants are used for button t
 | itemsPerPage      | Number  | `10`                  | Number of initiative results per page.                                                                                                                    |
 | showFilterButtons | Boolean | `true`                | Set to false to implement your own filter buttons.                                                                                                        |
 | mapboxAccessToken | String  | `null`                | Providing a [Mapbox access token](https://docs.mapbox.com/help/getting-started/access-tokens/) will enable searching for locations to center your map to. |
-
-If you want a prefilterd map on load, you can pass some params to the url: `organisation_types=` and `product_categories=`.
+| organisation_types | Array  | `null`                | URL parameter for prefiltering the map. All the organisation codes can be found [here](https://www.repairconnects.org/api/v1/organisation_types). |
+| product_categories | Array  | `null`                | URL parameter for prefiltering the map. All the product codes can be found [here](https://www.repairconnects.org/api/v1/product_categories). |
 
 ## For developers
 
