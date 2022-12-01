@@ -25,4 +25,5 @@ export default {
   active_filters: 'Aktive Filter:',
   type_filter: 'Typ:',
   category_filters: 'Kategorie:',
+  professional_repairer: 'Professioneller Reparateur',
 };

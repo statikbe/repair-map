@@ -521,7 +521,7 @@ export default {
       await this.askLocation();
     }
 
-    console.log('hey');
+    // console.log('hey');
     this.isRendering = false;
     this.fetchLocations();
     this.fetchOrganisationTypes();

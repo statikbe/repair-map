@@ -25,4 +25,5 @@ export default {
   active_filters: 'Actieve filters:',
   type_filters: 'Soort:',
   category_filters: 'Categorie:',
+  professional_repairer: 'Professionele hersteller',
 };

@@ -25,9 +25,9 @@
     </h3>
     <div v-if="location.organisationTypeCode" class="font-semibold text-small">
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisationTypeCode]" class="mr-1" />
-      <span>{{ location.organisationTypeCode }}</span>
+      <span>{{ $t(`${location.organisationTypeCode}`) }}</span>
     </div>
-<!--    <div v-if="location.product_categories" class="mt-4">
+    <!--<div v-if="location.product_categories" class="mt-4">
       <div class="flex flex-wrap -m-1">
         <span
           v-for="category in location.product_categories.slice(0, 4)"
@@ -42,29 +42,36 @@
           >+ {{ location.product_categories.length - 4 }} {{ $t('card_location_other') }}</span
         >
       </div>
-      <div v-if="extended" class="mt-3 leading-none text-tiny">
-        <div class="flex">
-          <r-icon name="mdiMapMarker" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
-          <div class="leading-normal truncate">
-            {{ location.address_formatted }}
-          </div>
-        </div>
-        <div v-for="(contacts, type) in location.contacts" :key="type" class="flex mt-1">
-          <template v-if="type !== 'google'">
-            <r-icon
-              :name="`contact_${type.toLowerCase()}`"
-              size="1.5em"
-              class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary"
-            />
-            <div class="leading-normal truncate">
-              <div v-for="(contact, key) in contacts" :key="key">
-                <a :href="contact.value" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a>
-              </div>
-            </div>
-          </template>
+    </div>-->
+    <div class="mt-3 space-y-2 leading-none text-tiny">
+      <div class="flex">
+        <r-icon name="mdiMapMarker" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
+        <div class="leading-normal truncate">
+          {{ location.address.formatted }}
         </div>
       </div>
-    </div>-->
+
+      <div v-for="(website, key) in location.contactsWebsite" :key="key" class="flex">
+        <r-icon name="contact_website" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
+        <div class="leading-normal truncate">
+          <a :href="website" target="_blank" rel="noopener noreferrer" class="text-black">{{ website }}</a>
+        </div>
+      </div>
+
+      <div v-for="(email, key) in location.contactsEmail" :key="key" class="flex">
+        <r-icon name="contact_email" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
+        <div class="leading-normal truncate">
+          <a :href="`mailto:${email}`" class="text-black">{{ email }}</a>
+        </div>
+      </div>
+
+      <div v-for="(phone, key) in location.contactsPhone" :key="key" class="flex">
+        <r-icon name="contact_phone" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
+        <div class="leading-normal truncate">
+          <a :href="`tel:${phone}`" class="text-black">{{ phone }}</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
