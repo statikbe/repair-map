@@ -51,24 +51,26 @@
         </div>
       </div>
 
-      <div v-for="(website, key) in location.contactsWebsite" :key="key" class="flex">
+      <div v-for="(website, key) in location.contactsWebsite" :key="key + 'web'" class="flex">
         <r-icon name="contact_website" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
         <div class="leading-normal truncate">
-          <a :href="website" target="_blank" rel="noopener noreferrer" class="text-black">{{ website }}</a>
+          <a :href="website" target="_blank" rel="noopener noreferrer" class="text-black hover:no-underline">{{
+            website
+          }}</a>
         </div>
       </div>
 
-      <div v-for="(email, key) in location.contactsEmail" :key="key" class="flex">
+      <div v-for="(email, key) in location.contactsEmail" :key="key + 'email'" class="flex">
         <r-icon name="contact_email" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
         <div class="leading-normal truncate">
-          <a :href="`mailto:${email}`" class="text-black">{{ email }}</a>
+          <a :href="`mailto:${email}`" class="text-black hover:no-underline">{{ email }}</a>
         </div>
       </div>
 
-      <div v-for="(phone, key) in location.contactsPhone" :key="key" class="flex">
+      <div v-for="(phone, key) in location.contactsPhone" :key="key + 'phone'" class="flex">
         <r-icon name="contact_phone" size="1.5em" class="flex-grow-0 flex-shrink-0 mr-1 leading-none text-primary" />
         <div class="leading-normal truncate">
-          <a :href="`tel:${phone}`" class="text-black">{{ phone }}</a>
+          <a :href="`tel:${phone}`" class="text-black hover:no-underline">{{ phone }}</a>
         </div>
       </div>
     </div>

@@ -10,13 +10,8 @@ export const locationsQuery = gql`
   ) {
     locations: locationsBbox(locale: $locale, xMax: $xMax, xMin: $xMin, yMax: $yMax, yMin: $yMin) {
       address {
-        city
-        country
         countryCode
         formatted
-        number
-        postalCode
-        street
       }
       contactsEmail
       contactsPhone
@@ -28,7 +23,6 @@ export const locationsQuery = gql`
       id
       locale
       name
-      organisationDescription
       organisationTypeCode
     }
   }
