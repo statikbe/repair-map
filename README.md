@@ -141,6 +141,18 @@ Dark variants are used for hover states, contrast variants are used for button t
 
 ## For developers
 
+You can fetch data from two API's.
+The API by Statik and the ORDP API.
+You can switch easily by updating the `.env` file.
+
+```env
+#VUE_APP_MAP='repair'
+VUE_APP_MAP='ordp'
+```
+
+In the `components` folder there are two folders, one for ORDP and one for the repair.
+When fetching data from ORDP, GraphQL and Apollo is used. See the `graphql` folder for the query.
+
 ### Publishing to NPM
 
 First, run `yarn build` to build this package as a library.
