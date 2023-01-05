@@ -159,7 +159,6 @@
         </div>
       </r-section>
       <div class="relative">
-        <!-- <r-loader v-if="isRendering" /> -->
         <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
           <div class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap">
             <!-- LOCATION LIST -->
@@ -391,7 +390,6 @@ export default {
     },
     showActiveFilters() {
       const { filters } = this;
-      // const parentCategory = this.categories;
       return filters.organisation_types.length || filters.product_categories.length;
     },
     defaultQuery() {
@@ -502,7 +500,7 @@ export default {
   },
   methods: {
     getCategoryCodesForGroup(groupName) {
-      var categoryCodes = [];
+      let categoryCodes = [];
       this.categoryGroups[groupName].data.forEach((category) => {
         categoryCodes.push(category.code);
       });
@@ -519,7 +517,7 @@ export default {
       }
     },
     selectAllCategories(categoryGroup) {
-      var categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
+      let categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
       if (this.categoriesAllSelectedGroup[categoryGroup]) {
         // add items to filter array
         categoryGroupCodes.forEach((categoryCode) => {
@@ -600,7 +598,7 @@ export default {
       });
 
       this.locations.forEach((location) => {
-        if (location.geometry.latitude && location.geometry.latitude) {
+        if (location.geometry.latitude && location.geometry.longitude) {
           const marker = Leaflet.marker([location.geometry.latitude, location.geometry.longitude], {
             icon: Leaflet.icon({
               iconUrl: location.organisation_type
@@ -668,22 +666,6 @@ export default {
           console.log(error);
           this.isLoading = false;
         });
-
-      // const {
-      //   data: {
-      //     data,
-      //     meta: { total },
-      //   },
-      // } = await axios
-      //   .get(locationsUrl, {
-      //     signal: controller.signal,
-      //   })
-      //   .then(function (response) {
-      //     return response;
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
     },
     async fetchOrganisationTypes() {
       const query = qs.stringify(this.defaultQuery, qsOptions);
