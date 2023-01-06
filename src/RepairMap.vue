@@ -162,7 +162,7 @@
         <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
           <div
             class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap"
-            :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
+            :style="embed && windowWidth > 768 ? `min-height: ${windowHeight}px;` : ''"
           >
             <!-- LOCATION LIST -->
             <div v-show="!isMobile" class="relative hidden w-full px-2 md:block md:w-1/3">
