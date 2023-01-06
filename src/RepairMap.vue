@@ -160,7 +160,10 @@
       </r-section>
       <div class="relative">
         <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
-          <div class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap">
+          <div
+            class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap"
+            :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
+          >
             <!-- LOCATION LIST -->
             <div v-show="!isMobile" class="relative hidden w-full px-2 md:block md:w-1/3">
               <r-loader v-show="isLoading" />
@@ -663,6 +666,7 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
+          // eslint-disable-next-line
           console.log(error);
           this.isLoading = false;
         });
