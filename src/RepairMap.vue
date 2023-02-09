@@ -487,6 +487,7 @@ export default {
 
     this.setFiltersFromUrl();
     this.renderMap();
+    this.setBboxFromUrl();
 
     if (
       this.defaultCenter[0] === defaultCenter[0] &&
@@ -559,6 +560,19 @@ export default {
           filters.product_categories = params.product_categories.split(',');
         }
       }
+    },
+    setBboxFromUrl() {
+      return new Promise((resolve) => {
+        const params = qs.parse(location.search.substr(1), qsOptions);
+        if (params.bbox) {
+          const bbox = params.bbox.split(',');
+          this.map.fitBounds([
+            [bbox[0], bbox[1]],
+            [bbox[2], bbox[3]],
+          ]);
+        }
+        resolve();
+      });
     },
     askLocation() {
       return new Promise((resolve) => {
@@ -666,9 +680,12 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          // eslint-disable-next-line
-          console.log(error);
-          this.isLoading = false;
+          if (axios.isCancel(error)) {
+            // console.log('Request canceled', error.message);
+          } else {
+            this.isLoading = false;
+            console.log(error);
+          }
         });
     },
     async fetchOrganisationTypes() {
