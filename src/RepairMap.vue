@@ -562,17 +562,16 @@ export default {
       }
     },
     setBboxFromUrl() {
-      return new Promise((resolve) => {
-        const params = qs.parse(location.search.substr(1), qsOptions);
-        if (params.bbox) {
-          const bbox = params.bbox.split(',');
-          this.map.fitBounds([
-            [bbox[0], bbox[1]],
-            [bbox[2], bbox[3]],
-          ]);
-        }
-        resolve();
-      });
+      const params = qs.parse(location.search.substr(1), qsOptions);
+
+      if (params.bbox) {
+        const bbox = params.bbox.split(',');
+
+        this.map.fitBounds([
+          [bbox[0], bbox[1]],
+          [bbox[2], bbox[3]],
+        ]);
+      }
     },
     askLocation() {
       return new Promise((resolve) => {
