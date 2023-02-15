@@ -15,6 +15,10 @@ export default {
   filter_type_label: 'Type',
   filter_type_text:
     'Verschillende soorten organisaties dragen bij aan herstel, elk met een eigen aanpak en focus. Afhankelijk van het probleem dat je hebt, kun je ervoor kiezen om iets te laten repareren bij een professionele reparatiewerkplaats of samen met iemand in een Repair Café.',
+  filter_type_fablab_label: 'Fablab',
+  filter_type_professional_repairer_label: 'Professionele hersteller',
+  filter_type_repair_cafe_label: 'Repair Café',
+  filter_type_spare_parts_shop_or_library_label: 'Verkoop van reserve onderdelen of bibliotheek',
   filter_type_title: 'Selecteer de soorten herstelopties van uw keuze',
   label_search_by: 'Zoeken op:',
   locations_results_0:

@@ -15,6 +15,10 @@ export default {
   filter_type_label: 'Type',
   filter_type_text:
     "Différents types d'organisations contribuent à l'économie de reprise, chacune ayant sa propre approche et ses propres objectifs. En fonction du problème que vous rencontrez, vous pouvez choisir de faire réparer quelque chose dans un atelier de réparation professionnel ou le réparer avec quelqu'un dans un Repair Café.",
+  filter_type_fablab_label: 'Fablab',
+  filter_type_professional_repairer_label: 'Réparateur professionnel',
+  filter_type_repair_cafe_label: 'Repair Café',
+  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
   filter_type_title: "Sélectionnez les types d'organisations de votre choix",
   label_search_by: 'Filtrer les résultats par:',
   locations_results_0:

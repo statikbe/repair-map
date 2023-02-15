@@ -15,6 +15,10 @@ export default {
   filter_type_label: 'Type',
   filter_type_text:
     'Different types of organisations contribute to city repair, each one having its own approach and focus. Depending on the problem you have, you can choose to have something repaired at a professional repair shop, repair it together with someone at a repair café.',
+  filter_type_fablab_label: 'Fablab',
+  filter_type_professional_repairer_label: 'Professional Repairer',
+  filter_type_repair_cafe_label: 'Repair Café',
+  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
   filter_type_title: 'Select the types of organisations of your choice',
   label_search_by: 'Search by:',
   locations_results_0:

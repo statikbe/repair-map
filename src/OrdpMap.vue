@@ -43,16 +43,16 @@
         @close="toggleFilter(null)"
       >
         <r-checkbox
-          v-for="(organisationType, key) in organisationTypes"
+          v-for="(organisationType, key) in ordsStandard.organisationTypes"
           :key="key"
           v-model="filters.organisation_types"
-          :value="organisationType.code"
-          :label="$localizeField(organisationType.name)"
+          :value="organisationType"
+          :label="$t('filter_type_' + organisationType + '_label')"
         >
           <template #label>
             <span>
-              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
-              <span>{{ $localizeField(organisationType.name) }}</span>
+              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType]" class="mr-1" />
+              <span>{{ $t('filter_type_' + organisationType + '_label') }}</span>
             </span>
           </template>
         </r-checkbox>
@@ -64,26 +64,14 @@
         :text="$t('filter_category_text')"
         @close="toggleFilter(null)"
       >
-        <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
-          <div class="font-bold text-white">
-            <r-checkbox
-              v-model="categoriesAllSelectedGroup[categoryGroup.code]"
-              :label="$localizeField(categoryGroup.name)"
-              class="category-group"
-              @change.native="selectAllCategories(categoryGroup.code)"
-            />
-          </div>
+        <div class="mb-6">
           <r-grid class="!mt-0">
             <r-grid-item
-              v-for="(category, key) in categoryGroup.data"
-              :key="key"
-              class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
+                v-for="category in ordsStandard.productCategories"
+                :key="category.id"
+                class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
             >
-              <r-checkbox
-                v-model="filters.product_categories"
-                :label="$localizeField(category.name)"
-                :value="category.code"
-              />
+              <r-checkbox v-model="filters.product_categories" :label="category.label" :value="category.id" />
             </r-grid-item>
           </r-grid>
         </div>
@@ -113,30 +101,30 @@
         <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('type_filters') }}</div>
-          <template v-for="organisationType in organisationTypes">
+          <template v-for="organisationType in ordsStandard.organisationTypes">
             <button
-              v-if="filters.organisation_types.includes(organisationType.code)"
+              v-if="filters.organisation_types.includes(organisationType)"
               color="secondary"
               contrast
               class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-              :key="organisationType.code"
-              @click="clearFilter('organisation_types', organisationType.code)"
+              :key="organisationType"
+              @click="clearFilter('organisation_types', organisationType)"
             >
-              <span>{{ $localizeField(organisationType.name) }}</span>
+              <span>{{ $t('filter_type_' + organisationType + '_label') }}</span>
               <r-icon name="mdiClose" class="ml-1" />
             </button>
           </template>
         </div>
         <div v-if="filters.product_categories.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('category_filters') }}</div>
-          <template v-for="category in categories">
+          <template v-for="category in ordsStandard.productCategories">
             <button
-              v-if="filters.product_categories.includes(category.code)"
+              v-if="filters.product_categories.includes(category.id)"
               class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-              :key="category.code"
-              @click="clearFilter('product_categories', category.code)"
+              :key="category.id"
+              @click="clearFilter('product_categories', category.id)"
             >
-              {{ $localizeField(category.name) }}
+              {{ category.label }}
               <r-icon name="mdiClose" />
             </button>
           </template>
@@ -277,7 +265,6 @@ import SectionFilter from './components/SectionFilter.vue';
 import CardLocation from './components/ordp/CardLocation.vue';
 
 import Leaflet from 'leaflet';
-import axios from 'axios';
 import qs from 'qs';
 import debounce from 'lodash.debounce';
 
@@ -287,7 +274,7 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
-import { locationsQuery } from './graphql/locations.js';
+import { locationsQuery, ordsStandardQuery } from './graphql/queries.js';
 
 const qsOptions = {
   arrayFormat: 'comma',
@@ -320,6 +307,8 @@ export default {
           xMin: mapBounds.getSouth(),
           yMax: mapBounds.getEast(),
           yMin: mapBounds.getWest(),
+          organisationTypeCode: this.filters.organisation_types.length === 0 ? null : this.filters.organisation_types,
+          productCategory: this.filters.product_categories.length === 0 ? null : this.filters.product_categories,
         };
       },
       skip() {
@@ -331,6 +320,16 @@ export default {
         if (data.locations) {
           this.locationTotal = data.locations.length;
         }
+      },
+    },
+    ordsStandard: {
+      query: ordsStandardQuery,
+      loadingKey: 'loading',
+      skip: true,
+      // Optional result hook
+      result({ data }) {
+        console.log(data);
+        this.isLoading = false;
       },
     },
   },
@@ -394,8 +393,10 @@ export default {
     locations: [],
     locationMarkers: {},
     locationTotal: 0,
-    organisationTypes: [],
-    categories: [],
+    ordsStandard: {
+      organisationTypes: [],
+      productCategories: [],
+    },
     categoryGroups: {},
     activeLocationId: null,
     activeFilter: null,
@@ -455,23 +456,23 @@ export default {
     },
   },
   watch: {
-    categories() {
-      this.categories.forEach((category) => {
-        //  if category is parent: add to the parent group for allSelectedItems
-        if (!category.parent_category) {
-          this.categoriesAllSelectedGroup[category.code] = false;
-          return;
-        }
-        // if category is child: add to parent group
-        if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
-          this.categoryGroups[category.parent_category.code] = {
-            ...category.parent_category,
-            data: [],
-          };
-        }
-        this.categoryGroups[category.parent_category.code].data.push(category);
-      });
-    },
+    // categories() {
+    //   this.categories.forEach((category) => {
+    //     //  if category is parent: add to the parent group for allSelectedItems
+    //     if (!category.parent_category) {
+    //       this.categoriesAllSelectedGroup[category.code] = false;
+    //       return;
+    //     }
+    //     // if category is child: add to parent group
+    //     if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
+    //       this.categoryGroups[category.parent_category.code] = {
+    //         ...category.parent_category,
+    //         data: [],
+    //       };
+    //     }
+    //     this.categoryGroups[category.parent_category.code].data.push(category);
+    //   });
+    // },
     locations() {
       this.updateMarkers();
     },
@@ -524,13 +525,17 @@ export default {
     // console.log('hey');
     this.isRendering = false;
     this.fetchLocations();
-    this.fetchOrganisationTypes();
-    this.fetchCategories();
+    this.fetchOrdsStandard();
+    // this.fetchCategories();
   },
   methods: {
     fetchLocations() {
       this.$apollo.queries.locations.skip = this.shouldSkipOrdpQuery();
       this.$apollo.queries.locations.refetch();
+    },
+    fetchOrdsStandard() {
+      this.$apollo.queries.ordsStandard.skip = false;
+      this.$apollo.queries.ordsStandard.refetch();
     },
     getCategoryCodesForGroup(groupName) {
       var categoryCodes = [];
@@ -659,79 +664,6 @@ export default {
       if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
         this.openPopup(this.activeLocation.id);
       }
-    },
-    // async fetchLocations() {
-    //   const { filters, defaultQuery } = this;
-
-    //   const mapBounds = this.map.getBounds();
-    //   const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
-
-    //   const query = qs.stringify(
-    //     {
-    //       ...defaultQuery,
-    //       ...filters,
-    //       bbox,
-    //       per_page: 1000,
-    //     },
-    //     qsOptions
-    //   );
-
-    //   this.isLoading = true;
-
-    //   const locationsUrl = `${this.apiBaseUrl}/locations?${query}`;
-
-    //   if (typeof cancel != typeof undefined) {
-    //     cancel();
-    //   }
-
-    //   await axios
-    //     .get(locationsUrl, {
-    //       cancelToken: new CancelToken((c) => {
-    //         cancel = c;
-    //       }),
-    //     })
-    //     .then((response) => {
-    //       this.locationTotal = response.data.meta.total;
-    //       this.locations = response.data.data;
-    //       this.isLoading = false;
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       this.isLoading = false;
-    //     });
-
-    //   // const {
-    //   //   data: {
-    //   //     data,
-    //   //     meta: { total },
-    //   //   },
-    //   // } = await axios
-    //   //   .get(locationsUrl, {
-    //   //     signal: controller.signal,
-    //   //   })
-    //   //   .then(function (response) {
-    //   //     return response;
-    //   //   })
-    //   //   .catch(function (error) {
-    //   //     console.log(error);
-    //   //   });
-    // },
-    async fetchOrganisationTypes() {
-      const query = qs.stringify(this.defaultQuery, qsOptions);
-      const {
-        data: { data },
-      } = await axios.get(`${this.apiBaseUrl}/organisation_types?${query}`);
-
-      this.organisationTypes = data;
-    },
-    async fetchCategories() {
-      const query = qs.stringify(this.defaultQuery, qsOptions);
-
-      const {
-        data: { data },
-      } = await axios.get(`${this.apiBaseUrl}/product_categories?${query}`);
-
-      this.categories = data;
     },
     isFilterActive(filter = null) {
       return this.activeFilter === filter;

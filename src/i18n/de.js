@@ -16,6 +16,10 @@ export default {
   filter_type_text:
     'Verschiedene Arten von Organisationen tragen zur Erholung der Wirtschaft bei, die jeweils ihren eigenen Ansatz und Schwerpunkt haben. Je nachdem, welches Problem Sie haben, können Sie etwas in einer professionellen Werkstatt reparieren lassen oder es zusammen mit jemandem in einem Repair-Café reparieren.',
   filter_type_title: 'Wählen Sie die Arten von Organisationen Ihrer Wahl aus',
+  filter_type_fablab_label: 'Fablab',
+  filter_type_professional_repairer_label: 'Professioneller Reparateur',
+  filter_type_repair_cafe_label: 'Repair Café',
+  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
   label_search_by: 'Suche nach:',
   locations_results_0:
     '0 Suchergebnisse in Ihrer Region gefunden. Leider sind an Ihrem Standort noch keine Reparaturinitiativen registriert. Sie können die Karte etwas herauszoomen, um Spieler etwas weiter von Ihnen entfernt zu finden, oder über den Link am Ende dieser Seite selbst eine neue Initiative zur Karte hinzufügen.',
