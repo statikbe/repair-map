@@ -1004,20 +1004,6 @@ module.exports = Object.hasOwn || function hasOwn(it, key) {
 
 /***/ }),
 
-/***/ "1cc6":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".category-group>label span{font-weight:700}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
 /***/ "1d2b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4868,6 +4854,20 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "372d":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".category-group>label span{font-weight:700}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "387f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6602,22 +6602,6 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ "772f":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("1cc6");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("941cc710", content, true, {"sourceMap":false,"shadowMode":false});
-
-/***/ }),
-
 /***/ "7742":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6768,6 +6752,22 @@ exports.push([module.i, ".leaflet-image-layer,.leaflet-layer,.leaflet-marker-ico
 // Exports
 module.exports = exports;
 
+
+/***/ }),
+
+/***/ "823f":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("372d");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("50dc2655", content, true, {"sourceMap":false,"shadowMode":false});
 
 /***/ }),
 
@@ -7001,6 +7001,17 @@ module.exports = store.inspectSource;
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
+
+/***/ }),
+
+/***/ "8d6e":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairMap_vue_vue_type_style_index_4_id_aec80710_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("823f");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairMap_vue_vue_type_style_index_4_id_aec80710_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairMap_vue_vue_type_style_index_4_id_aec80710_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
 
 /***/ }),
 
@@ -83752,17 +83763,6 @@ module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
 
 /***/ }),
 
-/***/ "e392":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairMap_vue_vue_type_style_index_4_id_0f94347a_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("772f");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairMap_vue_vue_type_style_index_4_id_0f94347a_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairMap_vue_vue_type_style_index_4_id_0f94347a_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
 /***/ "e683":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -84342,7 +84342,7 @@ if (typeof window !== 'undefined') {
 var repair_components_umd = __webpack_require__("c7c0");
 var repair_components_umd_default = /*#__PURE__*/__webpack_require__.n(repair_components_umd);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"082855c4-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=template&id=0f94347a&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"082855c4-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=template&id=aec80710&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -84749,7 +84749,7 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/RepairMap.vue?vue&type=template&id=0f94347a&
+// CONCATENATED MODULE: ./src/RepairMap.vue?vue&type=template&id=aec80710&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__("14d9");
@@ -85314,7 +85314,10 @@ let cancel;
     this.setFiltersFromUrl();
     this.renderMap();
     this.setBboxFromUrl();
-    if (this.defaultCenter[0] === defaultCenter[0] && this.defaultCenter[1] === defaultCenter[1] && navigator.geolocation) {
+
+    // If url parameter bbox is not set, ask for location
+    const params = lib_default.a.parse(location.search.substr(1), qsOptions);
+    if (this.defaultCenter[0] === defaultCenter[0] && this.defaultCenter[1] === defaultCenter[1] && navigator.geolocation && !params.bbox) {
       await this.askLocation();
     }
     this.isRendering = false;
@@ -85551,8 +85554,8 @@ var MarkerCluster_Defaultvue_type_style_index_2_prod_lang_css_ = __webpack_requi
 // EXTERNAL MODULE: ./src/assets/css/app.css?vue&type=style&index=3&prod&lang=css&
 var appvue_type_style_index_3_prod_lang_css_ = __webpack_require__("bdbb");
 
-// EXTERNAL MODULE: ./src/RepairMap.vue?vue&type=style&index=4&id=0f94347a&prod&lang=css&
-var RepairMapvue_type_style_index_4_id_0f94347a_prod_lang_css_ = __webpack_require__("e392");
+// EXTERNAL MODULE: ./src/RepairMap.vue?vue&type=style&index=4&id=aec80710&prod&lang=css&
+var RepairMapvue_type_style_index_4_id_aec80710_prod_lang_css_ = __webpack_require__("8d6e");
 
 // CONCATENATED MODULE: ./src/RepairMap.vue
 
