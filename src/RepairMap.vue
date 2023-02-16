@@ -489,10 +489,13 @@ export default {
     this.renderMap();
     this.setBboxFromUrl();
 
+    // If url parameter bbox is not set, ask for location
+    const params = qs.parse(location.search.substr(1), qsOptions);
     if (
       this.defaultCenter[0] === defaultCenter[0] &&
       this.defaultCenter[1] === defaultCenter[1] &&
-      navigator.geolocation
+      navigator.geolocation &&
+      !params.bbox
     ) {
       await this.askLocation();
     }
