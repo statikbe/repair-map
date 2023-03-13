@@ -487,11 +487,15 @@ export default {
 
     this.setFiltersFromUrl();
     this.renderMap();
+    this.setBboxFromUrl();
 
+    // If url parameter bbox is not set, ask for location
+    const params = qs.parse(location.search.substr(1), qsOptions);
     if (
       this.defaultCenter[0] === defaultCenter[0] &&
       this.defaultCenter[1] === defaultCenter[1] &&
-      navigator.geolocation
+      navigator.geolocation &&
+      !params.bbox
     ) {
       await this.askLocation();
     }
@@ -558,6 +562,18 @@ export default {
         } else {
           filters.product_categories = params.product_categories.split(',');
         }
+      }
+    },
+    setBboxFromUrl() {
+      const params = qs.parse(location.search.substr(1), qsOptions);
+
+      if (params.bbox) {
+        const bbox = params.bbox.split(',');
+
+        this.map.fitBounds([
+          [bbox[0], bbox[1]],
+          [bbox[2], bbox[3]],
+        ]);
       }
     },
     askLocation() {
@@ -666,9 +682,12 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          // eslint-disable-next-line
-          console.log(error);
-          this.isLoading = false;
+          if (axios.isCancel(error)) {
+            // console.log('Request canceled', error.message);
+          } else {
+            this.isLoading = false;
+            console.log(error);
+          }
         });
     },
     async fetchOrganisationTypes() {
