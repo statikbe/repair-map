@@ -25,4 +25,5 @@ export default {
   active_filters: 'Aktive Filter:',
   type_filter: 'Typ:',
   category_filters: 'Kategorie:',
+  popup_close: 'Schließen',
 };
