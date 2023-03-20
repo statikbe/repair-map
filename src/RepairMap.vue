@@ -41,6 +41,7 @@
         :title="$t('filter_type_title')"
         :text="$t('filter_type_text')"
         @close="toggleFilter(null)"
+        class="relative z-10"
       >
         <r-checkbox
           v-for="(organisationType, key) in organisationTypes"
@@ -206,7 +207,7 @@
             </div>
             <!-- LEAFLET MAP -->
             <div class="top-0 w-full px-2 md:w-2/3" :class="{ 'md:sticky': !embed }">
-              <div class="relative">
+              <div class="relative z-10">
                 <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-none" :class="{ 'md:aspect-none': !embed }">
                   <div
                     :class="{ 'md:h-screen': !embed }"
