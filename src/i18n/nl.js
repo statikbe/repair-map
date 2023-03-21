@@ -30,4 +30,8 @@ export default {
   type_filters: 'Soort:',
   category_filters: 'Categorie:',
   professional_repairer: 'Professionele hersteller',
+  organisation_type_fablab_label: 'Fablab',
+  organisation_type_professional_repairer_label: 'Professionele hersteller',
+  organisation_type_repair_cafe_label: 'Repair Café',
+  organisation_type_spare_parts_shop_or_library_label: 'Verkoop van reserve onderdelen of bibliotheek',
 };

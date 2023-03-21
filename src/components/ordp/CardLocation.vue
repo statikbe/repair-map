@@ -25,7 +25,7 @@
     </h3>
     <div v-if="location.organisationTypeCode" class="font-semibold text-small">
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisationTypeCode]" class="mr-1" />
-      <span>{{ $t(`${location.organisationTypeCode}`) }}</span>
+      <span>{{ $t(`organisation_type_${location.organisationTypeCode}_label`) }}</span>
     </div>
     <!--<div v-if="location.product_categories" class="mt-4">
       <div class="flex flex-wrap -m-1">

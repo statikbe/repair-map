@@ -19,7 +19,7 @@ export default {
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Professioneller Reparateur',
   filter_type_repair_cafe_label: 'Repair Café',
-  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
   label_search_by: 'Suche nach:',
   locations_results_0:
     '0 Suchergebnisse in Ihrer Region gefunden. Leider sind an Ihrem Standort noch keine Reparaturinitiativen registriert. Sie können die Karte etwas herauszoomen, um Spieler etwas weiter von Ihnen entfernt zu finden, oder über den Link am Ende dieser Seite selbst eine neue Initiative zur Karte hinzufügen.',
@@ -30,4 +30,8 @@ export default {
   type_filter: 'Typ:',
   category_filters: 'Kategorie:',
   professional_repairer: 'Professioneller Reparateur',
+  organisation_type_fablab_label: 'Fablab',
+  organisation_type_professional_repairer_label: 'Professioneller Reparateur',
+  organisation_type_repair_cafe_label: 'Repair Café',
+  organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
 };

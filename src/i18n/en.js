@@ -30,4 +30,8 @@ export default {
   type_filters: 'Type:',
   category_filters: 'Category:',
   professional_repairer: 'Professional Repairer',
+  organisation_type_fablab_label: 'Fablab',
+  organisation_type_professional_repairer_label: 'Professional Repairer',
+  organisation_type_repair_cafe_label: 'Repair Café',
+  organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
 };

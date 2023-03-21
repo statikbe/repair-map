@@ -18,7 +18,7 @@ export default {
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Réparateur professionnel',
   filter_type_repair_cafe_label: 'Repair Café',
-  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
   filter_type_title: "Sélectionnez les types d'organisations de votre choix",
   label_search_by: 'Filtrer les résultats par:',
   locations_results_0:
@@ -30,4 +30,8 @@ export default {
   type_filter: 'Type:',
   category_filters: 'Catégorie:',
   professional_repairer: 'Réparateur professionnel',
+  organisation_type_fablab_label: 'Fablab',
+  organisation_type_professional_repairer_label: 'Réparateur professionnel',
+  organisation_type_repair_cafe_label: 'Repair Café',
+  organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
 };
