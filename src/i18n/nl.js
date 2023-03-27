@@ -34,4 +34,5 @@ export default {
   organisation_type_professional_repairer_label: 'Professionele hersteller',
   organisation_type_repair_cafe_label: 'Repair Café',
   organisation_type_spare_parts_shop_or_library_label: 'Verkoop van reserve onderdelen of bibliotheek',
+  popup_close: 'Sluiten',
 };

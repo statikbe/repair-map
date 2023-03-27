@@ -17,3 +17,23 @@
 #repair-map .leaflet-control-zoom-out {
   text-decoration: none;
 }
+
+/* ===== Scrollbar CSS ===== */
+#repair-map * {
+  scrollbar-width: auto;
+  scrollbar-color: #BBB #EEE;
+}
+
+#repair-map *::-webkit-scrollbar {
+  width: 10px;
+}
+
+#repair-map *::-webkit-scrollbar-track {
+  background: #EEE;
+}
+
+#repair-map *::-webkit-scrollbar-thumb {
+  background-color: #BBB;
+  border-radius: 10px;
+  border: 2px solid #BBB;
+}

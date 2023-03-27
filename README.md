@@ -136,8 +136,14 @@ Dark variants are used for hover states, contrast variants are used for button t
 | itemsPerPage      | Number  | `10`                  | Number of initiative results per page.                                                                                                                    |
 | showFilterButtons | Boolean | `true`                | Set to false to implement your own filter buttons.                                                                                                        |
 | mapboxAccessToken | String  | `null`                | Providing a [Mapbox access token](https://docs.mapbox.com/help/getting-started/access-tokens/) will enable searching for locations to center your map to. |
-| organisation_types | Array  | `null`                | URL parameter for prefiltering the map. All the organisation codes can be found [here](https://www.repairconnects.org/api/v1/organisation_types). |
-| product_categories | Array  | `null`                | URL parameter for prefiltering the map. All the product codes can be found [here](https://www.repairconnects.org/api/v1/product_categories). |
+
+### URL Parameters
+
+| Parameter         | Type    | Description                                                                                                                                               |
+| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| organisation_types            | Array  | Parameter for prefiltering the map using the repair API. All the organisation codes can be found [here](https://www.repairconnects.org/api/v1/organisation_types). Example: `organisation_types[]=professional_repairer&organisation_types[]=fablab`                                                                      |
+| product_categories     | Array  | Parameter for prefiltering the map using the repair API. All the product codes can be found [here](https://www.repairconnects.org/api/v1/product_categories).           |
+| bbox       | Array  | Parameter for prefiltering the map using the repair API. Example: `bbox=51.15313203444604%2C4.400453567504884%2C51.22075494571333%2C4.470491409301759`       |
 
 ## For developers
 

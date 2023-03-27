@@ -34,4 +34,5 @@ export default {
   organisation_type_professional_repairer_label: 'Réparateur professionnel',
   organisation_type_repair_cafe_label: 'Repair Café',
   organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
+  popup_close: 'Fermer',
 };
