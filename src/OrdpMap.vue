@@ -1,7 +1,7 @@
 <template>
   <div id="repair-map">
     <r-app class="relative">
-      <r-section v-if="showFilterButtons">
+      <r-section v-if="showFilterButtons" :container="false">
         <h2 class="text-h2 text-secondary">{{ $t('page_title') }}</h2>
         <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
         <div class="flex flex-wrap -m-2">
@@ -41,6 +41,7 @@
         :title="$t('filter_type_title')"
         :text="$t('filter_type_text')"
         @close="toggleFilter(null)"
+        class="relative z-10"
       >
         <r-checkbox
           v-for="(organisationType, key) in ordsStandard.organisationTypes"
@@ -147,13 +148,20 @@
         </div>
       </r-section>
       <div class="relative">
-        <!-- <r-loader v-if="isRendering" /> -->
-        <r-section ref="pageContainer" class="!py-0" :class="{ invisible: isRendering }">
-          <div class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap">
+        <r-section ref="pageContainer" :container="false" class="!py-0" :class="{ invisible: isRendering }">
+          <div
+            class="relative flex flex-wrap items-start -mx-2 md:flex-nowrap"
+            :style="embed && windowWidth > 768 ? `min-height: ${windowHeight}px;` : ''"
+          >
             <!-- LOCATION LIST -->
             <div v-show="!isMobile" class="relative hidden w-full px-2 md:block md:w-1/3">
-              <r-loader v-show="isLoading" />
-              <div :class="{ invisible: isLoading }">
+              <r-loader v-show="isLoading" class="left-0 right-0 top-8 bottom-full" />
+              <div
+                :class="{ invisible: isLoading }"
+                :style="
+                  embed && windowWidth > 768 ? `height: ${windowHeight}px; overflow-y: auto; padding-right: 8px` : ''
+                "
+              >
                 <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
@@ -184,9 +192,9 @@
               </div>
             </div>
             <!-- LEAFLET MAP -->
-            <div class="top-0 w-full px-2 md:w-2/3 md:sticky">
-              <div class="relative">
-                <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-h-1" :class="{ 'md:aspect-none': !embed }">
+            <div class="top-0 w-full px-2 md:w-2/3" :class="{ 'md:sticky': !embed }">
+              <div class="relative z-10">
+                <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-none" :class="{ 'md:aspect-none': !embed }">
                   <div
                     :class="{ 'md:h-screen': !embed }"
                     :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
@@ -213,9 +221,10 @@
                   </card-location>
                   <button
                     type="button"
-                    class="absolute bg-opacity-0 border-0 cursor-pointer top-3 right-3 padding-0"
-                    @click="map.closePopup()"
+                    class="absolute px-3 py-2 bg-transparent bg-opacity-0 border-0 cursor-pointer rounded-xl top-1 right-1 hover:text-primary"
+                    @click="closePopup()"
                   >
+                    <span class="sr-only">{{ $t('popup_close') }}</span>
                     <r-icon name="mdiClose" />
                   </button>
                 </div>
@@ -224,7 +233,7 @@
           </div>
         </r-section>
       </div>
-      <r-section>
+      <r-section :container="false">
         <r-panel>
           <h2 class="text-h2 text-secondary">{{ $t('create_new_title') }}</h2>
           <p class="mb-6 md:w-8/12">{{ $t('create_new_text') }}</p>
@@ -320,6 +329,17 @@ export default {
         if (data.locations) {
           this.locationTotal = data.locations.length;
         }
+      },
+      update(data) {
+        const ordsStandard = this.ordsStandard;
+        return data.locations.map(function(location){
+          location.productCategories = location.productCategory.map(function(categoryId) {
+            if (categoryId) {
+              return ordsStandard.productCategories.find(category => category.id === categoryId).label
+            }
+          });
+          return location;
+        });
       },
     },
     ordsStandard: {
@@ -480,11 +500,14 @@ export default {
       this.scrollIntoView();
     },
     activeLocationId() {
-      if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
-        this.locationMarkers[this.activeLocation.id].fire('click');
-      }
-
-      this.scrollIntoView();
+      // TODO: Check if this is still needed
+      // if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
+      //   // console.log(this.locationMarkers[this.activeLocation.id].fire('click'));
+      //   this.locationMarkers[this.activeLocation.id].fire('click');
+      //   // return this.locationMarkers[this.activeLocation.id];
+      // }
+      console.log('activeLocationId changed');
+      // this.scrollIntoView();
     },
     filter(filter) {
       this.activeFilter = filter;
@@ -513,11 +536,15 @@ export default {
 
     this.setFiltersFromUrl();
     this.renderMap();
+    this.setBboxFromUrl();
 
+    // If url parameter bbox is not set, ask for location
+    const params = qs.parse(location.search.substr(1), qsOptions);
     if (
       this.defaultCenter[0] === defaultCenter[0] &&
       this.defaultCenter[1] === defaultCenter[1] &&
-      navigator.geolocation
+      navigator.geolocation &&
+      !params.bbox
     ) {
       await this.askLocation();
     }
@@ -538,7 +565,7 @@ export default {
       this.$apollo.queries.ordsStandard.refetch();
     },
     getCategoryCodesForGroup(groupName) {
-      var categoryCodes = [];
+      let categoryCodes = [];
       this.categoryGroups[groupName].data.forEach((category) => {
         categoryCodes.push(category.code);
       });
@@ -555,7 +582,7 @@ export default {
       }
     },
     selectAllCategories(categoryGroup) {
-      var categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
+      let categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);
       if (this.categoriesAllSelectedGroup[categoryGroup]) {
         // add items to filter array
         categoryGroupCodes.forEach((categoryCode) => {
@@ -593,6 +620,18 @@ export default {
         } else {
           filters.product_categories = params.product_categories.split(',');
         }
+      }
+    },
+    setBboxFromUrl() {
+      const params = qs.parse(location.search.substr(1), qsOptions);
+
+      if (params.bbox) {
+        const bbox = params.bbox.split(',');
+
+        this.map.fitBounds([
+          [bbox[0], bbox[1]],
+          [bbox[2], bbox[3]],
+        ]);
       }
     },
     askLocation() {
@@ -686,9 +725,16 @@ export default {
     },
     onLocationClick(location) {
       if (this.activeLocationId === location.id) {
-        this.activeLocationId = null;
+        this.closePopup();
       } else {
-        this.openPopup(location.id);
+        // Check if the location is in a cluster group and then use the zoomToShowLayer function to zoom to the cluster group
+        if (this.markerClusterGroup.hasLayer(this.locationMarkers[location.id])) {
+          this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[location.id], () => {
+            this.openPopup(location.id);
+          });
+        } else {
+          this.openPopup(location.id);
+        }
       }
     },
     scrollIntoView() {
@@ -698,12 +744,10 @@ export default {
     },
     openPopup(locationId) {
       const marker = this.locationMarkers[locationId];
-
       marker.unbindPopup();
       this.activeLocationId = locationId;
       marker
         .bindPopup(this.$refs.popup, {
-          // autoClose: false,
           maxWidth: 350,
           closeButton: false,
         })
@@ -712,6 +756,16 @@ export default {
     shouldSkipOrdpQuery() {
       return !this.map || !this.locale;
     },
+    closePopup() {
+      this.activeLocationId = null;
+      this.map.closePopup();
+    },
+    parseLocations(locations) {
+      return locations.map(function(element) {
+        console.log(element);
+        return element;
+      });
+    }
   },
 };
 </script>

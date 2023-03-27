@@ -26,6 +26,7 @@ export const locationsQuery = gql`
       locale
       name
       organisationTypeCode
+      productCategory
     }
   }
 `;
