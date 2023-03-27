@@ -15,6 +15,7 @@ export const locationsQuery = gql`
         countryCode
         formatted
       }
+      landingPage
       contactsEmail
       contactsPhone
       contactsWebsite

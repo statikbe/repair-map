@@ -176,7 +176,7 @@
                         <slot name="locationTitle" v-bind="slotProps">
                           <a
                             v-if="embed"
-                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${location.id}`"
+                            :href="location.landingPage"
                             :class="slotProps.defaultClass"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -209,7 +209,7 @@
                       <slot name="locationTitle" v-bind="slotProps">
                         <a
                           v-if="embed"
-                          :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${activeLocation.id}`"
+                          :href="activeLocation.landingPage"
                           :class="slotProps.defaultClass"
                           target="_blank"
                           rel="noopener noreferrer"
