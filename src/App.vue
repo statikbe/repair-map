@@ -5,7 +5,7 @@
 <script>
 export default {
   components: {
-    'repair-map': () => (process.env.VUE_APP_MAP === 'ordp' ? import('./OrdpMap.vue') : import('./RepairMap.vue')),
+    'repair-map': () => (process.env.REPAIR_MAP_SOURCE === 'repair' ? import('./RepairMap.vue') : import('./OrdpMap.vue')),
   },
 };
 </script>

@@ -68,9 +68,9 @@
         <div class="mb-6">
           <r-grid class="!mt-0">
             <r-grid-item
-                v-for="category in ordsStandard.productCategories"
-                :key="category.id"
-                class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
+              v-for="category in ordsStandard.productCategories"
+              :key="category.id"
+              class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
             >
               <r-checkbox v-model="filters.product_categories" :label="category.label" :value="category.id" />
             </r-grid-item>
@@ -294,13 +294,6 @@ const defaultCenter = [50.87959, 4.70093];
 const windowHeight = window.innerHeight;
 const windowWidth = window.innerWidth;
 
-// For canceling previous request due to a new request on the map
-// TODO: Update axios and use the new abort api
-// const CancelToken = axios.CancelToken;
-// let cancel;
-
-// console.log(mapBounds);
-
 export default {
   name: 'repair-map',
   apollo: {
@@ -332,10 +325,11 @@ export default {
       },
       update(data) {
         const ordsStandard = this.ordsStandard;
-        return data.locations.map(function(location){
-          location.productCategories = location.productCategory.map(function(categoryId) {
+        return data.locations.map(function (location) {
+          location.productCategories = location.productCategory.map(function (categoryId) {
             if (categoryId) {
-              return ordsStandard.productCategories.find(category => category.id === categoryId).label
+              const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
+              return category ? category.label : null;
             }
           });
           return location;
@@ -347,8 +341,7 @@ export default {
       loadingKey: 'loading',
       skip: true,
       // Optional result hook
-      result({ data }) {
-        console.log(data);
+      result() {
         this.isLoading = false;
       },
     },
@@ -399,10 +392,6 @@ export default {
     mapboxAccessToken: {
       type: String,
       default: () => null,
-    },
-    apiBaseUrl: {
-      type: String,
-      default: () => process.env.VUE_APP_API_BASE_URL,
     },
     embed: {
       type: Boolean,
@@ -549,11 +538,9 @@ export default {
       await this.askLocation();
     }
 
-    // console.log('hey');
     this.isRendering = false;
     this.fetchLocations();
     this.fetchOrdsStandard();
-    // this.fetchCategories();
   },
   methods: {
     fetchLocations() {
@@ -760,12 +747,6 @@ export default {
       this.activeLocationId = null;
       this.map.closePopup();
     },
-    parseLocations(locations) {
-      return locations.map(function(element) {
-        console.log(element);
-        return element;
-      });
-    }
   },
 };
 </script>

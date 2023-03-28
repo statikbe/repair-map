@@ -367,7 +367,7 @@ export default {
     },
     apiBaseUrl: {
       type: String,
-      default: () => process.env.VUE_APP_API_BASE_URL,
+      default: () => process.env.REPAIR_MAP_API_BASE_URL || 'https://www.repairconnects.org/api/v1',
     },
     embed: {
       type: Boolean,

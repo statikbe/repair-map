@@ -148,12 +148,13 @@ Dark variants are used for hover states, contrast variants are used for button t
 ## For developers
 
 You can fetch data from two API's.
-The API by Statik and the ORDP API.
-You can switch easily by updating the `.env` file.
+The [ORDP API](https://ordp.datascienceinstitute.ie/) (**default**) and the [Repair Connects API](https://www.repairconnects.org/api/v1/documentation).
+You can switch easily by updating your environment variables (f.e. in a .env file).
 
-```env
-#VUE_APP_MAP='repair'
-VUE_APP_MAP='ordp'
+```dotenv
+REPAIR_MAP_SOURCE='ordp'
+#OR
+REPAIR_MAP_SOURCE='repair'
 ```
 
 In the `components` folder there are two folders, one for ORDP and one for the repair.
