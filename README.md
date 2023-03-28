@@ -160,6 +160,14 @@ REPAIR_MAP_SOURCE='repair'
 In the `components` folder there are two folders, one for ORDP and one for the repair.
 When fetching data from ORDP, GraphQL and Apollo is used. See the `graphql` folder for the query.
 
+### Publishing to the iframe
+You can publish by merging your changes into the correct iframe branch:
+
+- For production: `iframe/production`
+- For staging: `iframe/staging`
+
+Both will automatically start a new build on digitalOcean
+
 ### Publishing to NPM
 
 First, run `yarn build` to build this package as a library.
