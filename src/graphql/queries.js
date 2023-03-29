@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const locationsQuery = gql`
+export const locationsBboxQuery = gql`
   query getLocations(
     $locale: AvailableLocale! = NL
     $xMax: Float! = 50.86539880176159
@@ -28,6 +28,22 @@ export const locationsQuery = gql`
       name
       organisationTypeCode
       productCategory
+    }
+  }
+`;
+
+export const locationsQuery = gql`
+  query getLocations(
+    $locale: AvailableLocale! = NL
+    $search: String
+  ) {
+    locations: locations(locale: $locale, search: $search) {
+      id
+      name
+      geometry {
+        coordinates
+        type
+      }
     }
   }
 `;

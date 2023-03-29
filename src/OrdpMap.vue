@@ -33,6 +33,25 @@
             {{ $t('filter_location_label') }}
             <r-icon :name="isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
+          <r-select
+            class="m-2"
+            track-by="id"
+            label-by="name"
+            :searchable="true"
+            :placeholder="`Zoek naar een hersteller`"
+            open-direction="bottom"
+            :options="searchLocations"
+            :multiple="false"
+            :loading="isLoading"
+            :internal-search="false"
+            :clear-on-select="false"
+            :close-on-select="true"
+            :max-height="600"
+            :options-limit="300"
+            :show-no-results="false"
+            @search-change="debounceSearchLocations"
+            @select="selectSearchLocation"
+          />
         </div>
       </r-section>
       <!-- TYPE FILTER -->
@@ -283,7 +302,7 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
-import { locationsQuery, ordsStandardQuery } from './graphql/queries.js';
+import { locationsBboxQuery, locationsQuery, ordsStandardQuery } from './graphql/queries.js';
 
 const qsOptions = {
   arrayFormat: 'comma',
@@ -298,7 +317,7 @@ export default {
   name: 'repair-map',
   apollo: {
     locations: {
-      query: locationsQuery,
+      query: locationsBboxQuery,
       loadingKey: 'loading',
       variables() {
         const mapBounds = this.map.getBounds();
@@ -331,10 +350,28 @@ export default {
               const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
               return category ? category.label : null;
             }
-          });
+          }).filter(item => item);
           return location;
         });
       },
+    },
+    searchLocations: {
+      query: locationsQuery,
+      loadingKey: 'loading',
+      variables() {
+        return {
+          locale: this.locale.toUpperCase(),
+          search: this.search,
+        };
+      },
+      skip: true,
+      // Optional result hook
+      result() {
+        this.isLoading = false;
+      },
+      update(data) {
+        return data.locations;
+      }
     },
     ordsStandard: {
       query: ordsStandardQuery,
@@ -420,6 +457,8 @@ export default {
       product_categories: [],
       location: null,
     },
+    search: null,
+    searchLocations: [],
     categoriesAllSelectedGroup: {},
   }),
   computed: {
@@ -517,6 +556,7 @@ export default {
   },
   created() {
     this.activeFilter = this.filter;
+    this.debounceSearchLocations = debounce((query) => this.asyncSearchLocations(query), 1000);
   },
   async mounted() {
     if (this.$i18n) {
@@ -643,12 +683,7 @@ export default {
         this.isLoading = true;
       });
 
-      this.map.on(
-        'moveend',
-        debounce(() => {
-          !this.isRendering && this.fetchLocations();
-        }, 500)
-      );
+      this.map.on('moveend', this.mapMoveEnd());
     },
     updateMarkers() {
       if (this.markerClusterGroup) {
@@ -688,7 +723,7 @@ export default {
       this.locationMarkers = newMarkers;
 
       if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
-        this.openPopup(this.activeLocation.id);
+        this.openLocation(this.activeLocation.id);
       }
     },
     isFilterActive(filter = null) {
@@ -704,6 +739,22 @@ export default {
     clearFilter(filter, value) {
       this.filters[filter] = this.filters[filter].filter((item) => item !== value);
     },
+    asyncSearchLocations(query) {
+      if (query) {
+        this.search = query;
+        this.isLoading = true;
+        this.$apollo.queries.searchLocations.skip = false;
+        this.$apollo.queries.searchLocations.refetch();
+      }
+    },
+    selectSearchLocation(selectedOption) {
+      if (this.activeLocationId !== selectedOption.id) {
+        this.closePopup();
+      }
+      this.map.flyTo(selectedOption.geometry.coordinates, this.map.getMaxZoom());
+
+      this.activeLocationId = selectedOption.id;
+    },
     isCurrentPage(index) {
       const indexMin = (this.currentPage - 1) * this.itemsPerPage;
       const indexMax = this.currentPage * this.itemsPerPage;
@@ -714,15 +765,24 @@ export default {
       if (this.activeLocationId === location.id) {
         this.closePopup();
       } else {
-        // Check if the location is in a cluster group and then use the zoomToShowLayer function to zoom to the cluster group
-        if (this.markerClusterGroup.hasLayer(this.locationMarkers[location.id])) {
-          this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[location.id], () => {
-            this.openPopup(location.id);
-          });
-        } else {
-          this.openPopup(location.id);
-        }
+        this.openLocation(location.id);
       }
+    },
+    openLocation(locationId) {
+      this.map.off('moveend');
+      if (this.markerClusterGroup.hasLayer(this.locationMarkers[locationId])) {
+        this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[locationId], () => {
+          this.openPopup(locationId);
+        });
+      } else {
+        this.openPopup(locationId);
+      }
+      this.map.on('moveend', this.mapMoveEnd());
+    },
+    mapMoveEnd() {
+      return debounce(() => {
+        !this.isRendering && this.fetchLocations();
+      }, 500)
     },
     scrollIntoView() {
       this.$refs.pageContainer.$el.scrollIntoView({
@@ -731,14 +791,18 @@ export default {
     },
     openPopup(locationId) {
       const marker = this.locationMarkers[locationId];
-      marker.unbindPopup();
+      if (marker){
+        marker.unbindPopup();
+      }
       this.activeLocationId = locationId;
-      marker
-        .bindPopup(this.$refs.popup, {
-          maxWidth: 350,
-          closeButton: false,
-        })
-        .openPopup();
+      if (marker){
+        marker
+            .bindPopup(this.$refs.popup, {
+              maxWidth: 350,
+              closeButton: false,
+            })
+            .openPopup();
+      }
     },
     shouldSkipOrdpQuery() {
       return !this.map || !this.locale;
