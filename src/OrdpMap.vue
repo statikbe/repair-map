@@ -181,8 +181,7 @@
                   embed && windowWidth > 768 ? `height: ${windowHeight}px; overflow-y: auto; padding-right: 8px` : ''
                 "
               >
-                <p class="my-6"
-                   ref="listContainer">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
+                <p class="my-6" ref="listContainer">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
@@ -346,12 +345,14 @@ export default {
       update(data) {
         const ordsStandard = this.ordsStandard;
         return data.locations.map(function (location) {
-          location.productCategories = location.productCategory.map(function (categoryId) {
-            if (categoryId) {
-              const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
-              return category ? category.label : null;
-            }
-          }).filter(item => item);
+          location.productCategories = location.productCategory
+            .map(function (categoryId) {
+              if (categoryId) {
+                const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
+                return category ? category.label : null;
+              }
+            })
+            .filter((item) => item);
           return location;
         });
       },
@@ -372,7 +373,7 @@ export default {
       },
       update(data) {
         return data.locations;
-      }
+      },
     },
     ordsStandard: {
       query: ordsStandardQuery,
@@ -784,7 +785,7 @@ export default {
     mapMoveEnd() {
       return debounce(() => {
         !this.isRendering && this.fetchLocations();
-      }, 500)
+      }, 500);
     },
     scrollIntoView() {
       this.$refs.pageContainer.$el.scrollIntoView({
@@ -796,17 +797,17 @@ export default {
     },
     openPopup(locationId) {
       const marker = this.locationMarkers[locationId];
-      if (marker){
+      if (marker) {
         marker.unbindPopup();
       }
       this.activeLocationId = locationId;
-      if (marker){
+      if (marker) {
         marker
-            .bindPopup(this.$refs.popup, {
-              maxWidth: 350,
-              closeButton: false,
-            })
-            .openPopup();
+          .bindPopup(this.$refs.popup, {
+            maxWidth: 350,
+            closeButton: false,
+          })
+          .openPopup();
       }
     },
     shouldSkipOrdpQuery() {
