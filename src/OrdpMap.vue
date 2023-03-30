@@ -181,7 +181,8 @@
                   embed && windowWidth > 768 ? `height: ${windowHeight}px; overflow-y: auto; padding-right: 8px` : ''
                 "
               >
-                <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
+                <p class="my-6"
+                   ref="listContainer">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
@@ -586,6 +587,7 @@ export default {
     fetchLocations() {
       this.$apollo.queries.locations.skip = this.shouldSkipOrdpQuery();
       this.$apollo.queries.locations.refetch();
+      this.currentPage = 1;
     },
     fetchOrdsStandard() {
       this.$apollo.queries.ordsStandard.skip = false;
@@ -786,6 +788,9 @@ export default {
     },
     scrollIntoView() {
       this.$refs.pageContainer.$el.scrollIntoView({
+        behavior: 'smooth',
+      });
+      this.$refs.listContainer.scrollIntoView({
         behavior: 'smooth',
       });
     },
