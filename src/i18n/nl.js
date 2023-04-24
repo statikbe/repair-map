@@ -20,7 +20,9 @@ export default {
   filter_type_repair_cafe_label: 'Repair Café',
   filter_type_spare_parts_shop_or_library_label: 'Verkoop van reserve onderdelen of bibliotheek',
   filter_type_title: 'Selecteer de soorten herstelopties van uw keuze',
-  label_search_by: 'Zoeken op:',
+  label_search_by: 'Zoek op:',
+  label_search_by_repairer: 'Zoek naar een hersteller',
+  label_filter_by: 'Filter op:',
   locations_results_0:
     '0 zoekresultaten gevonden in jouw regio. Er zijn helaas nog geen repair initiatieven geregistreerd op jouw locatie. Je kan wat uitzoomen op de kaart om spelers terug te vinden die iets verder van je verwijderd zijn, of zelf een nieuw initatief toevoegen aan de kaart via de link onderaan deze pagina.',
   locations_results_n: '{n} zoekresultat(en) gevonden in jouw regio.',

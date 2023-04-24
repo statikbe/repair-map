@@ -3,7 +3,7 @@
     <r-app class="relative">
       <r-section v-if="showFilterButtons" :container="false">
         <h2 class="text-h2 text-secondary">{{ $t('page_title') }}</h2>
-        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
+        <div class="mb-3 font-bold">{{ $t('label_filter_by') }}</div>
         <div class="flex flex-wrap -m-2">
           <r-button
             color="secondary"
@@ -33,25 +33,6 @@
             {{ $t('filter_location_label') }}
             <r-icon :name="isFilterActive('LOCATION') ? 'mdiChevronUp' : 'mdiChevronDown'" />
           </r-button>
-          <r-select
-            class="m-2"
-            track-by="id"
-            label-by="name"
-            :searchable="true"
-            :placeholder="`Zoek naar een hersteller`"
-            open-direction="bottom"
-            :options="searchLocations"
-            :multiple="false"
-            :loading="isLoading"
-            :internal-search="false"
-            :clear-on-select="false"
-            :close-on-select="true"
-            :max-height="600"
-            :options-limit="300"
-            :show-no-results="false"
-            @search-change="debounceSearchLocations"
-            @select="selectSearchLocation"
-          />
         </div>
       </r-section>
       <!-- TYPE FILTER -->
@@ -164,6 +145,31 @@
               <r-icon name="mdiClose" />
             </r-button>
           </template>
+        </div>
+      </r-section>
+      <!-- REPAIR SEARCH FILTER -->
+      <r-section v-if="showFilterButtons" :container="false">
+        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
+        <div class="w-full md:w-1/2">
+          <r-select
+            class=""
+            track-by="id"
+            label-by="name"
+            :searchable="true"
+            :placeholder="$t('label_search_by_repairer')"
+            open-direction="bottom"
+            :options="searchLocations"
+            :multiple="false"
+            :loading="isLoading"
+            :internal-search="false"
+            :clear-on-select="false"
+            :close-on-select="true"
+            :max-height="600"
+            :options-limit="300"
+            :show-no-results="false"
+            @search-change="debounceSearchLocations"
+            @select="selectSearchLocation"
+          />
         </div>
       </r-section>
       <div class="relative">

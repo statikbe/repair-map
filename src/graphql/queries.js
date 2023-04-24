@@ -10,7 +10,15 @@ export const locationsBboxQuery = gql`
     $organisationTypeCode: [String]
     $productCategory: [String]
   ) {
-    locations: locationsBbox(locale: $locale, xMax: $xMax, xMin: $xMin, yMax: $yMax, yMin: $yMin, organisationTypeCode: $organisationTypeCode, productCategory: $productCategory) {
+    locations: locationsBbox(
+      locale: $locale
+      xMax: $xMax
+      xMin: $xMin
+      yMax: $yMax
+      yMin: $yMin
+      organisationTypeCode: $organisationTypeCode
+      productCategory: $productCategory
+    ) {
       address {
         countryCode
         formatted
@@ -33,10 +41,7 @@ export const locationsBboxQuery = gql`
 `;
 
 export const locationsQuery = gql`
-  query getLocations(
-    $locale: AvailableLocale! = NL
-    $search: String
-  ) {
+  query getLocations($locale: AvailableLocale! = NL, $search: String) {
     locations: locations(locale: $locale, search: $search) {
       id
       name
@@ -51,11 +56,11 @@ export const locationsQuery = gql`
 export const ordsStandardQuery = gql`
   query getOrganisationTypes {
     ordsStandard: standard {
-        organisationTypes
-        productCategories {
-          id
-          label
-        }
+      organisationTypes
+      productCategories {
+        id
+        label
+      }
     }
   }
 `;
