@@ -42,6 +42,7 @@
         :text="$t('filter_type_text')"
         @close="toggleFilter(null)"
         class="relative z-10"
+        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <r-checkbox
           v-for="(organisationType, key) in ordsStandard.organisationTypes"
@@ -64,6 +65,7 @@
         :title="$t('filter_category_title')"
         :text="$t('filter_category_text')"
         @close="toggleFilter(null)"
+        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <div class="mb-6">
           <r-grid class="!mt-0">
@@ -83,6 +85,7 @@
         :title="$t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
+        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <r-mapbox-search
           v-model="locationSearch"
@@ -97,7 +100,10 @@
       <r-section
         v-if="showActiveFilters"
         color="secondary"
-        :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
+        :class="{
+          'border-t-1 border-solid border-l-0 border-b-0 border-r-0 border-secondary-dark':
+            showActiveFilters && !isFilterActive(null),
+        }"
         class="mb-6 sm:mb-12"
       >
         <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
