@@ -98,6 +98,7 @@
         v-if="showActiveFilters"
         color="secondary"
         :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
+        class="mb-6 sm:mb-12"
       >
         <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
@@ -148,7 +149,7 @@
         </div>
       </r-section>
       <!-- REPAIR SEARCH FILTER -->
-      <r-section v-if="showFilterButtons" :container="false">
+      <r-section v-if="showFilterButtons" :container="false" class="!pt-0">
         <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
         <div class="w-full md:w-1/2">
           <r-select
