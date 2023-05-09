@@ -225,6 +225,12 @@
             </div>
             <!-- LEAFLET MAP -->
             <div class="top-0 w-full px-2 md:w-2/3" :class="{ 'md:sticky': !embed }">
+              <!-- ERROR -->
+              <div v-if="error" class="block w-full">
+                <div class="mb-4 font-bold text-base leading-5 text-error opacity-100">
+                  {{ error }}
+                </div>
+              </div>
               <div class="relative z-10">
                 <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-none" :class="{ 'md:aspect-none': !embed }">
                   <div
@@ -369,6 +375,9 @@ export default {
           return location;
         });
       },
+      error() {
+        this.error = 'Something went wrong loading the map.';
+      },
     },
     searchLocations: {
       query: locationsQuery,
@@ -475,6 +484,7 @@ export default {
     search: null,
     searchLocations: [],
     categoriesAllSelectedGroup: {},
+    error: null,
   }),
   computed: {
     categoryColors() {
