@@ -20,7 +20,9 @@ export default {
   filter_type_repair_cafe_label: 'Repair Café',
   filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
   filter_type_title: "Sélectionnez les types d'organisations de votre choix",
-  label_search_by: 'Filtrer les résultats par:',
+  label_search_by: 'Recherche par:',
+  label_filter_by: 'Filtrer par:',
+  label_search_by_repairer: "Recherche d'un réparateur",
   locations_results_0:
     "0 résultats de recherche trouvés dans votre région. Malheureusement, aucune initiative de réparation n'est encore enregistrée dans votre établissement. Vous pouvez effectuer un zoom arrière sur la carte pour trouver des joueurs un peu plus éloignés de vous, ou ajouter vous-même une nouvelle initiative à la carte via le lien en bas de cette page.",
   locations_results_n: '{n} résultat(s) de recherche trouvés dans votre région.',

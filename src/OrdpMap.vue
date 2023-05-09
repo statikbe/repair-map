@@ -3,7 +3,7 @@
     <r-app class="relative">
       <r-section v-if="showFilterButtons" :container="false">
         <h2 class="text-h2 text-secondary">{{ $t('page_title') }}</h2>
-        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
+        <div class="mb-3 font-bold">{{ $t('label_filter_by') }}</div>
         <div class="flex flex-wrap -m-2">
           <r-button
             color="secondary"
@@ -42,6 +42,7 @@
         :text="$t('filter_type_text')"
         @close="toggleFilter(null)"
         class="relative z-10"
+        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <r-checkbox
           v-for="(organisationType, key) in ordsStandard.organisationTypes"
@@ -64,6 +65,7 @@
         :title="$t('filter_category_title')"
         :text="$t('filter_category_text')"
         @close="toggleFilter(null)"
+        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <div class="mb-6">
           <r-grid class="!mt-0">
@@ -83,6 +85,7 @@
         :title="$t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
+        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <r-mapbox-search
           v-model="locationSearch"
@@ -97,7 +100,11 @@
       <r-section
         v-if="showActiveFilters"
         color="secondary"
-        :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
+        :class="{
+          'border-t-1 border-solid border-l-0 border-b-0 border-r-0 border-secondary-dark':
+            showActiveFilters && !isFilterActive(null),
+        }"
+        class="mb-6 sm:mb-12"
       >
         <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
@@ -147,6 +154,31 @@
           </template>
         </div>
       </r-section>
+      <!-- REPAIR SEARCH FILTER -->
+      <r-section v-if="showFilterButtons" :container="false" class="!pt-0">
+        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
+        <div class="w-full md:w-1/2">
+          <r-select
+            class=""
+            track-by="id"
+            label-by="name"
+            :searchable="true"
+            :placeholder="$t('label_search_by_repairer')"
+            open-direction="bottom"
+            :options="searchLocations"
+            :multiple="false"
+            :loading="isLoading"
+            :internal-search="false"
+            :clear-on-select="false"
+            :close-on-select="true"
+            :max-height="600"
+            :options-limit="300"
+            :show-no-results="false"
+            @search-change="debounceSearchLocations"
+            @select="selectSearchLocation"
+          />
+        </div>
+      </r-section>
       <div class="relative">
         <r-section ref="pageContainer" :container="false" class="!py-0" :class="{ invisible: isRendering }">
           <div
@@ -162,7 +194,7 @@
                   embed && windowWidth > 768 ? `height: ${windowHeight}px; overflow-y: auto; padding-right: 8px` : ''
                 "
               >
-                <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
+                <p class="my-6" ref="listContainer">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
@@ -193,6 +225,12 @@
             </div>
             <!-- LEAFLET MAP -->
             <div class="top-0 w-full px-2 md:w-2/3" :class="{ 'md:sticky': !embed }">
+              <!-- ERROR -->
+              <div v-if="error" class="block w-full">
+                <div class="mb-4 font-bold text-base leading-5 text-error opacity-100">
+                  {{ error }}
+                </div>
+              </div>
               <div class="relative z-10">
                 <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-none" :class="{ 'md:aspect-none': !embed }">
                   <div
@@ -283,7 +321,7 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
-import { locationsQuery, ordsStandardQuery } from './graphql/queries.js';
+import { locationsBboxQuery, locationsQuery, ordsStandardQuery } from './graphql/queries.js';
 
 const qsOptions = {
   arrayFormat: 'comma',
@@ -298,7 +336,7 @@ export default {
   name: 'repair-map',
   apollo: {
     locations: {
-      query: locationsQuery,
+      query: locationsBboxQuery,
       loadingKey: 'loading',
       variables() {
         const mapBounds = this.map.getBounds();
@@ -326,14 +364,37 @@ export default {
       update(data) {
         const ordsStandard = this.ordsStandard;
         return data.locations.map(function (location) {
-          location.productCategories = location.productCategory.map(function (categoryId) {
-            if (categoryId) {
-              const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
-              return category ? category.label : null;
-            }
-          });
+          location.productCategories = location.productCategory
+            .map(function (categoryId) {
+              if (categoryId) {
+                const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
+                return category ? category.label : null;
+              }
+            })
+            .filter((item) => item);
           return location;
         });
+      },
+      error() {
+        this.error = 'Something went wrong loading the map.';
+      },
+    },
+    searchLocations: {
+      query: locationsQuery,
+      loadingKey: 'loading',
+      variables() {
+        return {
+          locale: this.locale.toUpperCase(),
+          search: this.search,
+        };
+      },
+      skip: true,
+      // Optional result hook
+      result() {
+        this.isLoading = false;
+      },
+      update(data) {
+        return data.locations;
       },
     },
     ordsStandard: {
@@ -420,7 +481,10 @@ export default {
       product_categories: [],
       location: null,
     },
+    search: null,
+    searchLocations: [],
     categoriesAllSelectedGroup: {},
+    error: null,
   }),
   computed: {
     categoryColors() {
@@ -517,6 +581,7 @@ export default {
   },
   created() {
     this.activeFilter = this.filter;
+    this.debounceSearchLocations = debounce((query) => this.asyncSearchLocations(query), 1000);
   },
   async mounted() {
     if (this.$i18n) {
@@ -546,6 +611,7 @@ export default {
     fetchLocations() {
       this.$apollo.queries.locations.skip = this.shouldSkipOrdpQuery();
       this.$apollo.queries.locations.refetch();
+      this.currentPage = 1;
     },
     fetchOrdsStandard() {
       this.$apollo.queries.ordsStandard.skip = false;
@@ -643,12 +709,7 @@ export default {
         this.isLoading = true;
       });
 
-      this.map.on(
-        'moveend',
-        debounce(() => {
-          !this.isRendering && this.fetchLocations();
-        }, 500)
-      );
+      this.map.on('moveend', this.mapMoveEnd());
     },
     updateMarkers() {
       if (this.markerClusterGroup) {
@@ -688,7 +749,7 @@ export default {
       this.locationMarkers = newMarkers;
 
       if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
-        this.openPopup(this.activeLocation.id);
+        this.openLocation(this.activeLocation.id);
       }
     },
     isFilterActive(filter = null) {
@@ -704,6 +765,22 @@ export default {
     clearFilter(filter, value) {
       this.filters[filter] = this.filters[filter].filter((item) => item !== value);
     },
+    asyncSearchLocations(query) {
+      if (query) {
+        this.search = query;
+        this.isLoading = true;
+        this.$apollo.queries.searchLocations.skip = false;
+        this.$apollo.queries.searchLocations.refetch();
+      }
+    },
+    selectSearchLocation(selectedOption) {
+      if (this.activeLocationId !== selectedOption.id) {
+        this.closePopup();
+      }
+      this.map.flyTo(selectedOption.geometry.coordinates, this.map.getMaxZoom());
+
+      this.activeLocationId = selectedOption.id;
+    },
     isCurrentPage(index) {
       const indexMin = (this.currentPage - 1) * this.itemsPerPage;
       const indexMax = this.currentPage * this.itemsPerPage;
@@ -714,31 +791,47 @@ export default {
       if (this.activeLocationId === location.id) {
         this.closePopup();
       } else {
-        // Check if the location is in a cluster group and then use the zoomToShowLayer function to zoom to the cluster group
-        if (this.markerClusterGroup.hasLayer(this.locationMarkers[location.id])) {
-          this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[location.id], () => {
-            this.openPopup(location.id);
-          });
-        } else {
-          this.openPopup(location.id);
-        }
+        this.openLocation(location.id);
       }
+    },
+    openLocation(locationId) {
+      this.map.off('moveend');
+      if (this.markerClusterGroup.hasLayer(this.locationMarkers[locationId])) {
+        this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[locationId], () => {
+          this.openPopup(locationId);
+        });
+      } else {
+        this.openPopup(locationId);
+      }
+      this.map.on('moveend', this.mapMoveEnd());
+    },
+    mapMoveEnd() {
+      return debounce(() => {
+        !this.isRendering && this.fetchLocations();
+      }, 500);
     },
     scrollIntoView() {
       this.$refs.pageContainer.$el.scrollIntoView({
         behavior: 'smooth',
       });
+      this.$refs.listContainer.scrollIntoView({
+        behavior: 'smooth',
+      });
     },
     openPopup(locationId) {
       const marker = this.locationMarkers[locationId];
-      marker.unbindPopup();
+      if (marker) {
+        marker.unbindPopup();
+      }
       this.activeLocationId = locationId;
-      marker
-        .bindPopup(this.$refs.popup, {
-          maxWidth: 350,
-          closeButton: false,
-        })
-        .openPopup();
+      if (marker) {
+        marker
+          .bindPopup(this.$refs.popup, {
+            maxWidth: 350,
+            closeButton: false,
+          })
+          .openPopup();
+      }
     },
     shouldSkipOrdpQuery() {
       return !this.map || !this.locale;

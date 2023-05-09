@@ -21,6 +21,8 @@ export default {
   filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
   filter_type_title: 'Select the types of organisations of your choice',
   label_search_by: 'Search by:',
+  label_filter_by: 'Filter by:',
+  label_search_by_repairer: 'Search for a repairer',
   locations_results_0:
     '0 search results found in your region. Unfortunately, there are no repair initiatives registered at your location yet. You can zoom out on the map a bit to find players that are a bit further away from you, or add a new initiative to the map yourself via the link at the bottom of this page.',
   locations_results_n: '{n} search result(s) found in your region.',
