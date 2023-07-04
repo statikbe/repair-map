@@ -213,6 +213,7 @@
                     :class="{ 'md:h-screen': !embed }"
                     :style="embed && windowWidth > 768 ? `height: ${windowHeight}px;` : ''"
                     ref="map"
+                    @click="onMapClick($event)"
                   ></div>
                 </div>
               </div>
@@ -469,7 +470,7 @@ export default {
       //   this.locationMarkers[this.activeLocation.id].fire('click');
       //   // return this.locationMarkers[this.activeLocation.id];
       // }
-      console.log('activeLocationId changed');
+      // console.log('activeLocationId changed');
       // this.scrollIntoView();
     },
     filter(filter) {
@@ -750,6 +751,14 @@ export default {
           });
         } else {
           this.openPopup(location.id);
+        }
+      }
+    },
+    // When clicking outside of the popup (on the map) close the popup correctly
+    onMapClick(event) {
+      if (this.activeLocationId) {
+        if (event.target.classList.contains('leaflet-container')) {
+          this.closePopup();
         }
       }
     },
