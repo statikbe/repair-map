@@ -159,13 +159,8 @@ Dark variants are used for hover states, contrast variants are used for button t
 
 You can fetch data from two API's.
 The [ORDP API](https://ordp.datascienceinstitute.ie/) (**default**) and the [Repair Connects API](https://www.repairconnects.org/api/v1/documentation).
-You can switch easily by updating your environment variables (f.e. in a .env file).
-
-```dotenv
-VUE_APP_REPAIR_MAP_SOURCE='ordp'
-#OR
-VUE_APP_REPAIR_MAP_SOURCE='repair'
-```
+You can switch easily by changing the `type` prop on the `repair-map` component. Or by adding a type query parameter when implementing the iframe version.
+`ordp` or `repair_connects`
 
 In the `components` folder there are two folders, one for ORDP and one for the repair.
 When fetching data from ORDP, GraphQL and Apollo is used. See the `graphql` folder for the query.
