@@ -1,6 +1,6 @@
 <template>
   <r-section color="secondary" class="relative">
-    <h2 class="text-h3 text-white">{{ title }}</h2>
+    <h2 v-if="title" class="text-h3 text-white">{{ title }}</h2>
     <p v-if="text" class="mb-4 md:w-8/12">
       {{ text }}
     </p>

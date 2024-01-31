@@ -37,8 +37,6 @@
       <!-- TYPE FILTER -->
       <section-filter
         v-if="isFilterActive('TYPE')"
-        :title="$t('filter_type_title')"
-        :text="$t('filter_type_text')"
         @close="toggleFilter(null)"
         class="relative z-10"
       >
@@ -60,8 +58,6 @@
       <!-- CATEGORY FILTER -->
       <section-filter
         v-else-if="isFilterActive('CATEGORY')"
-        :title="$t('filter_category_title')"
-        :text="$t('filter_category_text')"
         @close="toggleFilter(null)"
       >
         <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
@@ -91,7 +87,6 @@
       <!-- LOCATION FILTER -->
       <section-filter
         v-else-if="isFilterActive('LOCATION') && mapboxSearchConfig"
-        :title="$t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
       >
@@ -110,7 +105,6 @@
         color="secondary"
         :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
       >
-        <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('type_filters') }}</div>
           <template v-for="organisationType in organisationTypes">
