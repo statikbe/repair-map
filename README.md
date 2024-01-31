@@ -16,8 +16,26 @@ Create an `iframe` and pass the embed URL with optional query parameters:
 </script>
 ```
 
-Passing the `lang` parameter is recommended to display the component in your webpage's language (will default to English)
-You can also provide your own `mapboxAccessToken` parameter to enable the location filter.
+
+### URL Parameters
+
+| Parameter           | Type    | Example                                                                        | Description                                                                                                                                                               |
+|---------------------|---------|--------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type                | string  | `type=ordp`                                                                    | Choose what map you want to use: [ORDP data](https://ordp-api.vito.be/) (`ordp`) or [RepairConnects](https://repairconnects.org/api/v1/documentation) (`repair_connects`) |
+| locale              | string  | `locale=nl`                                                                    | This decides the language of the map.                                                                                                                                     |
+| mapbox_access_token | string  | `mapbox_access_token=XXX`                                                      | Adds the ability to search using a mapbox address search.                                                                                                                 |
+| organisation_types  | Array   | `organisation_types[]=professional_repairer&organisation_types[]=fablab`       | Parameter for pre filtering the organisation type filter.                                                                                                                 |
+| product_categories  | Array   | `product_categories[]=1&product_categories[]=2`                                | Parameter for pre filtering the product categories filter.                                                                                                                |
+| bbox                | Array   | `bbox=51.15313203444604,4.400453567504884,51.22075494571333,4.470491409301759` | Choose the maps bbox.                                                                                                                                                     |
+| center              | Array   | `center=50.87959,4.70093`                                                      | Choose where to focus the map on load.                                                                                                                                    |
+| zoom                | number  | `zoom=14`                                                                      | Choose how much the map is zoomed in.                                                                                                                                     |
+| use_geolocation     | boolean | `use_geolocation=true`                                                         | Decides if the browsers geolocation should be used.                                                                                                                       |
+| items_per_page      | number  | `items_per_page=10`                                                            |                                                                                                                                                                           |
+| show_filter_buttons | boolean | `show_filter_buttons=true`                                                     |                                                                                                                                                                           |
+| api_base_url        | string  | `api_base_url=XXX`                                                             | Adds the ability to change the underlying base url.                                                                                                                       |
+
+
+Data for the filters d 
 
 It's also possible to pass [some options](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/options.md) to the iframe resizer.
 
@@ -136,14 +154,6 @@ Dark variants are used for hover states, contrast variants are used for button t
 | itemsPerPage      | Number  | `10`                  | Number of initiative results per page.                                                                                                                    |
 | showFilterButtons | Boolean | `true`                | Set to false to implement your own filter buttons.                                                                                                        |
 | mapboxAccessToken | String  | `null`                | Providing a [Mapbox access token](https://docs.mapbox.com/help/getting-started/access-tokens/) will enable searching for locations to center your map to. |
-
-### URL Parameters
-
-| Parameter         | Type    | Description                                                                                                                                               |
-| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| organisation_types            | Array  | Parameter for prefiltering the map using the repair API. All the organisation codes can be found [here](https://www.repairconnects.org/api/v1/organisation_types). Example: `organisation_types[]=professional_repairer&organisation_types[]=fablab`                                                                      |
-| product_categories     | Array  | Parameter for prefiltering the map using the repair API. All the product codes can be found [here](https://www.repairconnects.org/api/v1/product_categories).           |
-| bbox       | Array  | Parameter for prefiltering the map using the repair API. Example: `bbox=51.15313203444604%2C4.400453567504884%2C51.22075494571333%2C4.470491409301759`       |
 
 ## For developers
 

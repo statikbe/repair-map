@@ -27,7 +27,6 @@ export default {
     '0 zoekresultaten gevonden in jouw regio. Er zijn helaas nog geen repair initiatieven geregistreerd op jouw locatie. Je kan wat uitzoomen op de kaart om spelers terug te vinden die iets verder van je verwijderd zijn, of zelf een nieuw initatief toevoegen aan de kaart via de link onderaan deze pagina.',
   locations_results_n: '{n} zoekresultat(en) gevonden in jouw regio.',
   location_name_fallback: 'Naamloze locatie',
-  page_title: 'Vind interessante herstelopties in uw regio.',
   active_filters: 'Actieve filters:',
   type_filters: 'Soort:',
   category_filters: 'Categorie:',

@@ -27,7 +27,6 @@ export default {
     '0 search results found in your region. Unfortunately, there are no repair initiatives registered at your location yet. You can zoom out on the map a bit to find players that are a bit further away from you, or add a new initiative to the map yourself via the link at the bottom of this page.',
   locations_results_n: '{n} search result(s) found in your region.',
   location_name_fallback: 'Unnamed location',
-  page_title: 'Find interesting repair locations in your region.',
   active_filters: 'Active filters:',
   type_filters: 'Type:',
   category_filters: 'Category:',

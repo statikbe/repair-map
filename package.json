@@ -25,6 +25,7 @@
     "leaflet": "^1.9.3",
     "leaflet.markercluster": "^1.5.3",
     "postcss": "^7",
+    "qs": "^6.11.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^2.7.14",
     "vue-apollo": "^3.1.0"

@@ -2,7 +2,7 @@
   <div id="repair-map">
     <r-app class="relative">
       <r-section v-if="showFilterButtons" :container="false">
-        <div class="mb-3 font-bold">{{ $t('label_filter_by') }}</div>
+        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
         <div class="flex flex-wrap -m-2">
           <r-button
             color="secondary"
@@ -41,19 +41,18 @@
         :text="$t('filter_type_text')"
         @close="toggleFilter(null)"
         class="relative z-10"
-        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <r-checkbox
-          v-for="(organisationType, key) in ordsStandard.organisationTypes"
+          v-for="(organisationType, key) in organisationTypes"
           :key="key"
           v-model="filters.organisation_types"
-          :value="organisationType"
-          :label="$t('filter_type_' + organisationType + '_label')"
+          :value="organisationType.code"
+          :label="$localizeField(organisationType.name)"
         >
           <template #label>
             <span>
-              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType]" class="mr-1" />
-              <span>{{ $t('filter_type_' + organisationType + '_label') }}</span>
+              <r-icon name="mdiMapMarker" :fill="categoryColors[organisationType.code]" class="mr-1" />
+              <span>{{ $localizeField(organisationType.name) }}</span>
             </span>
           </template>
         </r-checkbox>
@@ -64,16 +63,27 @@
         :title="$t('filter_category_title')"
         :text="$t('filter_category_text')"
         @close="toggleFilter(null)"
-        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
-        <div class="mb-6">
+        <div v-for="(categoryGroup, categoryKey) in categoryGroups" :key="categoryKey" class="mb-6">
+          <div class="font-bold text-white">
+            <r-checkbox
+              v-model="categoriesAllSelectedGroup[categoryGroup.code]"
+              :label="$localizeField(categoryGroup.name)"
+              class="category-group"
+              @change.native="selectAllCategories(categoryGroup.code)"
+            />
+          </div>
           <r-grid class="!mt-0">
             <r-grid-item
-              v-for="category in ordsStandard.productCategories"
-              :key="category.id"
+              v-for="(category, key) in categoryGroup.data"
+              :key="key"
               class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
             >
-              <r-checkbox v-model="filters.product_categories" :label="category.label" :value="category.id" />
+              <r-checkbox
+                v-model="filters.product_categories"
+                :label="$localizeField(category.name)"
+                :value="category.code"
+              />
             </r-grid-item>
           </r-grid>
         </div>
@@ -84,7 +94,6 @@
         :title="$t('filter_location_title')"
         @submit="submitLocationFilter"
         @close="toggleFilter(null)"
-        :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
         <r-mapbox-search
           v-model="locationSearch"
@@ -99,39 +108,35 @@
       <r-section
         v-if="showActiveFilters"
         color="secondary"
-        :class="{
-          'border-t-1 border-solid border-l-0 border-b-0 border-r-0 border-secondary-dark':
-            showActiveFilters && !isFilterActive(null),
-        }"
-        class="mb-6 sm:mb-12"
+        :class="{ 'border-t-1 border-solid border-secondary-dark': showActiveFilters && !isFilterActive(null) }"
       >
         <h3 class="text-white text-h3">{{ $t('active_filters') }}</h3>
         <div v-if="filters.organisation_types.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('type_filters') }}</div>
-          <template v-for="organisationType in ordsStandard.organisationTypes">
+          <template v-for="organisationType in organisationTypes">
             <button
-              v-if="filters.organisation_types.includes(organisationType)"
+              v-if="filters.organisation_types.includes(organisationType.code)"
               color="secondary"
               contrast
               class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-              :key="organisationType"
-              @click="clearFilter('organisation_types', organisationType)"
+              :key="organisationType.code"
+              @click="clearFilter('organisation_types', organisationType.code)"
             >
-              <span>{{ $t('filter_type_' + organisationType + '_label') }}</span>
+              <span>{{ $localizeField(organisationType.name) }}</span>
               <r-icon name="mdiClose" class="ml-1" />
             </button>
           </template>
         </div>
         <div v-if="filters.product_categories.length" class="flex flex-wrap mb-2 -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('category_filters') }}</div>
-          <template v-for="category in ordsStandard.productCategories">
+          <template v-for="category in categories">
             <button
-              v-if="filters.product_categories.includes(category.id)"
+              v-if="filters.product_categories.includes(category.code)"
               class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-              :key="category.id"
-              @click="clearFilter('product_categories', category.id)"
+              :key="category.code"
+              @click="clearFilter('product_categories', category.code)"
             >
-              {{ category.label }}
+              {{ $localizeField(category.name) }}
               <r-icon name="mdiClose" />
             </button>
           </template>
@@ -153,31 +158,6 @@
           </template>
         </div>
       </r-section>
-      <!-- REPAIR SEARCH FILTER -->
-      <r-section v-if="showFilterButtons" :container="false" class="!pt-0">
-        <div class="mb-3 font-bold">{{ $t('label_search_by') }}</div>
-        <div class="w-full md:w-1/2">
-          <r-select
-            class=""
-            track-by="id"
-            label-by="name"
-            :searchable="true"
-            :placeholder="$t('label_search_by_repairer')"
-            open-direction="bottom"
-            :options="searchLocations"
-            :multiple="false"
-            :loading="isLoading"
-            :internal-search="false"
-            :clear-on-select="false"
-            :close-on-select="true"
-            :max-height="600"
-            :options-limit="300"
-            :show-no-results="false"
-            @search-change="debounceSearchLocations"
-            @select="selectSearchLocation"
-          />
-        </div>
-      </r-section>
       <div class="relative">
         <r-section ref="pageContainer" :container="false" class="!py-0" :class="{ invisible: isRendering }">
           <div
@@ -193,7 +173,7 @@
                   embed && windowWidth > 768 ? `height: ${windowHeight}px; overflow-y: auto; padding-right: 8px` : ''
                 "
               >
-                <p class="my-6" ref="listContainer">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
+                <p class="my-6">{{ $t('locations_results_n', { n: locationTotal }) }}</p>
                 <div class="my-6">
                   <template v-for="(location, index) in locations">
                     <card-location
@@ -207,12 +187,14 @@
                         <slot name="locationTitle" v-bind="slotProps">
                           <a
                             v-if="embed"
-                            :href="location.landingPage"
+                            :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
+                              $localizeField(location.slug) || location.id
+                            }`"
                             :class="slotProps.defaultClass"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {{ location.name || $t('location_name_fallback') }}
+                            {{ $localizeField(location.name) || $t('location_name_fallback') }}
                           </a>
                         </slot>
                       </template>
@@ -224,12 +206,6 @@
             </div>
             <!-- LEAFLET MAP -->
             <div class="top-0 w-full px-2 md:w-2/3" :class="{ 'md:sticky': !embed }">
-              <!-- ERROR -->
-              <div v-if="error" class="block w-full">
-                <div class="mb-4 font-bold text-base leading-5 text-error opacity-100">
-                  {{ error }}
-                </div>
-              </div>
               <div class="relative z-10">
                 <div class="aspect-w-1 h-[525px] sm:h-auto sm:aspect-none" :class="{ 'md:aspect-none': !embed }">
                   <div
@@ -246,12 +222,14 @@
                       <slot name="locationTitle" v-bind="slotProps">
                         <a
                           v-if="embed"
-                          :href="activeLocation.landingPage"
+                          :href="`https://mapping.sharepair.org/${$i18n.locale}/location/${
+                            $localizeField(activeLocation.slug) || activeLocation.id
+                          }`"
                           :class="slotProps.defaultClass"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {{ activeLocation.name || $t('location_name_fallback') }}
+                          {{ $localizeField(activeLocation.name) || $t('location_name_fallback') }}
                         </a>
                       </slot>
                     </template>
@@ -308,9 +286,10 @@ import {
 import categoryColors from '../src/constants/categoryColors';
 
 import SectionFilter from './components/SectionFilter.vue';
-import CardLocation from './components/ordp/CardLocation.vue';
+import CardLocation from './components/repair/CardLocation.vue';
 
 import Leaflet from 'leaflet';
+import axios from 'axios';
 import qs from 'qs';
 import debounce from 'lodash.debounce';
 
@@ -320,9 +299,6 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
-import { locationsBboxQuery, locationsQuery, ordsStandardQuery } from './graphql/queries.js';
-import ApolloClient from 'apollo-boost';
-
 const qsOptions = {
   arrayFormat: 'comma',
 };
@@ -330,82 +306,15 @@ const qsOptions = {
 const windowHeight = window.innerHeight;
 const windowWidth = window.innerWidth;
 
-export default {
-  name: 'ordp-map',
-  apollo: {
-    $client: 'ordp',
-    locations: {
-      query: locationsBboxQuery,
-      loadingKey: 'loading',
-      variables() {
-        const mapBounds = this.map.getBounds();
+// For canceling previous request due to a new request on the map
+// TODO: Update axios and use the new abort api
+const CancelToken = axios.CancelToken;
+let cancel;
 
-        return {
-          locale: this.locale.toUpperCase(),
-          xMax: mapBounds.getNorth(),
-          xMin: mapBounds.getSouth(),
-          yMax: mapBounds.getEast(),
-          yMin: mapBounds.getWest(),
-          organisationTypeCode: this.filters.organisation_types.length === 0 ? null : this.filters.organisation_types,
-          productCategory: this.filters.product_categories.length === 0 ? null : this.filters.product_categories,
-        };
-      },
-      skip() {
-        return this.shouldSkipOrdpQuery();
-      },
-      // Optional result hook
-      result({ data }) {
-        this.isLoading = false;
-        if (data.locations) {
-          this.locationTotal = data.locations.length;
-        }
-      },
-      update(data) {
-        const ordsStandard = this.ordsStandard;
-        return data.locations.map(function (location) {
-          location.productCategories = location.productCategory
-            .map(function (categoryId) {
-              if (categoryId) {
-                const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
-                return category ? category.label : null;
-              }
-            })
-            .filter((item) => item);
-          return location;
-        });
-      },
-      error() {
-        this.error = 'Something went wrong loading the map.';
-      },
-    },
-    searchLocations: {
-      query: locationsQuery,
-      loadingKey: 'loading',
-      variables() {
-        return {
-          locale: this.locale.toUpperCase(),
-          search: this.search,
-        };
-      },
-      skip: true,
-      // Optional result hook
-      result() {
-        this.isLoading = false;
-      },
-      update(data) {
-        return data.locations;
-      },
-    },
-    ordsStandard: {
-      query: ordsStandardQuery,
-      loadingKey: 'loading',
-      skip: true,
-      // Optional result hook
-      result() {
-        this.isLoading = false;
-      },
-    },
-  },
+// console.log(mapBounds);
+
+export default {
+  name: 'repair-connects-map',
   components: {
     CardLocation,
     RApp,
@@ -463,17 +372,16 @@ export default {
     },
     apiBaseUrl: {
       type: String,
-      default: () => process.env.REPAIR_MAP_GRAPHQL_HTTP || 'https://ordp-api.vito.be/',
+      default: () => process.env.REPAIR_MAP_API_BASE_URL || 'https://www.repairconnects.org/api/v1',
     },
   },
   data: () => ({
     locations: [],
+    locationsGql: [],
     locationMarkers: {},
     locationTotal: 0,
-    ordsStandard: {
-      organisationTypes: [],
-      productCategories: [],
-    },
+    organisationTypes: [],
+    categories: [],
     categoryGroups: {},
     activeLocationId: null,
     activeFilter: null,
@@ -488,10 +396,7 @@ export default {
       product_categories: [],
       location: null,
     },
-    search: null,
-    searchLocations: [],
     categoriesAllSelectedGroup: {},
-    error: null,
   }),
   computed: {
     categoryColors() {
@@ -499,7 +404,6 @@ export default {
     },
     showActiveFilters() {
       const { filters } = this;
-      // const parentCategory = this.categories;
       return filters.organisation_types.length || filters.product_categories.length;
     },
     defaultQuery() {
@@ -536,23 +440,23 @@ export default {
     },
   },
   watch: {
-    // categories() {
-    //   this.categories.forEach((category) => {
-    //     //  if category is parent: add to the parent group for allSelectedItems
-    //     if (!category.parent_category) {
-    //       this.categoriesAllSelectedGroup[category.code] = false;
-    //       return;
-    //     }
-    //     // if category is child: add to parent group
-    //     if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
-    //       this.categoryGroups[category.parent_category.code] = {
-    //         ...category.parent_category,
-    //         data: [],
-    //       };
-    //     }
-    //     this.categoryGroups[category.parent_category.code].data.push(category);
-    //   });
-    // },
+    categories() {
+      this.categories.forEach((category) => {
+        //  if category is parent: add to the parent group for allSelectedItems
+        if (!category.parent_category) {
+          this.categoriesAllSelectedGroup[category.code] = false;
+          return;
+        }
+        // if category is child: add to parent group
+        if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
+          this.categoryGroups[category.parent_category.code] = {
+            ...category.parent_category,
+            data: [],
+          };
+        }
+        this.categoryGroups[category.parent_category.code].data.push(category);
+      });
+    },
     locations() {
       this.updateMarkers();
     },
@@ -587,18 +491,12 @@ export default {
     },
   },
   created() {
-    const apolloClient = new ApolloClient({
-      // You should use an absolute URL here
-      uri: this.apiBaseUrl,
-    });
-    this.$apollo.provider.clients.ordp = apolloClient;
-
     this.activeFilter = this.filter;
-    this.debounceSearchLocations = debounce((query) => this.asyncSearchLocations(query), 1000);
   },
   async mounted() {
     if (this.$i18n) {
-      this.$i18n.locale = this.locale;
+      this.$i18n.locale =
+        this.locale || qs.parse(location.search.substr(1)).lang || document.documentElement.lang || 'en';
     }
 
     this.setFiltersFromUrl();
@@ -616,18 +514,10 @@ export default {
 
     this.isRendering = false;
     this.fetchLocations();
-    this.fetchOrdsStandard();
+    this.fetchOrganisationTypes();
+    this.fetchCategories();
   },
   methods: {
-    fetchLocations() {
-      this.$apollo.queries.locations.skip = this.shouldSkipOrdpQuery();
-      this.$apollo.queries.locations.refetch();
-      this.currentPage = 1;
-    },
-    fetchOrdsStandard() {
-      this.$apollo.queries.ordsStandard.skip = false;
-      this.$apollo.queries.ordsStandard.refetch();
-    },
     getCategoryCodesForGroup(groupName) {
       let categoryCodes = [];
       this.categoryGroups[groupName].data.forEach((category) => {
@@ -720,7 +610,12 @@ export default {
         this.isLoading = true;
       });
 
-      this.map.on('moveend', this.mapMoveEnd());
+      this.map.on(
+        'moveend',
+        debounce(() => {
+          !this.isRendering && this.fetchLocations();
+        }, 500)
+      );
     },
     updateMarkers() {
       if (this.markerClusterGroup) {
@@ -734,11 +629,11 @@ export default {
       });
 
       this.locations.forEach((location) => {
-        if (location.geometry.coordinates) {
-          const marker = Leaflet.marker(location.geometry.coordinates, {
+        if (location.geometry.latitude && location.geometry.longitude) {
+          const marker = Leaflet.marker([location.geometry.latitude, location.geometry.longitude], {
             icon: Leaflet.icon({
-              iconUrl: location.organisationTypeCode
-                ? require(`./assets/img/markers/${location.organisationTypeCode}.png`)
+              iconUrl: location.organisation_type
+                ? require(`./assets/img/markers/${location.organisation_type.code}.png`)
                 : markerImage,
               iconSize: [20, 32],
               iconAnchor: [10, 32],
@@ -760,8 +655,69 @@ export default {
       this.locationMarkers = newMarkers;
 
       if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
-        this.openLocation(this.activeLocation.id);
+        this.openPopup(this.activeLocation.id);
       }
+    },
+    async fetchLocations() {
+      const { filters, defaultQuery } = this;
+
+      const mapBounds = this.map.getBounds();
+      const bbox = [mapBounds.getSouth(), mapBounds.getWest(), mapBounds.getNorth(), mapBounds.getEast()];
+
+      const query = qs.stringify(
+        {
+          ...defaultQuery,
+          ...filters,
+          bbox,
+          per_page: 1000,
+        },
+        qsOptions
+      );
+
+      this.isLoading = true;
+
+      const locationsUrl = `${this.apiBaseUrl}/locations?${query}`;
+
+      if (typeof cancel != typeof undefined) {
+        cancel();
+      }
+
+      await axios
+        .get(locationsUrl, {
+          cancelToken: new CancelToken((c) => {
+            cancel = c;
+          }),
+        })
+        .then((response) => {
+          this.locationTotal = response.data.meta.total;
+          this.locations = response.data.data;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          if (axios.isCancel(error)) {
+            // console.log('Request canceled', error.message);
+          } else {
+            this.isLoading = false;
+            console.log(error);
+          }
+        });
+    },
+    async fetchOrganisationTypes() {
+      const query = qs.stringify(this.defaultQuery, qsOptions);
+      const {
+        data: { data },
+      } = await axios.get(`${this.apiBaseUrl}/organisation_types?${query}`);
+
+      this.organisationTypes = data;
+    },
+    async fetchCategories() {
+      const query = qs.stringify(this.defaultQuery, qsOptions);
+
+      const {
+        data: { data },
+      } = await axios.get(`${this.apiBaseUrl}/product_categories?${query}`);
+
+      this.categories = data;
     },
     isFilterActive(filter = null) {
       return this.activeFilter === filter;
@@ -776,22 +732,6 @@ export default {
     clearFilter(filter, value) {
       this.filters[filter] = this.filters[filter].filter((item) => item !== value);
     },
-    asyncSearchLocations(query) {
-      if (query) {
-        this.search = query;
-        this.isLoading = true;
-        this.$apollo.queries.searchLocations.skip = false;
-        this.$apollo.queries.searchLocations.refetch();
-      }
-    },
-    selectSearchLocation(selectedOption) {
-      if (this.activeLocationId !== selectedOption.id) {
-        this.closePopup();
-      }
-      this.map.flyTo(selectedOption.geometry.coordinates, this.map.getMaxZoom());
-
-      this.activeLocationId = selectedOption.id;
-    },
     isCurrentPage(index) {
       const indexMin = (this.currentPage - 1) * this.itemsPerPage;
       const indexMax = this.currentPage * this.itemsPerPage;
@@ -802,50 +742,31 @@ export default {
       if (this.activeLocationId === location.id) {
         this.closePopup();
       } else {
-        this.openLocation(location.id);
+        // Check if the location is in a cluster group and then use the zoomToShowLayer function to zoom to the cluster group
+        if (this.markerClusterGroup.hasLayer(this.locationMarkers[location.id])) {
+          this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[location.id], () => {
+            this.openPopup(location.id);
+          });
+        } else {
+          this.openPopup(location.id);
+        }
       }
-    },
-    openLocation(locationId) {
-      this.map.off('moveend');
-      if (this.markerClusterGroup.hasLayer(this.locationMarkers[locationId])) {
-        this.markerClusterGroup.zoomToShowLayer(this.locationMarkers[locationId], () => {
-          this.openPopup(locationId);
-        });
-      } else {
-        this.openPopup(locationId);
-      }
-      this.map.on('moveend', this.mapMoveEnd());
-    },
-    mapMoveEnd() {
-      return debounce(() => {
-        !this.isRendering && this.fetchLocations();
-      }, 500);
     },
     scrollIntoView() {
       this.$refs.pageContainer.$el.scrollIntoView({
         behavior: 'smooth',
       });
-      this.$refs.listContainer.scrollIntoView({
-        behavior: 'smooth',
-      });
     },
     openPopup(locationId) {
       const marker = this.locationMarkers[locationId];
-      if (marker) {
-        marker.unbindPopup();
-      }
+      marker.unbindPopup();
       this.activeLocationId = locationId;
-      if (marker) {
-        marker
-          .bindPopup(this.$refs.popup, {
-            maxWidth: 350,
-            closeButton: false,
-          })
-          .openPopup();
-      }
-    },
-    shouldSkipOrdpQuery() {
-      return !this.map || !this.locale;
+      marker
+        .bindPopup(this.$refs.popup, {
+          maxWidth: 350,
+          closeButton: false,
+        })
+        .openPopup();
     },
     closePopup() {
       this.activeLocationId = null;

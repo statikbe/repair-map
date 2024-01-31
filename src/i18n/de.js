@@ -27,7 +27,6 @@ export default {
     '0 Suchergebnisse in Ihrer Region gefunden. Leider sind an Ihrem Standort noch keine Reparaturinitiativen registriert. Sie können die Karte etwas herauszoomen, um Spieler etwas weiter von Ihnen entfernt zu finden, oder über den Link am Ende dieser Seite selbst eine neue Initiative zur Karte hinzufügen.',
   locations_results_n: '{n} Suchergebnisse in Ihrer Region gefunden.',
   location_name_fallback: 'Unbenannter Ort',
-  page_title: 'Finden Sie interessante Reparaturstandorte in Ihrer Region.',
   active_filters: 'Aktive Filter:',
   type_filter: 'Typ:',
   category_filters: 'Kategorie:',
