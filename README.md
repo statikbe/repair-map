@@ -152,9 +152,9 @@ The [ORDP API](https://ordp.datascienceinstitute.ie/) (**default**) and the [Rep
 You can switch easily by updating your environment variables (f.e. in a .env file).
 
 ```dotenv
-REPAIR_MAP_SOURCE='ordp'
+VUE_APP_REPAIR_MAP_SOURCE='ordp'
 #OR
-REPAIR_MAP_SOURCE='repair'
+VUE_APP_REPAIR_MAP_SOURCE='repair'
 ```
 
 In the `components` folder there are two folders, one for ORDP and one for the repair.
