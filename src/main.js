@@ -8,7 +8,7 @@ import plugin from '../lib/main';
 
 const apolloClient = new ApolloClient({
   // You should use an absolute URL here
-  uri: process.env.REPAIR_MAP_GRAPHQL_HTTP || 'https://ordp.datascienceinstitute.ie/',
+  uri: process.env.REPAIR_MAP_GRAPHQL_HTTP || 'https://ordp-api.vito.be/',
 });
 
 const apolloProvider = new VueApollo({
