@@ -12,7 +12,11 @@ export default {
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Réparateur professionnel',
   filter_type_repair_cafe_label: 'Repair Café',
-  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library', //TODO
+  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  filter_ecocheques_label: 'Ecocheques',
+  filter_ecocheques_monizze_label: 'Monizze',
+  filter_ecocheques_edenred_label: 'Edenred',
+  filter_ecocheques_pluxee_label: 'Pluxee',
   label_search_by: 'Ou recherche par:',
   label_filter_by: 'Filtrer par:',
   label_search_by_repairer: "Recherche d'un réparateur",
