@@ -23,13 +23,13 @@
       </slot>
       <r-icon name="mdiChevronRight" />
     </h3>
-    <div v-if="location.organisationTypeCode" class="font-semibold text-small">
+    <div v-if="location.organisationTypeCode" class="font-semibold text-small flex items-center ">
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisationTypeCode]" class="mr-1" />
       <span>{{ $t(`organisation_type_${location.organisationTypeCode}_label`) }}</span>
     </div>
-    <div v-if="location.ecocheques" class="font-semibold text-small">
-      <img src="@/assets/img/ecocheque-accepted.png" alt="ecocheques accepted icon" class="mr-1" />
-      <span v-for="ecocheque in location.ecocheques" :key="ecocheque">{{ $t(`filter_ecocheques_${location.ecocheque}_label`) }}</span>
+    <div v-if="location.ecocheques" class="font-semibold text-small flex items-center mt-1">
+      <img src="@/assets/img/ecocheque-accepted.png" alt="ecocheques accepted icon" class="mr-1 h-5 w-5" />
+      <span v-for="ecocheque in location.ecocheques" :key="ecocheque">{{ $t(`filter_ecocheques_${ecocheque}_label`) }}</span>
     </div>
     <div v-if="location.productCategories" class="mt-4">
       <div class="flex flex-wrap -m-1">

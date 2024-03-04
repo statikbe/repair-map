@@ -51,14 +51,26 @@
         @close="toggleFilter(null)"
         :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
-        <div class="mb-6">
-          <r-grid class="!mt-0">
+        <div v-for="(categoryGroup, categoryKey) in circufixCategoryGroups" :key="categoryKey" class="mb-6">
+          <div class="font-bold text-white">
+            <r-checkbox
+              v-model="categoriesAllSelectedGroup[categoryGroup.code]"
+              :label="$t('circufix_category_group_' + categoryGroup.code + '_label')"
+              class="category-group"
+              @change.native="selectAllCategories(categoryGroup.code)"
+            />
+          </div>
+          <r-grid v-if="categoryGroup.items && categoryGroup.items.length > 1" class="!mt-0">
             <r-grid-item
-              v-for="category in ordsStandard.productCategories"
-              :key="category.id"
+              v-for="(category, key) in categoryGroup.items"
+              :key="key"
               class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
             >
-              <r-checkbox v-model="filters.product_categories" :label="category.label" :value="category.id" />
+              <r-checkbox
+                v-model="filters.product_categories"
+                :label="$t('circufix_category_' + category + '_label')"
+                :value="category"
+              />
             </r-grid-item>
           </r-grid>
         </div>
@@ -155,14 +167,13 @@
       >
         <div v-if="filters.product_categories.length" class="flex flex-wrap -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('category_filters') }}</div>
-          <template v-for="category in ordsStandard.productCategories">
+          <template v-for="category in filters.product_categories">
             <button
-                v-if="filters.product_categories.includes(category.id)"
-                class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-                :key="category.id"
-                @click="clearFilter('product_categories', category.id)"
+              class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
+              :key="category.id"
+              @click="clearFilter('product_categories', category)"
             >
-              {{ category.label }}
+              {{ $t('circufix_category_' + category + '_label') }}
               <r-icon name="mdiClose" />
             </button>
           </template>
@@ -372,7 +383,7 @@ export default {
           yMin: mapBounds.getWest(),
           organisationTypeCode: this.filters.organisation_types.length === 0 ? null : this.filters.organisation_types,
           productCategory: this.filters.product_categories.length === 0 ? null : this.filters.product_categories,
-          ecoCheque: this.filters.ecocheques.length === 0 ? null : this.filters.ecocheques,
+          // ecoCheque: this.filters.ecocheques.length === 0 ? null : this.filters.ecocheques,
         };
       },
       skip() {
@@ -499,6 +510,44 @@ export default {
       organisationTypes: [],
       productCategories: [],
     },
+    circufixCategoryGroups: [
+      {
+        code: 'electro',
+        items: [
+          'smartphones_tablets_computers',
+          'tv_audio_video',
+          'klein_huishoudelektro',
+          'groot_huishoudelektro',
+          'elektrisch_elektronisch_gereedschap',
+          'andere_elektro',
+        ],
+      },
+      {
+        code: 'textile',
+        items: [
+          'textiel_kleding',
+          'schoenen_leder',
+        ],
+      },
+      {
+        code: 'bicycle',
+        items: [
+          'gewone_fiets',
+          'e-bikes',
+          'steps',
+        ],
+      },
+      {
+        code: 'jewellery_watches',
+        items: [
+          'juwelen_uurwerken',
+        ],
+      },
+      {
+        code: 'furniture_flooring',
+        items: ['meubels_vloerbekleding'],
+      },
+    ],
     categoryGroups: {},
     activeLocationId: null,
     activeFilter: null,
@@ -562,38 +611,11 @@ export default {
     },
   },
   watch: {
-    // categories() {
-    //   this.categories.forEach((category) => {
-    //     //  if category is parent: add to the parent group for allSelectedItems
-    //     if (!category.parent_category) {
-    //       this.categoriesAllSelectedGroup[category.code] = false;
-    //       return;
-    //     }
-    //     // if category is child: add to parent group
-    //     if (!Object.hasOwnProperty.call(this.categoryGroups, category.parent_category.code)) {
-    //       this.categoryGroups[category.parent_category.code] = {
-    //         ...category.parent_category,
-    //         data: [],
-    //       };
-    //     }
-    //     this.categoryGroups[category.parent_category.code].data.push(category);
-    //   });
-    // },
     locations() {
       this.updateMarkers();
     },
     currentPage() {
       this.scrollIntoView();
-    },
-    activeLocationId() {
-      // TODO: Check if this is still needed
-      // if (this.activeLocation && Object.prototype.hasOwnProperty.call(this.locationMarkers, this.activeLocation.id)) {
-      //   // console.log(this.locationMarkers[this.activeLocation.id].fire('click'));
-      //   this.locationMarkers[this.activeLocation.id].fire('click');
-      //   // return this.locationMarkers[this.activeLocation.id];
-      // }
-      console.log('activeLocationId changed');
-      // this.scrollIntoView();
     },
     filter(filter) {
       this.activeFilter = filter;
@@ -652,22 +674,34 @@ export default {
       this.$apollo.queries.ordsStandard.skip = false;
       this.$apollo.queries.ordsStandard.refetch();
     },
-    getCategoryCodesForGroup(groupName) {
+    getCategoryCodesForGroup(groupCode) {
       let categoryCodes = [];
-      this.categoryGroups[groupName].data.forEach((category) => {
-        categoryCodes.push(category.code);
-      });
+      this.circufixCategoryGroups
+        .find(function (item) {
+          return item.code === groupCode;
+        })
+        .items.forEach((category) => {
+          categoryCodes.push(category);
+        });
+
+      console.log(categoryCodes);
 
       return categoryCodes;
     },
     checkIfAllSelected() {
       const { filters } = this;
       // loop through the categoryGroups and check if the categories are all checked from this group
-      for (const code of Object.keys(this.categoryGroups)) {
-        this.categoriesAllSelectedGroup[code] = this.getCategoryCodesForGroup(code).every((code) => {
-          return filters.product_categories.includes(code);
-        });
+      for (const { code } of this.circufixCategoryGroups) {
+        console.log('code', code);
+        const categoryCodesForGroup = this.getCategoryCodesForGroup(code);
+        this.categoriesAllSelectedGroup[code] =
+          categoryCodesForGroup &&
+          categoryCodesForGroup.length > 0 &&
+          categoryCodesForGroup.every((code) => {
+            return filters.product_categories.includes(code);
+          });
       }
+      console.log(this.categoriesAllSelectedGroup);
     },
     selectAllCategories(categoryGroup) {
       let categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);

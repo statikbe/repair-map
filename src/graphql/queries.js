@@ -9,7 +9,7 @@ export const locationsBboxQuery = gql`
     $yMin: Float! = 4.675369262695313
     $organisationTypeCode: [String]
     $productCategory: [String]
-    $ecoCheque: [String]
+    # $ecoCheque: [String]
   ) {
     locations: locationsBbox(
       locale: $locale
@@ -19,7 +19,7 @@ export const locationsBboxQuery = gql`
       yMin: $yMin
       organisationTypeCode: $organisationTypeCode
       productCategory: $productCategory
-      ecoCheque: $ecoCheque
+      # ecocheque: $ecoCheque
     ) {
       address {
         countryCode
@@ -38,7 +38,7 @@ export const locationsBboxQuery = gql`
       name
       organisationTypeCode
       productCategory
-      ecoCheques
+      ecocheques
     }
   }
 `;
@@ -63,10 +63,6 @@ export const ordsStandardQuery = gql`
       productCategories {
         id
         label
-      }
-      ecoCheques {
-        id
-        code
       }
     }
   }
