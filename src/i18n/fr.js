@@ -24,7 +24,7 @@ export default {
     "0 résultats de recherche trouvés dans votre région. Malheureusement, aucune initiative de réparation n'est encore enregistrée dans votre établissement. Vous pouvez effectuer un zoom arrière sur la carte pour trouver des joueurs un peu plus éloignés de vous, ou ajouter vous-même une nouvelle initiative à la carte via le lien en bas de cette page.",
   locations_results_n: '{n} résultat(s) de recherche trouvés dans votre région.',
   location_name_fallback: 'Emplacement sans nom',
-  type_filter: 'Type:',
+  type_filters: 'Type:',
   category_filters: 'Produit:',
   professional_repairer: 'Réparateur professionnel',
   organisation_type_fablab_label: 'Fablab',

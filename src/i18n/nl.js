@@ -18,8 +18,8 @@ export default {
   filter_ecocheques_edenred_label: 'Edenred',
   filter_ecocheques_pluxee_label: 'Pluxee',
   label_search_by: 'Of zoek op:',
-  label_search_by_repairer: 'Zoek naar een hersteller',
   label_filter_by: 'Filter op:',
+  label_search_by_repairer: 'Zoek naar een hersteller',
   locations_results_0:
     '0 zoekresultaten gevonden in jouw regio. Er zijn helaas nog geen repair initiatieven geregistreerd op jouw locatie. Je kan wat uitzoomen op de kaart om spelers terug te vinden die iets verder van je verwijderd zijn, of zelf een nieuw initatief toevoegen aan de kaart via de link onderaan deze pagina.',
   locations_results_n: '{n} zoekresultat(en) gevonden in jouw regio.',
@@ -45,7 +45,7 @@ export default {
   circufix_category_group_bicycle_label: 'Fiets',
   circufix_category_gewone_fiets_label: 'Gewone fiets',
   "circufix_category_e-bikes_label": 'E-bikes',
-  "circufix_category_steps_label": 'Steps',
+  circufix_category_steps_label: 'Steps',
   circufix_category_group_jewellery_watches_label: 'Juwelen, uurwerken',
   circufix_category_juwelen_uurwerken_label: 'Juwelen, uurwerken',
   circufix_category_group_furniture_flooring_label: 'Meubels en vloerbekleding',

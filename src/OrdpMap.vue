@@ -199,7 +199,7 @@
           </template>
         </div>
         <div v-if="filters.ecocheques.length" class="flex flex-wrap -mx-1 -my-2 align-middle">
-          <div class="my-2 ml-1 mr-2">{{ $t('category_filters') }}</div>
+          <div class="my-2 ml-1 mr-2">{{ $t('filter_ecocheques_label') }}:</div>
           <template v-for="(ecocheque, key) in filters.ecocheques">
             <button
               class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
