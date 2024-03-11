@@ -28,7 +28,7 @@
       <span>{{ $t(`organisation_type_${location.organisationTypeCode}_label`) }}</span>
     </div>
     <div v-if="location.ecoCheques && location.ecoCheques.length" class="font-semibold text-small flex items-center mt-1">
-      <img src="@/assets/img/ecocheque-accepted.png" alt="ecocheques accepted icon" class="mr-1 h-5 w-5" />
+      <img :src="ecoChequeImage" alt="ecocheques accepted icon" class="mr-1 h-5 w-5" />
       <span v-for="ecocheque in location.ecoCheques" :key="ecocheque">{{ $t(`filter_ecocheques_${ecocheque}_label`) }}</span>
     </div>
     <div v-if="location.circufixCategory" class="mt-4">
@@ -84,6 +84,7 @@
 <script>
 import { RIcon } from '@statikbe/repair-components';
 import categoryColors from '../../constants/categoryColors';
+import ecoChequeImage from '../../assets/img/ecocheque-accepted.png';
 
 export default {
   components: {
@@ -102,6 +103,11 @@ export default {
       type: Boolean,
       default: () => false,
     },
+  },
+  data() {
+    return {
+      ecoChequeImage: ecoChequeImage,
+    };
   },
   computed: {
     categoryColors() {

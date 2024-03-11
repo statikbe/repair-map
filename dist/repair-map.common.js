@@ -94992,8 +94992,8 @@ var OrdpMapvue_type_template_id_21115808_staticRenderFns = [];
 
 // CONCATENATED MODULE: ./src/OrdpMap.vue?vue&type=template&id=21115808&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/CardLocation.vue?vue&type=template&id=6255d210&
-var CardLocationvue_type_template_id_6255d210_render = function render() {
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/CardLocation.vue?vue&type=template&id=fd7cb27a&
+var CardLocationvue_type_template_id_fd7cb27a_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -95038,7 +95038,7 @@ var CardLocationvue_type_template_id_6255d210_render = function render() {
   }, [_c('img', {
     staticClass: "mr-1 h-5 w-5",
     attrs: {
-      "src": __webpack_require__("1d5c"),
+      "src": _vm.ecoChequeImage,
       "alt": "ecocheques accepted icon"
     }
   }), _vm._l(_vm.location.ecoCheques, function (ecocheque) {
@@ -95126,11 +95126,16 @@ var CardLocationvue_type_template_id_6255d210_render = function render() {
     }, [_vm._v(_vm._s(phone))])])], 1);
   })], 2) : _vm._e()]);
 };
-var CardLocationvue_type_template_id_6255d210_staticRenderFns = [];
+var CardLocationvue_type_template_id_fd7cb27a_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/components/ordp/CardLocation.vue?vue&type=template&id=6255d210&
+// CONCATENATED MODULE: ./src/components/ordp/CardLocation.vue?vue&type=template&id=fd7cb27a&
+
+// EXTERNAL MODULE: ./src/assets/img/ecocheque-accepted.png
+var ecocheque_accepted = __webpack_require__("1d5c");
+var ecocheque_accepted_default = /*#__PURE__*/__webpack_require__.n(ecocheque_accepted);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/CardLocation.vue?vue&type=script&lang=js&
+
 
 
 /* harmony default export */ var ordp_CardLocationvue_type_script_lang_js_ = ({
@@ -95150,6 +95155,11 @@ var CardLocationvue_type_template_id_6255d210_staticRenderFns = [];
       type: Boolean,
       default: () => false
     }
+  },
+  data() {
+    return {
+      ecoChequeImage: ecocheque_accepted_default.a
+    };
   },
   computed: {
     categoryColors() {
@@ -95172,8 +95182,8 @@ var CardLocationvue_type_template_id_6255d210_staticRenderFns = [];
 
 var ordp_CardLocation_component = normalizeComponent(
   components_ordp_CardLocationvue_type_script_lang_js_,
-  CardLocationvue_type_template_id_6255d210_render,
-  CardLocationvue_type_template_id_6255d210_staticRenderFns,
+  CardLocationvue_type_template_id_fd7cb27a_render,
+  CardLocationvue_type_template_id_fd7cb27a_staticRenderFns,
   false,
   null,
   null,
