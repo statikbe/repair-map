@@ -27,23 +27,23 @@
       <r-icon name="mdiMapMarker" :fill="categoryColors[location.organisationTypeCode]" class="mr-1" />
       <span>{{ $t(`organisation_type_${location.organisationTypeCode}_label`) }}</span>
     </div>
-    <div v-if="location.ecocheques" class="font-semibold text-small flex items-center mt-1">
+    <div v-if="location.ecoCheques && location.ecoCheques.length" class="font-semibold text-small flex items-center mt-1">
       <img src="@/assets/img/ecocheque-accepted.png" alt="ecocheques accepted icon" class="mr-1 h-5 w-5" />
-      <span v-for="ecocheque in location.ecocheques" :key="ecocheque">{{ $t(`filter_ecocheques_${ecocheque}_label`) }}</span>
+      <span v-for="ecocheque in location.ecoCheques" :key="ecocheque">{{ $t(`filter_ecocheques_${ecocheque}_label`) }}</span>
     </div>
-    <div v-if="location.productCategories" class="mt-4">
+    <div v-if="location.circufixCategory" class="mt-4">
       <div class="flex flex-wrap -m-1">
         <span
-          v-for="category in location.productCategories.slice(0, 4)"
-          :key="category.id"
+          v-for="(category, key) in location.circufixCategory.filter((item) => item).slice(0, 4)"
+          :key="key"
           class="px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"
         >
-          {{ category }}
+          {{ $t('circufix_category_' + category + '_label') }}
         </span>
         <span
-          v-if="location.productCategories.length > 4"
+          v-if="location.circufixCategory.filter((item) => item).length > 4"
           class="px-2 m-1 font-bold bg-white rounded-md text-tiny text-secondary"
-          >+ {{ location.productCategories.length - 4 }} {{ $t('card_location_other') }}</span
+          >+ {{ location.circufixCategory.filter((item) => item).length - 4 }} {{ $t('card_location_other') }}</span
         >
       </div>
     </div>

@@ -142,13 +142,13 @@
         <div class="mb-6">
           <r-grid class="!mt-0">
             <r-grid-item
-              v-for="ecoCheque in ordsStandard.ecoCheques"
+              v-for="ecoCheque in ecoCheques"
               :key="ecoCheque.id"
               class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
             >
               <r-checkbox
                 v-model="filters.ecocheques"
-                :label="$t('filter_type_' + ecoCheque.code + '_label')"
+                :label="$t('filter_ecocheques_' + ecoCheque.code + '_label')"
                 :value="ecoCheque.code"
               />
             </r-grid-item>
@@ -200,14 +200,13 @@
         </div>
         <div v-if="filters.ecocheques.length" class="flex flex-wrap -mx-1 -my-2 align-middle">
           <div class="my-2 ml-1 mr-2">{{ $t('category_filters') }}</div>
-          <template v-for="category in ordsStandard.productCategories">
+          <template v-for="(ecocheque, key) in filters.ecocheques">
             <button
-              v-if="filters.product_categories.includes(category.id)"
               class="p-1 mx-1 my-2 font-bold leading-none transition-colors bg-white border-0 rounded cursor-pointer text-small font-base text-secondary hover:bg-secondary-dark hover:text-white"
-              :key="category.id"
-              @click="clearFilter('product_categories', category.id)"
+              :key="key"
+              @click="clearFilter('ecocheques', ecocheque)"
             >
-              {{ category.label }}
+              <span>{{ $t('filter_ecocheques_' + ecocheque + '_label') }}</span>
               <r-icon name="mdiClose" />
             </button>
           </template>
@@ -355,7 +354,7 @@ import markerImage from './assets/img/markers/default.png';
 
 import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
-import { locationsBboxQuery, locationsQuery, ordsStandardQuery } from './graphql/queries.js';
+import {locationsBboxQuery, locationsQuery, ordsEcoCheques, ordsStandardQuery} from './graphql/queries.js';
 import ApolloClient from 'apollo-boost';
 
 const qsOptions = {
@@ -382,8 +381,8 @@ export default {
           yMax: mapBounds.getEast(),
           yMin: mapBounds.getWest(),
           organisationTypeCode: this.filters.organisation_types.length === 0 ? null : this.filters.organisation_types,
-          productCategory: this.filters.product_categories.length === 0 ? null : this.filters.product_categories,
-          // ecoCheque: this.filters.ecocheques.length === 0 ? null : this.filters.ecocheques,
+          circufixCategory: this.filters.product_categories.length === 0 ? null : this.filters.product_categories,
+          ecoCheques: this.filters.ecocheques.length === 0 ? null : this.filters.ecocheques,
         };
       },
       skip() {
@@ -392,23 +391,17 @@ export default {
       // Optional result hook
       result({ data }) {
         this.isLoading = false;
+        this.locationTotal = 0;
         if (data.locations) {
           this.locationTotal = data.locations.length;
         }
       },
       update(data) {
-        const ordsStandard = this.ordsStandard;
-        return data.locations.map(function (location) {
-          location.productCategories = location.productCategory
-            .map(function (categoryId) {
-              if (categoryId) {
-                const category = ordsStandard.productCategories.find((categoryData) => categoryData.id === categoryId);
-                return category ? category.label : null;
-              }
-            })
-            .filter((item) => item);
-          return location;
-        });
+        if (data.locations?.length) {
+          return data.locations;
+        }
+
+        return [];
       },
       error() {
         this.error = 'Something went wrong loading the map.';
@@ -434,6 +427,15 @@ export default {
     },
     ordsStandard: {
       query: ordsStandardQuery,
+      loadingKey: 'loading',
+      skip: true,
+      // Optional result hook
+      result() {
+        this.isLoading = false;
+      },
+    },
+    ecoCheques: {
+      query: ordsEcoCheques,
       loadingKey: 'loading',
       skip: true,
       // Optional result hook
@@ -510,6 +512,7 @@ export default {
       organisationTypes: [],
       productCategories: [],
     },
+    ecoCheques: [],
     circufixCategoryGroups: [
       {
         code: 'electro',
@@ -663,6 +666,7 @@ export default {
     this.isRendering = false;
     this.fetchLocations();
     this.fetchOrdsStandard();
+    this.fetchEcoCheques();
   },
   methods: {
     fetchLocations() {
@@ -674,6 +678,10 @@ export default {
       this.$apollo.queries.ordsStandard.skip = false;
       this.$apollo.queries.ordsStandard.refetch();
     },
+    fetchEcoCheques() {
+      this.$apollo.queries.ecoCheques.skip = false;
+      this.$apollo.queries.ecoCheques.refetch();
+    },
     getCategoryCodesForGroup(groupCode) {
       let categoryCodes = [];
       this.circufixCategoryGroups
@@ -684,15 +692,12 @@ export default {
           categoryCodes.push(category);
         });
 
-      console.log(categoryCodes);
-
       return categoryCodes;
     },
     checkIfAllSelected() {
       const { filters } = this;
       // loop through the categoryGroups and check if the categories are all checked from this group
       for (const { code } of this.circufixCategoryGroups) {
-        console.log('code', code);
         const categoryCodesForGroup = this.getCategoryCodesForGroup(code);
         this.categoriesAllSelectedGroup[code] =
           categoryCodesForGroup &&
@@ -701,7 +706,6 @@ export default {
             return filters.product_categories.includes(code);
           });
       }
-      console.log(this.categoriesAllSelectedGroup);
     },
     selectAllCategories(categoryGroup) {
       let categoryGroupCodes = this.getCategoryCodesForGroup(categoryGroup);

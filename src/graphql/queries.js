@@ -8,8 +8,8 @@ export const locationsBboxQuery = gql`
     $yMax: Float! = 4.726524353027345
     $yMin: Float! = 4.675369262695313
     $organisationTypeCode: [String]
-    $productCategory: [String]
-    # $ecoCheque: [String]
+    $circufixCategory: [String]
+    $ecoCheques: [String]
   ) {
     locations: locationsBbox(
       locale: $locale
@@ -18,8 +18,8 @@ export const locationsBboxQuery = gql`
       yMax: $yMax
       yMin: $yMin
       organisationTypeCode: $organisationTypeCode
-      productCategory: $productCategory
-      # ecocheque: $ecoCheque
+      circufixCategory: $circufixCategory
+      ecoCheques: $ecoCheques
     ) {
       address {
         countryCode
@@ -37,8 +37,8 @@ export const locationsBboxQuery = gql`
       locale
       name
       organisationTypeCode
-      productCategory
-      ecocheques
+      circufixCategory
+      ecoCheques
     }
   }
 `;
@@ -64,6 +64,15 @@ export const ordsStandardQuery = gql`
         id
         label
       }
+    }
+  }
+`;
+
+export const ordsEcoCheques = gql`
+  query getEcoCheques {
+    ecoCheques: ecoCheques {
+        id
+        code
     }
   }
 `;
