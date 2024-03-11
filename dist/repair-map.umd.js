@@ -94994,8 +94994,8 @@ var OrdpMapvue_type_template_id_21115808_staticRenderFns = [];
 
 // CONCATENATED MODULE: ./src/OrdpMap.vue?vue&type=template&id=21115808&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/CardLocation.vue?vue&type=template&id=682c9210&
-var CardLocationvue_type_template_id_682c9210_render = function render() {
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/CardLocation.vue?vue&type=template&id=423c9acc&
+var CardLocationvue_type_template_id_423c9acc_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -95037,11 +95037,7 @@ var CardLocationvue_type_template_id_682c9210_render = function render() {
     }
   }), _c('span', [_vm._v(_vm._s(_vm.$t(`organisation_type_${_vm.location.organisationTypeCode}_label`)))])], 1) : _vm._e(), _vm.location.ecoCheques && _vm.location.ecoCheques.length ? _c('div', {
     staticClass: "font-semibold text-small flex items-center mt-1"
-  }, [_c('eco-cheque-image'), _vm._l(_vm.location.ecoCheques, function (ecocheque) {
-    return _c('span', {
-      key: ecocheque
-    }, [_vm._v(_vm._s(_vm.$t(`filter_ecocheques_${ecocheque}_label`)))]);
-  })], 2) : _vm._e(), _vm.location.circufixCategory ? _c('div', {
+  }, [_c('eco-cheque-image'), _c('span', [_vm._v(_vm._s(_vm.location.ecoCheques.map(item => _vm.$t(`filter_ecocheques_${item}_label`)).join(', ')))])], 1) : _vm._e(), _vm.location.circufixCategory ? _c('div', {
     staticClass: "mt-4"
   }, [_c('div', {
     staticClass: "flex flex-wrap -m-1"
@@ -95122,9 +95118,9 @@ var CardLocationvue_type_template_id_682c9210_render = function render() {
     }, [_vm._v(_vm._s(phone))])])], 1);
   })], 2) : _vm._e()]);
 };
-var CardLocationvue_type_template_id_682c9210_staticRenderFns = [];
+var CardLocationvue_type_template_id_423c9acc_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/components/ordp/CardLocation.vue?vue&type=template&id=682c9210&
+// CONCATENATED MODULE: ./src/components/ordp/CardLocation.vue?vue&type=template&id=423c9acc&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/EcoChequeImage.vue?vue&type=template&id=0312594a&
 var EcoChequeImagevue_type_template_id_0312594a_render = function render() {
@@ -96964,8 +96960,8 @@ var EcoChequeImage_component = normalizeComponent(
 
 var ordp_CardLocation_component = normalizeComponent(
   components_ordp_CardLocationvue_type_script_lang_js_,
-  CardLocationvue_type_template_id_682c9210_render,
-  CardLocationvue_type_template_id_682c9210_staticRenderFns,
+  CardLocationvue_type_template_id_423c9acc_render,
+  CardLocationvue_type_template_id_423c9acc_staticRenderFns,
   false,
   null,
   null,

@@ -29,7 +29,7 @@
     </div>
     <div v-if="location.ecoCheques && location.ecoCheques.length" class="font-semibold text-small flex items-center mt-1">
       <eco-cheque-image/>
-      <span v-for="ecocheque in location.ecoCheques" :key="ecocheque">{{ $t(`filter_ecocheques_${ecocheque}_label`) }}</span>
+      <span >{{ location.ecoCheques.map((item) => $t(`filter_ecocheques_${item}_label`)).join(', ') }}</span>
     </div>
     <div v-if="location.circufixCategory" class="mt-4">
       <div class="flex flex-wrap -m-1">
