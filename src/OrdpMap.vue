@@ -133,18 +133,6 @@
             </span>
           </template>
         </r-checkbox>
-        <r-checkbox
-          v-model="filters.organisation_types"
-          value="recycling_center"
-          label="recycling_center"
-        >
-          <template #label>
-            <span>
-              <r-icon name="mdiMapMarker" :fill="categoryColors['recycling_center']" class="mr-1" />
-              <span>recycling_center</span>
-            </span>
-          </template>
-        </r-checkbox>
       </section-filter>
       <section-filter
         v-if="isFilterActive('ECOCHEQUES')"
