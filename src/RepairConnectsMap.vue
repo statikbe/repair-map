@@ -291,8 +291,6 @@ import 'leaflet.markercluster';
 
 import markerImage from './assets/img/markers/default.png';
 
-import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
-
 const qsOptions = {
   arrayFormat: 'comma',
 };

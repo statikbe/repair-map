@@ -7,6 +7,8 @@
 import RepairMap from './RepairMap.vue';
 import qs from 'qs';
 
+import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
+
 const qsOptions = {
   arrayFormat: 'comma',
 };

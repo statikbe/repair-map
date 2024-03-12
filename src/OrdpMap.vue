@@ -352,8 +352,6 @@ import 'leaflet.markercluster';
 
 import markerImage from './assets/img/markers/default.png';
 
-import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
-
 import {locationsBboxQuery, locationsQuery, ordsEcoCheques, ordsStandardQuery} from './graphql/queries.js';
 import ApolloClient from 'apollo-boost';
 
