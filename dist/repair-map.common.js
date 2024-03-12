@@ -1511,6 +1511,22 @@ module.exports = defaults;
 
 /***/ }),
 
+/***/ "24e1":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("3006");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("1859133c", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
 /***/ "24fb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5321,6 +5337,20 @@ function getVisitFn(visitor, kind, isLeaving) {
 
 /***/ }),
 
+/***/ "3006":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".category-group>label span{font-weight:700}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "30b5":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5609,17 +5639,6 @@ module.exports = uncurryThis({}.isPrototypeOf);
 "use strict";
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairConnectsMap_vue_vue_type_style_index_4_id_0ad11960_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a15a");
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairConnectsMap_vue_vue_type_style_index_4_id_0ad11960_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepairConnectsMap_vue_vue_type_style_index_4_id_0ad11960_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "3d58":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrdpMap_vue_vue_type_style_index_4_id_21f102be_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fe52");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrdpMap_vue_vue_type_style_index_4_id_21f102be_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrdpMap_vue_vue_type_style_index_4_id_21f102be_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -13952,6 +13971,17 @@ module.exports = function (argument) {
 
 /***/ }),
 
+/***/ "7d85":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrdpMap_vue_vue_type_style_index_4_id_20bc578e_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("24e1");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrdpMap_vue_vue_type_style_index_4_id_20bc578e_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrdpMap_vue_vue_type_style_index_4_id_20bc578e_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "80aa":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16611,20 +16641,6 @@ function devAssert(condition, message) {
     throw new Error(message);
   }
 }
-
-
-/***/ }),
-
-/***/ "bbc1":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".category-group>label span{font-weight:700}", ""]);
-// Exports
-module.exports = exports;
 
 
 /***/ }),
@@ -77680,6 +77696,21 @@ module.exports = USE_SYMBOL_AS_UID ? function (it) {
 
 /***/ }),
 
+/***/ "d9d0":
+/***/ (function(module, exports, __webpack_require__) {
+
+/*! iFrame Resizer (iframeSizer.contentWindow.min.js) - v4.3.3 - 2023-01-30
+ *  Desc: Include this file in any page being loaded into an iframe
+ *        to force the iframe to resize to the content size.
+ *  Requires: iframeResizer.min.js on host page.
+ *  Copyright: (c) 2023 David J. Bradshaw - dave@bradshaw.net
+ *  License: MIT
+ */
+!function(a){if("undefined"!=typeof window){var r=!0,P="",u=0,c="",s=null,D="",d=!1,j={resize:1,click:1},l=128,q=!0,f=1,n="bodyOffset",m=n,H=!0,W="",h={},g=32,B=null,p=!1,v=!1,y="[iFrameSizer]",J=y.length,w="",U={max:1,min:1,bodyScroll:1,documentElementScroll:1},b="child",V=!0,X=window.parent,T="*",E=0,i=!1,Y=null,O=16,S=1,K="scroll",M=K,Q=window,G=function(){x("onMessage function not defined")},Z=function(){},$=function(){},_={height:function(){return x("Custom height calculation function not defined"),document.documentElement.offsetHeight},width:function(){return x("Custom width calculation function not defined"),document.body.scrollWidth}},ee={},te=!1;try{var ne=Object.create({},{passive:{get:function(){te=!0}}});window.addEventListener("test",ae,ne),window.removeEventListener("test",ae,ne)}catch(e){}var oe,o,I,ie,N,A,C={bodyOffset:function(){return document.body.offsetHeight+ye("marginTop")+ye("marginBottom")},offset:function(){return C.bodyOffset()},bodyScroll:function(){return document.body.scrollHeight},custom:function(){return _.height()},documentElementOffset:function(){return document.documentElement.offsetHeight},documentElementScroll:function(){return document.documentElement.scrollHeight},max:function(){return Math.max.apply(null,e(C))},min:function(){return Math.min.apply(null,e(C))},grow:function(){return C.max()},lowestElement:function(){return Math.max(C.bodyOffset()||C.documentElementOffset(),we("bottom",Te()))},taggedElement:function(){return be("bottom","data-iframe-height")}},z={bodyScroll:function(){return document.body.scrollWidth},bodyOffset:function(){return document.body.offsetWidth},custom:function(){return _.width()},documentElementScroll:function(){return document.documentElement.scrollWidth},documentElementOffset:function(){return document.documentElement.offsetWidth},scroll:function(){return Math.max(z.bodyScroll(),z.documentElementScroll())},max:function(){return Math.max.apply(null,e(z))},min:function(){return Math.min.apply(null,e(z))},rightMostElement:function(){return we("right",Te())},taggedElement:function(){return be("right","data-iframe-width")}},re=(oe=Ee,N=null,A=0,function(){var e=Date.now(),t=O-(e-(A=A||e));return o=this,I=arguments,t<=0||O<t?(N&&(clearTimeout(N),N=null),A=e,ie=oe.apply(o,I),N||(o=I=null)):N=N||setTimeout(Oe,t),ie});k(window,"message",function(t){var n={init:function(){W=t.data,X=t.source,se(),q=!1,setTimeout(function(){H=!1},l)},reset:function(){H?R("Page reset ignored by init"):(R("Page size reset by host page"),Me("resetPage"))},resize:function(){L("resizeParent","Parent window requested size check")},moveToAnchor:function(){h.findTarget(i())},inPageLink:function(){this.moveToAnchor()},pageInfo:function(){var e=i();R("PageInfoFromParent called from parent: "+e),$(JSON.parse(e)),R(" --")},message:function(){var e=i();R("onMessage called from parent: "+e),G(JSON.parse(e)),R(" --")}};function o(){return t.data.split("]")[1].split(":")[0]}function i(){return t.data.slice(t.data.indexOf(":")+1)}function r(){return t.data.split(":")[2]in{true:1,false:1}}function e(){var e=o();e in n?n[e]():( false||!module.exports)&&"iFrameResize"in window||window.jQuery!==a&&"iFrameResize"in window.jQuery.prototype||r()||x("Unexpected message ("+t.data+")")}y===(""+t.data).slice(0,J)&&(!1===q?e():r()?n.init():R('Ignored message of type "'+o()+'". Received before initialization.'))}),k(window,"readystatechange",Ne),Ne()}function ae(){}function k(e,t,n,o){e.addEventListener(t,n,!!te&&(o||{}))}function ue(e){return e.charAt(0).toUpperCase()+e.slice(1)}function ce(e){return y+"["+w+"] "+e}function R(e){p&&"object"==typeof window.console&&console.log(ce(e))}function x(e){"object"==typeof window.console&&console.warn(ce(e))}function se(){function e(e){return"true"===e}function t(e,t){return"function"==typeof e&&(R("Setup custom "+t+"CalcMethod"),_[t]=e,e="custom"),e}{var n;n=W.slice(J).split(":"),w=n[0],u=a===n[1]?u:Number(n[1]),d=a===n[2]?d:e(n[2]),p=a===n[3]?p:e(n[3]),g=a===n[4]?g:Number(n[4]),r=a===n[6]?r:e(n[6]),c=n[7],m=a===n[8]?m:n[8],P=n[9],D=n[10],E=a===n[11]?E:Number(n[11]),h.enable=a!==n[12]&&e(n[12]),b=a===n[13]?b:n[13],M=a===n[14]?M:n[14],v=a===n[15]?v:Boolean(n[15]),R("Initialising iFrame ("+window.location.href+")"),"iFrameResizer"in window&&Object===window.iFrameResizer.constructor&&(n=window.iFrameResizer,R("Reading data from page: "+JSON.stringify(n)),Object.keys(n).forEach(de,n),G="onMessage"in n?n.onMessage:G,Z="onReady"in n?n.onReady:Z,T="targetOrigin"in n?n.targetOrigin:T,m="heightCalculationMethod"in n?n.heightCalculationMethod:m,M="widthCalculationMethod"in n?n.widthCalculationMethod:M,m=t(m,"height"),M=t(M,"width"))}function o(e){F(0,0,e.type,e.screenY+":"+e.screenX)}function i(e,t){R("Add event listener: "+t),k(window.document,e,o)}R("TargetOrigin for parent set to: "+T),le("margin",function(e,t){-1!==t.indexOf("-")&&(x("Negative CSS value ignored for "+e),t="");return t}("margin",c=a===c?u+"px":c)),le("background",P),le("padding",D),(n=document.createElement("div")).style.clear="both",n.style.display="block",n.style.height="0",document.body.appendChild(n),he(),ge(),document.documentElement.style.height="",document.body.style.height="",R('HTML & body height set to "auto"'),R("Enable public methods"),Q.parentIFrame={autoResize:function(e){return!0===e&&!1===r?(r=!0,pe()):!1===e&&!0===r&&(r=!1,fe("remove"),null!==s&&s.disconnect(),clearInterval(B)),F(0,0,"autoResize",JSON.stringify(r)),r},close:function(){F(0,0,"close")},getId:function(){return w},getPageInfo:function(e){"function"==typeof e?($=e,F(0,0,"pageInfo")):($=function(){},F(0,0,"pageInfoStop"))},moveToAnchor:function(e){h.findTarget(e)},reset:function(){Ie("parentIFrame.reset")},scrollTo:function(e,t){F(t,e,"scrollTo")},scrollToOffset:function(e,t){F(t,e,"scrollToOffset")},sendMessage:function(e,t){F(0,0,"message",JSON.stringify(e),t)},setHeightCalculationMethod:function(e){m=e,he()},setWidthCalculationMethod:function(e){M=e,ge()},setTargetOrigin:function(e){R("Set targetOrigin: "+e),T=e},size:function(e,t){L("size","parentIFrame.size("+((e||"")+(t?","+t:""))+")",e,t)}},!0===v&&(i("mouseenter","Mouse Enter"),i("mouseleave","Mouse Leave")),pe(),h=function(){function n(e){var e=e.getBoundingClientRect(),t={x:window.pageXOffset===a?document.documentElement.scrollLeft:window.pageXOffset,y:window.pageYOffset===a?document.documentElement.scrollTop:window.pageYOffset};return{x:parseInt(e.left,10)+parseInt(t.x,10),y:parseInt(e.top,10)+parseInt(t.y,10)}}function o(e){var e=e.split("#")[1]||e,t=decodeURIComponent(e),t=document.getElementById(t)||document.getElementsByName(t)[0];a===t?(R("In page link (#"+e+") not found in iFrame, so sending to parent"),F(0,0,"inPageLink","#"+e)):(t=n(t=t),R("Moving to in page link (#"+e+") at x: "+t.x+" y: "+t.y),F(t.y,t.x,"scrollToOffset"))}function e(){var e=window.location.hash,t=window.location.href;""!==e&&"#"!==e&&o(t)}function t(){Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'),function(e){"#"!==e.getAttribute("href")&&k(e,"click",function(e){e.preventDefault(),o(this.getAttribute("href"))})})}function i(){Array.prototype.forEach&&document.querySelectorAll?(R("Setting up location.hash handlers"),t(),k(window,"hashchange",e),setTimeout(e,l)):x("In page linking not fully supported in this browser! (See README.md for IE8 workaround)")}h.enable?i():R("In page linking not enabled");return{findTarget:o}}(),L("init","Init message from host page"),Z()}function de(e){var t=e.split("Callback");2===t.length&&(this[t="on"+t[0].charAt(0).toUpperCase()+t[0].slice(1)]=this[e],delete this[e],x("Deprecated: '"+e+"' has been renamed '"+t+"'. The old method will be removed in the next major version."))}function le(e,t){a!==t&&""!==t&&"null"!==t&&R("Body "+e+' set to "'+(document.body.style[e]=t)+'"')}function t(n){var e={add:function(e){function t(){L(n.eventName,n.eventType)}ee[e]=t,k(window,e,t,{passive:!0})},remove:function(e){var t=ee[e];delete ee[e],window.removeEventListener(e,t,!1)}};n.eventNames&&Array.prototype.map?(n.eventName=n.eventNames[0],n.eventNames.map(e[n.method])):e[n.method](n.eventName),R(ue(n.method)+" event listener: "+n.eventType)}function fe(e){t({method:e,eventType:"Animation Start",eventNames:["animationstart","webkitAnimationStart"]}),t({method:e,eventType:"Animation Iteration",eventNames:["animationiteration","webkitAnimationIteration"]}),t({method:e,eventType:"Animation End",eventNames:["animationend","webkitAnimationEnd"]}),t({method:e,eventType:"Input",eventName:"input"}),t({method:e,eventType:"Mouse Up",eventName:"mouseup"}),t({method:e,eventType:"Mouse Down",eventName:"mousedown"}),t({method:e,eventType:"Orientation Change",eventName:"orientationchange"}),t({method:e,eventType:"Print",eventNames:["afterprint","beforeprint"]}),t({method:e,eventType:"Ready State Change",eventName:"readystatechange"}),t({method:e,eventType:"Touch Start",eventName:"touchstart"}),t({method:e,eventType:"Touch End",eventName:"touchend"}),t({method:e,eventType:"Touch Cancel",eventName:"touchcancel"}),t({method:e,eventType:"Transition Start",eventNames:["transitionstart","webkitTransitionStart","MSTransitionStart","oTransitionStart","otransitionstart"]}),t({method:e,eventType:"Transition Iteration",eventNames:["transitioniteration","webkitTransitionIteration","MSTransitionIteration","oTransitionIteration","otransitioniteration"]}),t({method:e,eventType:"Transition End",eventNames:["transitionend","webkitTransitionEnd","MSTransitionEnd","oTransitionEnd","otransitionend"]}),"child"===b&&t({method:e,eventType:"IFrame Resized",eventName:"resize"})}function me(e,t,n,o){return t!==e&&(e in n||(x(e+" is not a valid option for "+o+"CalculationMethod."),e=t),R(o+' calculation method set to "'+e+'"')),e}function he(){m=me(m,n,C,"height")}function ge(){M=me(M,K,z,"width")}function pe(){var e;!0===r?(fe("add"),e=g<0,window.MutationObserver||window.WebKitMutationObserver?e?ve():s=function(){function t(e){function t(e){!1===e.complete&&(R("Attach listeners to "+e.src),e.addEventListener("load",i,!1),e.addEventListener("error",r,!1),u.push(e))}"attributes"===e.type&&"src"===e.attributeName?t(e.target):"childList"===e.type&&Array.prototype.forEach.call(e.target.querySelectorAll("img"),t)}function o(e){R("Remove listeners from "+e.src),e.removeEventListener("load",i,!1),e.removeEventListener("error",r,!1),u.splice(u.indexOf(e),1)}function n(e,t,n){o(e.target),L(t,n+": "+e.target.src)}function i(e){n(e,"imageLoad","Image loaded")}function r(e){n(e,"imageLoadFailed","Image load failed")}function a(e){L("mutationObserver","mutationObserver: "+e[0].target+" "+e[0].type),e.forEach(t)}var u=[],c=window.MutationObserver||window.WebKitMutationObserver,s=function(){var e=document.querySelector("body");return s=new c(a),R("Create body MutationObserver"),s.observe(e,{attributes:!0,attributeOldValue:!1,characterData:!0,characterDataOldValue:!1,childList:!0,subtree:!0}),s}();return{disconnect:function(){"disconnect"in s&&(R("Disconnect body MutationObserver"),s.disconnect(),u.forEach(o))}}}():(R("MutationObserver not supported in this browser!"),ve())):R("Auto Resize disabled")}function ve(){0!==g&&(R("setInterval: "+g+"ms"),B=setInterval(function(){L("interval","setInterval: "+g)},Math.abs(g)))}function ye(e,t){return t=t||document.body,t=null===(t=document.defaultView.getComputedStyle(t,null))?0:t[e],parseInt(t,10)}function we(e,t){for(var n,o=t.length,i=0,r=ue(e),a=Date.now(),u=0;u<o;u++)i<(n=t[u].getBoundingClientRect()[e]+ye("margin"+r,t[u]))&&(i=n);return a=Date.now()-a,R("Parsed "+o+" HTML elements"),R("Element position calculated in "+a+"ms"),O/2<(a=a)&&R("Event throttle increased to "+(O=2*a)+"ms"),i}function e(e){return[e.bodyOffset(),e.bodyScroll(),e.documentElementOffset(),e.documentElementScroll()]}function be(e,t){var n=document.querySelectorAll("["+t+"]");return 0===n.length&&(x("No tagged elements ("+t+") found on page"),document.querySelectorAll("body *")),we(e,n)}function Te(){return document.querySelectorAll("body *")}function Ee(e,t,n,o){function i(){e in{init:1,interval:1,size:1}||!(m in U||d&&M in U)?e in{interval:1}||R("No change in size detected"):Ie(t)}function r(e,t){return!(Math.abs(e-t)<=E)}n=a===n?C[m]():n,o=a===o?z[M]():o,r(f,n)||d&&r(S,o)||"init"===e?(Se(),F(f=n,S=o,e)):i()}function Oe(){A=Date.now(),N=null,ie=oe.apply(o,I),N||(o=I=null)}function L(e,t,n,o){i&&e in j?R("Trigger event cancelled: "+e):(e in{reset:1,resetPage:1,init:1}||R("Trigger event: "+t),("init"===e?Ee:re)(e,t,n,o))}function Se(){i||(i=!0,R("Trigger event lock on")),clearTimeout(Y),Y=setTimeout(function(){i=!1,R("Trigger event lock off"),R("--")},l)}function Me(e){f=C[m](),S=z[M](),F(f,S,e)}function Ie(e){var t=m;m=n,R("Reset trigger event: "+e),Se(),Me("reset"),m=t}function F(e,t,n,o,i){!0===V&&(a===i?i=T:R("Message targetOrigin: "+i),R("Sending message to host page ("+(e=w+":"+(e+":"+t)+":"+n+(a===o?"":":"+o))+")"),X.postMessage(y+e,i))}function Ne(){"loading"!==document.readyState&&window.parent.postMessage("[iFrameResizerChild]Ready","*")}}();
+//# sourceMappingURL=iframeResizer.contentWindow.map
+
+/***/ }),
+
 /***/ "da84":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -93185,7 +93216,7 @@ if (typeof window !== 'undefined') {
 var repair_components_umd = __webpack_require__("c7c0");
 var repair_components_umd_default = /*#__PURE__*/__webpack_require__.n(repair_components_umd);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=template&id=7cff587c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=template&id=5b44ca72&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -93193,7 +93224,7 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/RepairMap.vue?vue&type=template&id=7cff587c&
+// CONCATENATED MODULE: ./src/RepairMap.vue?vue&type=template&id=5b44ca72&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairConnectsMap.vue?vue&type=template&id=0ad11960&
 var RepairConnectsMapvue_type_template_id_0ad11960_render = function render() {
@@ -94457,8 +94488,8 @@ var RepairConnectsMap_component = normalizeComponent(
 )
 
 /* harmony default export */ var RepairConnectsMap = (RepairConnectsMap_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/OrdpMap.vue?vue&type=template&id=21f102be&
-var OrdpMapvue_type_template_id_21f102be_render = function render() {
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/OrdpMap.vue?vue&type=template&id=20bc578e&
+var OrdpMapvue_type_template_id_20bc578e_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -94650,7 +94681,7 @@ var OrdpMapvue_type_template_id_21f102be_render = function render() {
         return _vm.toggleFilter(null);
       }
     }
-  }, _vm._l(_vm.ordsStandard.organisationTypes, function (organisationType, key) {
+  }, [_vm._l(_vm.ordsStandard.organisationTypes, function (organisationType, key) {
     return _c('r-checkbox', {
       key: key,
       attrs: {
@@ -94678,7 +94709,32 @@ var OrdpMapvue_type_template_id_21f102be_render = function render() {
         expression: "filters.organisation_types"
       }
     });
-  }), 1) : _vm._e(), _vm.isFilterActive('ECOCHEQUES') ? _c('section-filter', {
+  }), _c('r-checkbox', {
+    attrs: {
+      "value": "recycling_center",
+      "label": "recycling_center"
+    },
+    scopedSlots: _vm._u([{
+      key: "label",
+      fn: function () {
+        return [_c('span', [_c('r-icon', {
+          staticClass: "mr-1",
+          attrs: {
+            "name": "mdiMapMarker",
+            "fill": _vm.categoryColors['recycling_center']
+          }
+        }), _c('span', [_vm._v("recycling_center")])], 1)];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.filters.organisation_types,
+      callback: function ($$v) {
+        _vm.$set(_vm.filters, "organisation_types", $$v);
+      },
+      expression: "filters.organisation_types"
+    }
+  })], 2) : _vm._e(), _vm.isFilterActive('ECOCHEQUES') ? _c('section-filter', {
     class: !_vm.showActiveFilters ? 'mb-6 sm:mb-12' : '',
     on: {
       "close": function ($event) {
@@ -94946,9 +95002,9 @@ var OrdpMapvue_type_template_id_21f102be_render = function render() {
     }, [_vm._v(" " + _vm._s(_vm.$t('create_new_cta')) + " ")])];
   })], 2)], 1)], 1)], 1);
 };
-var OrdpMapvue_type_template_id_21f102be_staticRenderFns = [];
+var OrdpMapvue_type_template_id_20bc578e_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/OrdpMap.vue?vue&type=template&id=21f102be&
+// CONCATENATED MODULE: ./src/OrdpMap.vue?vue&type=template&id=20bc578e&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"8c1e7290-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ordp/CardLocation.vue?vue&type=template&id=423c9acc&
 var CardLocationvue_type_template_id_423c9acc_render = function render() {
@@ -102340,7 +102396,7 @@ const OrdpMapvue_type_script_lang_js_windowWidth = window.innerWidth;
     ecoCheques: [],
     circufixCategoryGroups: [{
       code: 'electro',
-      items: ['smartphones_tablets_computers', 'tv_audio_video', 'klein_huishoudelektro', 'groot_huishoudelektro', 'elektrisch_elektronisch_gereedschap', 'andere_elektro']
+      items: ['smartphones_tablets_computers', 'tv_audio_video', 'klein_huishoudelektro', 'groot_huishoudelektro', 'elektrisch_elektronisch_gereedschap', 'speelgoed_vrijetijd_sportuitrusting', 'andere_elektro']
     }, {
       code: 'textile',
       items: ['textiel_kleding', 'schoenen_leder']
@@ -102692,8 +102748,8 @@ const OrdpMapvue_type_script_lang_js_windowWidth = window.innerWidth;
 });
 // CONCATENATED MODULE: ./src/OrdpMap.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_OrdpMapvue_type_script_lang_js_ = (OrdpMapvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/OrdpMap.vue?vue&type=style&index=4&id=21f102be&prod&lang=css&
-var OrdpMapvue_type_style_index_4_id_21f102be_prod_lang_css_ = __webpack_require__("3d58");
+// EXTERNAL MODULE: ./src/OrdpMap.vue?vue&type=style&index=4&id=20bc578e&prod&lang=css&
+var OrdpMapvue_type_style_index_4_id_20bc578e_prod_lang_css_ = __webpack_require__("7d85");
 
 // CONCATENATED MODULE: ./src/OrdpMap.vue
 
@@ -102710,8 +102766,8 @@ var OrdpMapvue_type_style_index_4_id_21f102be_prod_lang_css_ = __webpack_require
 
 var OrdpMap_component = normalizeComponent(
   src_OrdpMapvue_type_script_lang_js_,
-  OrdpMapvue_type_template_id_21f102be_render,
-  OrdpMapvue_type_template_id_21f102be_staticRenderFns,
+  OrdpMapvue_type_template_id_20bc578e_render,
+  OrdpMapvue_type_template_id_20bc578e_staticRenderFns,
   false,
   null,
   null,
@@ -102720,7 +102776,11 @@ var OrdpMap_component = normalizeComponent(
 )
 
 /* harmony default export */ var OrdpMap = (OrdpMap_component.exports);
+// EXTERNAL MODULE: ./node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js
+var iframeResizer_contentWindow_min = __webpack_require__("d9d0");
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RepairMap.vue?vue&type=script&lang=js&
+
 
 
 const defaultCenter = [50.87959, 4.70093];
@@ -102806,14 +102866,15 @@ var RepairMap_component = normalizeComponent(
   create_new_text: 'Unser Ziel ist es, die Vielfalt der Akteure im Reparaturbereich abzubilden. Kennst du ein Repair Café, Repair Shop, Makerspace oder eine andere Initiative in deiner Region, lass es uns wissen.',
   create_new_title: 'Kennen Sie eine Reparaturinitiative, die hier noch nicht aufgeführt ist?',
   filter_category_label: 'Produkt',
-  filter_location_label: 'Suchen',
+  filter_location_label: 'Ort',
   filter_location_search_label: 'Geben Sie die Postleitzahl oder den Ort ein',
   filter_location_search_placeholder: 'z.B.: 8004 oder Zürich',
-  filter_type_label: 'Stelle typ',
+  filter_type_label: 'Typ Reparateur',
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Professioneller Reparateur',
   filter_type_repair_cafe_label: 'Repair Café',
   filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  filter_type_recycling_center_label: 'Reparatur aus zweiter Hand',
   filter_ecocheques_label: 'Ecocheques',
   filter_ecocheques_monizze_label: 'Monizze',
   filter_ecocheques_edenred_label: 'Edenred',
@@ -102832,6 +102893,7 @@ var RepairMap_component = normalizeComponent(
   organisation_type_repair_cafe_label: 'Repair Café',
   organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
   //TODO
+  organisation_type_recycling_center_label: 'Reparatur aus zweiter Hand',
   popup_close: 'Schließen',
   circufix_category_group_electro_label: 'Elektro',
   circufix_category_smartphones_tablets_computers_label: 'Smartphones, Tablets und Computer',
@@ -102839,6 +102901,7 @@ var RepairMap_component = normalizeComponent(
   circufix_category_klein_huishoudelektro_label: 'Kleiner Haushaltselektro',
   circufix_category_groot_huishoudelektro_label: 'Großer Haushaltselektro',
   circufix_category_elektrisch_elektronisch_gereedschap_label: 'Elektrische und elektronische Werkzeuge',
+  circufix_category_speelgoed_vrijetijd_sportuitrusting_label: 'Spielzeug, Freizeit- und Sportgeräte',
   circufix_category_andere_elektro_label: 'Sonstige Elektro',
   circufix_category_group_textile_label: 'Textilien',
   circufix_category_textiel_kleding_label: 'Textilien und Bekleidung',
@@ -102850,7 +102913,14 @@ var RepairMap_component = normalizeComponent(
   circufix_category_group_jewellery_watches_label: 'Schmuck, Uhren',
   circufix_category_juwelen_uurwerken_label: 'Schmuck, Uhren',
   circufix_category_group_furniture_flooring_label: 'Möbel und Bodenbeläge',
-  circufix_category_meubels_vloerbekleding_label: 'Möbel und Bodenbeläge'
+  circufix_category_meubels_vloerbekleding_label: 'Möbel und Bodenbeläge',
+  circufix_category_lamp_label: 'Lampen',
+  circufix_category_woning_label: 'Haus',
+  circufix_category_auto_label: 'Auto',
+  circufix_category_therapeutisch_materiaal_label: 'Therapeutisches Material',
+  circufix_category_alarmsystemen_label: 'Alarmanlagen',
+  circufix_category_dispensers_label: 'Spender',
+  circufix_category_pv_label: 'PV'
 });
 // CONCATENATED MODULE: ./src/i18n/en.js
 /* harmony default export */ var en = ({
@@ -102859,14 +102929,15 @@ var RepairMap_component = normalizeComponent(
   create_new_text: "It's our goal to represent the diversity of players active in the domain of repair. Do you know a repair café, repair shop, makerspace or other initiative in your region, let us know.",
   create_new_title: 'A repair initiative missing on this map?',
   filter_category_label: 'Product',
-  filter_location_label: 'Search',
+  filter_location_label: 'Location',
   filter_location_search_label: 'Enter your zip code or city',
   filter_location_search_placeholder: 'e.g. E16 1XB or London',
-  filter_type_label: 'Location type',
+  filter_type_label: 'Type of repairer',
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Professional Repairer',
   filter_type_repair_cafe_label: 'Repair Café',
   filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  filter_type_recycling_center_label: 'Repair for second hand sale',
   filter_ecocheques_label: 'Ecocheques',
   filter_ecocheques_monizze_label: 'Monizze',
   filter_ecocheques_edenred_label: 'Edenred',
@@ -102884,6 +102955,7 @@ var RepairMap_component = normalizeComponent(
   organisation_type_professional_repairer_label: 'Professional Repairer',
   organisation_type_repair_cafe_label: 'Repair Café',
   organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  organisation_type_recycling_center_label: 'Repair for second hand sale',
   popup_close: 'Close',
   circufix_category_group_electro_label: 'Electrical',
   circufix_category_smartphones_tablets_computers_label: 'Smartphones, tablets and computers',
@@ -102891,6 +102963,7 @@ var RepairMap_component = normalizeComponent(
   circufix_category_klein_huishoudelektro_label: 'Small household electro',
   circufix_category_groot_huishoudelektro_label: 'Large household electro',
   circufix_category_elektrisch_elektronisch_gereedschap_label: 'Electric and electronic tools',
+  circufix_category_speelgoed_vrijetijd_sportuitrusting_label: 'Toys, leisure and sports equipment',
   circufix_category_andere_elektro_label: 'Other electro',
   circufix_category_group_textile_label: 'Textiles',
   circufix_category_textiel_kleding_label: 'Textiles and clothing',
@@ -102903,7 +102976,14 @@ var RepairMap_component = normalizeComponent(
   circufix_category_juwelen_uurwerken_label: 'Jewellery, watches',
   circufix_category_jewellery_watches_label: 'Jewellery, timepieces',
   circufix_category_group_furniture_flooring_label: 'Furniture and floor coverings',
-  circufix_category_meubels_vloerbekleding_label: 'Furniture and floor coverings'
+  circufix_category_meubels_vloerbekleding_label: 'Furniture and floor coverings',
+  circufix_category_lamp_label: 'Lamps',
+  circufix_category_woning_label: 'House',
+  circufix_category_auto_label: 'Car',
+  circufix_category_therapeutisch_materiaal_label: 'Therapeutic material',
+  circufix_category_alarmsystemen_label: 'Alarm systems',
+  circufix_category_dispensers_label: 'Dispensers',
+  circufix_category_pv_label: 'PV'
 });
 // CONCATENATED MODULE: ./src/i18n/fr.js
 /* harmony default export */ var fr = ({
@@ -102912,14 +102992,15 @@ var RepairMap_component = normalizeComponent(
   create_new_text: 'Notre objectif est de présenter la grande diversité des acteurs de la réparation sur cette carte. Connaissez-vous un Repair Café, un réparateur professionnel, un makerspace ou une autre initiative dans votre région ? Faites le nous savoir.',
   create_new_title: "Vous connaissez une initiative de réparation qui n'est pas encore répertoriée ici ?",
   filter_category_label: 'Produit',
-  filter_location_label: 'Chercher',
+  filter_location_label: 'Endroit',
   filter_location_search_label: 'Entrez votre code postal ou votre ville',
   filter_location_search_placeholder: 'ex. 75015 ou Paris',
-  filter_type_label: 'Type de endroit',
+  filter_type_label: 'Type de réparateur',
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Réparateur professionnel',
   filter_type_repair_cafe_label: 'Repair Café',
-  filter_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  filter_type_spare_parts_shop_or_library_label: 'Magasin de pièces détachées',
+  filter_type_recycling_center_label: 'Réparation pour vente d\'occasion',
   filter_ecocheques_label: 'Ecocheques',
   filter_ecocheques_monizze_label: 'Monizze',
   filter_ecocheques_edenred_label: 'Edenred',
@@ -102936,8 +103017,9 @@ var RepairMap_component = normalizeComponent(
   organisation_type_fablab_label: 'Fablab',
   organisation_type_professional_repairer_label: 'Réparateur professionnel',
   organisation_type_repair_cafe_label: 'Repair Café',
-  organisation_type_spare_parts_shop_or_library_label: 'Spare-parts shop or library',
+  organisation_type_spare_parts_shop_or_library_label: 'Magasin de pièces détachées',
   //TODO
+  organisation_type_recycling_center_label: 'Réparation pour vente d\'occasion',
   popup_close: 'Fermer',
   circufix_category_group_electro_label: 'Electro',
   circufix_category_smartphones_tablets_computers_label: 'Smartphones, tablettes et ordinateurs',
@@ -102945,6 +103027,7 @@ var RepairMap_component = normalizeComponent(
   circufix_category_klein_huishoudelektro_label: 'Petits électroménagers',
   circufix_category_groot_huishoudelektro_label: 'Gros électroménager',
   circufix_category_elektrisch_elektronisch_gereedschap_label: 'Outils électriques et électroniques',
+  circufix_category_speelgoed_vrijetijd_sportuitrusting_label: 'Jouets, équipements de loisirs et de sport',
   circufix_category_andere_elektro_label: 'Autre électros',
   circufix_category_group_textile_label: 'Textile',
   circufix_category_textiel_kleding_label: 'Vêtements & textile',
@@ -102956,7 +103039,14 @@ var RepairMap_component = normalizeComponent(
   circufix_category_group_jewellery_watches_label: 'Bijoux & montres',
   circufix_category_juwelen_uurwerken_label: 'Bijoux & montres',
   circufix_category_group_furniture_flooring_label: 'Meubles et revêtements de sol',
-  circufix_category_meubels_vloerbekleding_label: 'Meubles et revêtements de sol'
+  circufix_category_meubels_vloerbekleding_label: 'Meubles et revêtements de sol',
+  circufix_category_lamp_label: 'Lampes',
+  circufix_category_woning_label: "Maison",
+  circufix_category_auto_label: "Voiture",
+  circufix_category_therapeutisch_materiaal_label: "Matériel thérapeutique",
+  circufix_category_alarmsystemen_label: "Systèmes d'alarme",
+  circufix_category_dispensers_label: "Distributeurs",
+  circufix_category_pv_label: "PV"
 });
 // CONCATENATED MODULE: ./src/i18n/nl.js
 /* harmony default export */ var nl = ({
@@ -102965,14 +103055,15 @@ var RepairMap_component = normalizeComponent(
   create_new_text: 'Het is ons doel om de grote diversiteit aan spelers in het domein van repair voor te stellen op deze kaart. Ken jij een Repair Café, professionele hersteller, een makerspace of een ander initiatief in je buurt? Laat het ons weten.',
   create_new_title: 'Ken je een repair initiatief dat hier nog niet bij staat?',
   filter_category_label: 'Product',
-  filter_location_label: 'Zoeken',
+  filter_location_label: 'Locatie',
   filter_location_search_label: 'Geef je postcode of gemeente in',
   filter_location_search_placeholder: 'bv. 3000 of Leuven',
-  filter_type_label: 'Type locatie',
+  filter_type_label: 'Type herstelpunt',
   filter_type_fablab_label: 'Fablab',
   filter_type_professional_repairer_label: 'Professionele hersteller',
   filter_type_repair_cafe_label: 'Repair Café',
   filter_type_spare_parts_shop_or_library_label: 'Verkoop van reserve onderdelen of bibliotheek',
+  filter_type_recycling_center_label: 'Reparatie voor tweedehandsverkoop',
   filter_ecocheques_label: 'Ecocheques',
   filter_ecocheques_monizze_label: 'Monizze',
   filter_ecocheques_edenred_label: 'Edenred',
@@ -102990,6 +103081,7 @@ var RepairMap_component = normalizeComponent(
   organisation_type_professional_repairer_label: 'Professionele hersteller',
   organisation_type_repair_cafe_label: 'Repair Café',
   organisation_type_spare_parts_shop_or_library_label: 'Verkoop van reserve onderdelen of bibliotheek',
+  organisation_type_recycling_center_label: 'Reparatie voor tweedehandsverkoop',
   popup_close: 'Sluiten',
   circufix_category_group_electro_label: 'Elektro',
   circufix_category_smartphones_tablets_computers_label: 'Smartphones, tablets en computers',
@@ -102997,6 +103089,7 @@ var RepairMap_component = normalizeComponent(
   circufix_category_klein_huishoudelektro_label: 'Klein huishoudelektro',
   circufix_category_groot_huishoudelektro_label: 'Groot huishoudelektro',
   circufix_category_elektrisch_elektronisch_gereedschap_label: 'Elektrisch en elektronisch gereedschap',
+  circufix_category_speelgoed_vrijetijd_sportuitrusting_label: 'Speelgoed, vrijetijds- en sportuitrusting',
   circufix_category_andere_elektro_label: 'Ander elektro',
   circufix_category_group_textile_label: 'Textiel',
   circufix_category_textiel_kleding_label: 'Textiel en kleding',
@@ -103008,7 +103101,14 @@ var RepairMap_component = normalizeComponent(
   circufix_category_group_jewellery_watches_label: 'Juwelen, uurwerken',
   circufix_category_juwelen_uurwerken_label: 'Juwelen, uurwerken',
   circufix_category_group_furniture_flooring_label: 'Meubels en vloerbekleding',
-  circufix_category_meubels_vloerbekleding_label: 'Meubels en vloerbekleding'
+  circufix_category_meubels_vloerbekleding_label: 'Meubels en vloerbekleding',
+  circufix_category_lamp_label: 'Lampen',
+  circufix_category_woning_label: 'Woning',
+  circufix_category_auto_label: 'Auto',
+  circufix_category_therapeutisch_materiaal_label: 'Therapeutisch materiaal',
+  circufix_category_alarmsystemen_label: 'Alarmsystemen',
+  circufix_category_dispensers_label: 'Dispensers',
+  circufix_category_pv_label: 'PV'
 });
 // CONCATENATED MODULE: ./src/i18n/index.js
 
@@ -103151,22 +103251,6 @@ var Kind;
  * @deprecated Please use `Kind`. Will be remove in v17.
  */
 
-
-/***/ }),
-
-/***/ "fe52":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("bbc1");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("61734001", content, true, {"sourceMap":false,"shadowMode":false});
 
 /***/ })
 

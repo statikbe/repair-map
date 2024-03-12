@@ -28,7 +28,9 @@ export default {
         locale: undefined,
         itemsPerPage: undefined,
         showFilterButtons: undefined,
-        mapboxAccessToken: undefined,
+        mapboxAccessToken:
+          process.env.VUE_APP_MAPBOX_ACCESS_TOKEN ??
+          'pk.eyJ1Ijoic3RhdGlrLWJ2YmEiLCJhIjoiY2ttZGtleTFmMWZhczJ2cWxtZHpqOHRsNiJ9.xZJJ_lxVp6d5mOTpnqn0gA',
         apiBaseUrl: undefined,
       },
     };
