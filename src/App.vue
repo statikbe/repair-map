@@ -7,8 +7,6 @@
 import RepairMap from './RepairMap.vue';
 import qs from 'qs';
 
-import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
-
 const qsOptions = {
   arrayFormat: 'comma',
 };
@@ -22,6 +20,7 @@ export default {
     return {
       isLoading: true,
       settings: {
+        embed: process.env.VUE_APP_EMBEDED,
         type: process.env.VUE_APP_REPAIR_MAP_SOURCE,
         useGeolocation: undefined,
         defaultCenter: undefined,
