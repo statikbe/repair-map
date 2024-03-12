@@ -14,6 +14,8 @@
 import RepairConnectsMap from './RepairConnectsMap.vue';
 import OrdpMap from './OrdpMap.vue';
 
+import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
+
 const defaultCenter = [50.87959, 4.70093];
 
 export default {

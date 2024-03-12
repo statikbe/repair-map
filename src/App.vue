@@ -20,7 +20,8 @@ export default {
     return {
       isLoading: true,
       settings: {
-        type: undefined,
+        embed: process.env.VUE_APP_EMBEDED,
+        type: process.env.VUE_APP_REPAIR_MAP_SOURCE,
         useGeolocation: undefined,
         defaultCenter: undefined,
         defaultZoom: undefined,
