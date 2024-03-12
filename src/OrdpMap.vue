@@ -322,7 +322,7 @@
           <p class="mb-6 md:w-8/12">{{ $t('create_new_text') }}</p>
           <slot name="suggestionCta">
             <r-button
-              :href="`https://mapping.sharepair.org/${$i18n.locale}/location/create`"
+              :href="`https://mapping.sharepair.org/${locale}/location/create`"
               link
               color="secondary"
               icon-after="mdiChevronRight"
@@ -591,11 +591,6 @@ export default {
       // const parentCategory = this.categories;
       return filters.organisation_types.length || filters.product_categories.length || filters.ecocheques.length;
     },
-    defaultQuery() {
-      return {
-        locales: [this.$locale],
-      };
-    },
     totalPages() {
       return Math.ceil(this.locations.length / 10);
     },
@@ -614,6 +609,7 @@ export default {
             limit: 10,
             types: 'place,locality,postcode',
             fuzzyMatch: false,
+            language: this.locale
           }
         : null;
     },
