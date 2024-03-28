@@ -51,29 +51,15 @@
         @close="toggleFilter(null)"
         :class="!showActiveFilters ? 'mb-6 sm:mb-12' : ''"
       >
-        <div v-for="(categoryGroup, categoryKey) in circufixCategoryGroups" :key="categoryKey" class="mb-6">
-          <div class="font-bold text-white">
-            <r-checkbox
-              v-model="categoriesAllSelectedGroup[categoryGroup.code]"
-              :label="$t('circufix_category_group_' + categoryGroup.code + '_label')"
-              class="category-group"
-              @change.native="selectAllCategories(categoryGroup.code)"
-            />
-          </div>
-          <r-grid v-if="categoryGroup.items && categoryGroup.items.length > 1" class="!mt-0">
-            <r-grid-item
-              v-for="(category, key) in categoryGroup.items"
-              :key="key"
-              class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
-            >
-              <r-checkbox
-                v-model="filters.product_categories"
-                :label="$t('circufix_category_' + category + '_label')"
-                :value="category"
-              />
-            </r-grid-item>
-          </r-grid>
-        </div>
+        <category-group
+          v-for="(categoryGroup, categoryKey) in circufixCategoryGroups"
+          :key="categoryKey"
+          :categoryGroup="categoryGroup"
+          v-model="filters.product_categories"
+          v-bind:group="categoriesAllSelectedGroup[categoryGroup.code]"
+          v-on:input-group="categoriesAllSelectedGroup[categoryGroup.code] = $event"
+          @select-all="selectAllCategories"
+        ></category-group>
       </section-filter>
       <!-- LOCATION FILTER -->
       <section-filter
@@ -141,11 +127,7 @@
       >
         <div class="mb-6">
           <r-grid class="!mt-0">
-            <r-grid-item
-              v-for="ecoCheque in ecoCheques"
-              :key="ecoCheque.id"
-              class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0"
-            >
+            <r-grid-item v-for="ecoCheque in ecoCheques" :key="ecoCheque.id" class="sm:w-1/2 md:w-1/3 lg:w-1/4 !mt-0">
               <r-checkbox
                 v-model="filters.ecocheques"
                 :label="$t('filter_ecocheques_' + ecoCheque.code + '_label')"
@@ -343,6 +325,7 @@ import categoryColors from '../src/constants/categoryColors';
 
 import SectionFilter from './components/SectionFilter.vue';
 import CardLocation from './components/ordp/CardLocation.vue';
+import CategoryGroup from './components/ordp/CategoryGroup.vue';
 
 import Leaflet from 'leaflet';
 import qs from 'qs';
@@ -352,7 +335,7 @@ import 'leaflet.markercluster';
 
 import markerImage from './assets/img/markers/default.png';
 
-import {locationsBboxQuery, locationsQuery, ordsEcoCheques, ordsStandardQuery} from './graphql/queries.js';
+import { locationsBboxQuery, locationsQuery, ordsEcoCheques, ordsStandardQuery } from './graphql/queries.js';
 import ApolloClient from 'apollo-boost';
 
 const qsOptions = {
@@ -454,6 +437,7 @@ export default {
     RPanel,
     RSection,
     SectionFilter,
+    CategoryGroup,
   },
   provide() {
     return {
@@ -526,24 +510,15 @@ export default {
       },
       {
         code: 'textile',
-        items: [
-          'textiel_kleding',
-          'schoenen_leder',
-        ],
+        items: ['textiel_kleding', 'schoenen_leder'],
       },
       {
         code: 'bicycle',
-        items: [
-          'gewone_fiets',
-          'e-bikes',
-          'steps',
-        ],
+        items: ['gewone_fiets', 'e-bikes', 'steps'],
       },
       {
         code: 'jewellery_watches',
-        items: [
-          'juwelen_uurwerken',
-        ],
+        items: ['juwelen_uurwerken'],
       },
       {
         code: 'furniture_flooring',
@@ -597,7 +572,7 @@ export default {
             limit: 10,
             types: 'place,locality,postcode',
             fuzzyMatch: false,
-            language: this.locale
+            language: this.locale,
           }
         : null;
     },

@@ -60,4 +60,6 @@ export default {
   circufix_category_alarmsystemen_label: 'Alarmsystemen',
   circufix_category_dispensers_label: 'Dispensers',
   circufix_category_pv_label: 'PV',
+  circufix_category_show_more: 'Alle opties',
+  circufix_category_show_less: 'Toon minder',
 };
