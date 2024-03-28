@@ -772,7 +772,7 @@ export default {
 <style src="leaflet.markercluster/dist/MarkerCluster.css"></style>
 <style src="leaflet.markercluster/dist/MarkerCluster.Default.css"></style>
 <style src="./assets/css/app.css"></style>
-<style lang="css">
+<style lang="css" scoped>
 .category-group > label span {
   font-weight: bold;
 }
